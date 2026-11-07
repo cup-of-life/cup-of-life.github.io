@@ -2409,8 +2409,12 @@ function claimDailyLogin() {
     case 7: colPoints += 1000; showToast("DAILY REWARD RECEIVED! +1,000 COL POINTS · DAY 7", "success"); streak = 0; break;
   }
   updateCoinDisplays();
-  localStorage.setItem(LAST_CLAIM_KEY, String(now));
-  localStorage.setItem(STREAK_KEY, String(streak));
+  try {
+    localStorage.setItem(LAST_CLAIM_KEY, String(now));
+    localStorage.setItem(STREAK_KEY, String(streak));
+  } catch (err) { console.warn('Daily reward device backup failed:', err); }
+  // Persist the reward balance to the signed-in player's cloud save immediately.
+  if (typeof saveGame === 'function' && currentAccountKey) saveGame(true);
 }
 
 function goToDraft() {
@@ -2679,6 +2683,8 @@ function buyPlayer(name, ovr, imgUrl, flag) {
     updateCoinDisplays();
     myPlayers.push({ type: 'LEGEND', name: name, ovr: ovr, img: imgUrl, flag: flag, pos: ["RW","LW"] });
     updateTeamStats();
+    renderSquad();
+    saveGame(true);
     showToast(`${name} BOUGHT!`);
   } else {
     showToast("NOT ENOUGH COINS!");
@@ -2745,7 +2751,8 @@ function sellPlayerByName(name, price) {
     myPlayers.splice(index, 1);
     updateCoinDisplays();
     updateTeamStats();
-    renderMarketSellList(); 
+    renderMarketSellList();
+    saveGame(true);
     showToast(`SOLD FOR ${price} COINS!`);
   }
 }
@@ -2800,7 +2807,8 @@ function sellLegendByName(name, price) {
     myPlayers.splice(index, 1);
     updateCoinDisplays();
     updateTeamStats();
-    renderMarketSellLegendsList(); 
+    renderMarketSellLegendsList();
+    saveGame(true);
     showToast(`SOLD FOR ${price} COL POINTS!`);
   }
 }
@@ -2818,6 +2826,7 @@ function sellAllCommons() {
   updateCoinDisplays();
   updateTeamStats();
   renderMarketSellList();
+  saveGame(true);
   showToast(`ALL COMMON PLAYERS SOLD! +${total} COINS`, 'success');
 }
 
@@ -2852,7 +2861,13 @@ function closeTeamXI() {
   document.getElementById('squad-ui').style.display='block';
   renderSquad();
 }
-function saveTeamXI() { localStorage.setItem(TEAM_XI_KEY, JSON.stringify(teamXI)); if (currentAccountKey) localStorage.setItem(TEAM_XI_KEY + '_' + currentAccountKey, JSON.stringify(teamXI)); }
+function saveTeamXI() {
+  // Keep local Team XI copies when available, but never let a storage error
+  // stop the cloud save of the current lineup.
+  try { localStorage.setItem(TEAM_XI_KEY, JSON.stringify(teamXI)); } catch (err) { console.warn('Legacy Team XI backup failed:', err); }
+  try { if (currentAccountKey) localStorage.setItem(TEAM_XI_KEY + '_' + currentAccountKey, JSON.stringify(teamXI)); } catch (err) { console.warn('Account Team XI backup failed:', err); }
+  if (typeof saveGame === 'function' && currentAccountKey) saveGame(true);
+}
 function teamXIPlayerForSlot(slotId) {
   const name = teamXI[slotId];
   if (!name) return null;
@@ -3174,6 +3189,7 @@ function openD(n, packType) {
     g.appendChild(mk(pData));
   }
   updateTeamStats();
+  saveGame(true);
 }
 
 // --- MUSIC PLAYER LOGIC ---
@@ -3251,9 +3267,23 @@ async function cupLogoutAccount() {
   const confirmed = window.confirm('Log out of The Cup of Life on this device? Your saved club progress will remain saved.');
   if (!confirmed) return;
   try {
-    saveGame(true);
-    if (auth && auth.currentUser) await auth.signOut();
+    const signedInUser = auth && auth.currentUser;
+    if (signedInUser) {
+      if (cupCloudHydratedUid !== signedInUser.uid) {
+        showToast('CLOUD RESTORE IS NOT READY — STAY SIGNED IN AND TRY AGAIN', 'error');
+        return;
+      }
+      const cloudSaved = await saveGame(true);
+      if (!cloudSaved) {
+        showToast('CLOUD SAVE FAILED — YOU ARE STILL SIGNED IN. CHECK CONNECTION AND RETRY.', 'error');
+        return;
+      }
+      await auth.signOut();
+    } else {
+      await saveGame(true);
+    }
     currentAccountKey = null;
+    cupCloudHydratedUid = null;
     cupPendingBootName = null;
     cupPendingBootKey = null;
     try { bgMusic.pause(); draftMusic.pause(); } catch (_) {}
@@ -5850,40 +5880,84 @@ function exitBlitzMatch(){
 function currentGameSaveKey() { return currentAccountKey ? ('TheCupOfLifeSave_' + currentAccountKey) : 'TheCupOfLifeSave'; }
 let cupCloudSaveInFlight = Promise.resolve();
 let cupLastCloudSaveError = null;
+// Do not let the boot-time autosave overwrite Firebase before the account's cloud
+// record has been fetched (or a local first-login save has been migrated).
+let cupCloudHydratedUid = null;
+// Realtime Database can return a numeric-key object for array-like values.
+// Normalize those values before the game reads a cloud player collection.
+function cupStoredArray(value) {
+  if (Array.isArray(value)) return value.filter(item => item !== null && item !== undefined);
+  if (value && typeof value === 'object') {
+    const allKeys = Object.keys(value);
+    const numericKeys = allKeys.filter(key => /^(0|[1-9]\d*)$/.test(key)).sort((a, b) => Number(a) - Number(b));
+    const keys = numericKeys.length === allKeys.length ? numericKeys : allKeys;
+    if (keys.length) return keys.map(key => value[key]).filter(item => item !== null && item !== undefined);
+  }
+  return [];
+}
+function cupHasSaveRecord(value) {
+  if (!value || typeof value !== 'object') return false;
+  return value.squad !== undefined || value.players !== undefined || value.playerList !== undefined ||
+    value.myPlayers !== undefined || value.coins !== undefined || value.colPoints !== undefined ||
+    value.redeemedCodes !== undefined || !!value.club || !!value.teamXI;
+}
 function saveGame(silent = false) {
   if (!currentAccountKey) return Promise.resolve(false);
+  const activeCloudUser = auth && auth.currentUser;
+  // Never write while the signed-in account's cloud record is still being read.
+  if (activeCloudUser && cupCloudHydratedUid !== activeCloudUser.uid) return Promise.resolve(false);
+
+  let playerData;
+  const teamXIData = (typeof teamXI !== 'undefined' && teamXI && !Array.isArray(teamXI)) ? teamXI : {};
   try {
-    // Snapshot the whole collection and balances together so a cloud save cannot
-    // update coins while accidentally leaving the squad at an older version.
-    const playerData = JSON.parse(JSON.stringify({
+    playerData = JSON.parse(JSON.stringify({
       username: document.getElementById('display-name').innerText || 'PLAYER',
-      squad: Array.isArray(myPlayers) ? myPlayers : [],
+      squad: cupStoredArray(myPlayers),
       coins: Number.isFinite(Number(playerCoins)) ? Number(playerCoins) : 0,
       colPoints: Number.isFinite(Number(colPoints)) ? Number(colPoints) : 0,
-      redeemedCodes: Array.isArray(redeemedCodes) ? redeemedCodes : [],
+      redeemedCodes: cupStoredArray(redeemedCodes),
       club: (typeof getCupSavedClub === 'function' ? getCupSavedClub() : null),
       savedAt: Date.now()
     }));
+  } catch (err) {
+    console.warn('Could not prepare game save:', err);
+    if (!silent) showToast('SAVE FAILED — GAME DATA COULD NOT BE PREPARED', 'error');
+    return Promise.resolve(false);
+  }
+
+  // Local storage is a backup only. A quota/private-mode error must not prevent
+  // the independent Firebase cloud write below.
+  let localBackupSaved = false;
+  try {
     localStorage.setItem(currentGameSaveKey(), JSON.stringify(playerData));
-    const teamXIData = (typeof teamXI !== 'undefined' && teamXI) ? teamXI : {};
-    try { localStorage.setItem(TEAM_XI_KEY + '_' + currentAccountKey, JSON.stringify(teamXIData)); } catch (_) {}
-    const cloudUser = auth && auth.currentUser;
-    if (db && cloudUser && cloudUser.uid) {
-      const cloudPayload = { ...playerData, teamXI: teamXIData, updatedAt: firebase.database.ServerValue.TIMESTAMP };
-      cupCloudSaveInFlight = cupCloudSaveInFlight.catch(() => {}).then(() =>
-        db.ref('userSaves/' + cloudUser.uid).update(cloudPayload)
-      ).then(() => { cupLastCloudSaveError = null; return true; }).catch(err => {
-        cupLastCloudSaveError = err || new Error('Cloud save failed');
-        console.warn('Cloud save failed (check Firebase Database Rules):', err && err.code);
-        if (!silent) showToast('CLOUD SAVE FAILED — CHECK CONNECTION', 'error');
-        return false;
-      });
-    } else {
-      cupCloudSaveInFlight = Promise.resolve(false);
+    localBackupSaved = true;
+  } catch (err) { console.warn('Local game backup could not be written:', err); }
+  try { localStorage.setItem(TEAM_XI_KEY + '_' + currentAccountKey, JSON.stringify(teamXIData)); }
+  catch (err) { console.warn('Local Team XI backup could not be written:', err); }
+
+  const cloudUser = auth && auth.currentUser;
+  if (db && cloudUser && cloudUser.uid && cupCloudHydratedUid === cloudUser.uid) {
+    const cloudPayload = { ...playerData, teamXI: teamXIData, updatedAt: firebase.database.ServerValue.TIMESTAMP };
+    cupCloudSaveInFlight = cupCloudSaveInFlight.catch(() => {}).then(() =>
+      db.ref('userSaves/' + cloudUser.uid).update(cloudPayload)
+    ).then(() => { cupLastCloudSaveError = null; return true; }).catch(err => {
+      cupLastCloudSaveError = err || new Error('Cloud save failed');
+      console.warn('Cloud save failed (check Firebase Database Rules):', err && err.code);
+      if (!silent) showToast('CLOUD SAVE FAILED — CHECK CONNECTION / FIREBASE RULES', 'error');
+      return false;
+    });
+  } else {
+    cupCloudSaveInFlight = Promise.resolve(false);
+  }
+
+  return cupCloudSaveInFlight.then(cloudSaved => {
+    if (!silent) {
+      if (cloudSaved) showToast('PROGRESS SAVED TO CLOUD!', 'success');
+      else if (localBackupSaved) showToast('LOCAL BACKUP SAVED — CLOUD SYNC NOT READY', 'warning');
+      else showToast('SAVE FAILED — CHECK STORAGE / CONNECTION', 'error');
     }
-    if (!silent) showToast('PROGRESS SAVED!');
-    return cupCloudSaveInFlight;
-  } catch (err) { console.warn('AUTO SAVE ERROR:', err); return Promise.resolve(false); }
+    return cloudSaved;
+  });
 }
 function loadGame(silent = false) {
   let savedData = null;
@@ -5896,10 +5970,10 @@ function loadGame(silent = false) {
     if (savedData) {
       const parsedData = JSON.parse(savedData);
       document.getElementById('display-name').innerText = parsedData.username || document.getElementById('display-name').innerText || 'PLAYER';
-      myPlayers = Array.isArray(parsedData.squad) ? parsedData.squad : [];
+      myPlayers = cupStoredArray(parsedData.squad !== undefined ? parsedData.squad : (parsedData.players !== undefined ? parsedData.players : parsedData.playerList));
       playerCoins = parsedData.coins !== undefined ? parsedData.coins : 100;
       colPoints = parsedData.colPoints !== undefined ? parsedData.colPoints : 0;
-      redeemedCodes = Array.isArray(parsedData.redeemedCodes) ? parsedData.redeemedCodes : [];
+      redeemedCodes = cupStoredArray(parsedData.redeemedCodes);
       localStorage.setItem(currentGameSaveKey(), JSON.stringify(parsedData));
       updateCoinDisplays(); updateTeamStats(); renderSquad(); renderMarketSellList();
       if (!silent) { showToast('GAME LOADED!'); closeSettings(); }
@@ -5940,7 +6014,7 @@ async function loginExistingAccount(){
   await authPersistencePromise;await authInitialStatePromise;
   try{await auth.signInWithEmailAndPassword(usernameLoginEmail(key),password);}
   catch(firstErr){const legacyPassword=password.toUpperCase();if(password.length===6&&/^[A-Za-z0-9]{6}$/.test(password)&&legacyPassword!==password&&firstErr&&['auth/wrong-password','auth/invalid-credential','auth/invalid-login-credentials'].includes(firstErr.code)){await auth.signInWithEmailAndPassword(usernameLoginEmail(key),legacyPassword);}else throw firstErr;}
-  document.getElementById('login-password-input').value='';finishAccountLogin(name,key);
+  document.getElementById('login-password-input').value='';await finishAccountLogin(name,key);
  }catch(err){
   const authCode=String(err&&err.code||'').toLowerCase();
   const authMessage=String(err&&err.message||'').toLowerCase();
@@ -5967,7 +6041,7 @@ async function registerNewAccount(){
   const credential=await auth.createUserWithEmailAndPassword(usernameLoginEmail(key),password);
   if(credential.user&&credential.user.updateProfile)await credential.user.updateProfile({displayName:name}).catch(()=>{});
   try{localStorage.setItem('TheCupOfLifeLastUsername',name);}catch(_){}
-  document.getElementById('register-password-input').value='';document.getElementById('register-confirm-password-input').value='';finishAccountLogin(name,key,true);
+  document.getElementById('register-password-input').value='';document.getElementById('register-confirm-password-input').value='';await finishAccountLogin(name,key,true);
  }catch(err){console.warn('Account registration failed:',err&&err.code);
   if(err&&err.code==='auth/email-already-in-use')showRegisterStatus('That username already exists. Go back to LOGIN and enter its password.',true);
   else if(err&&err.code==='auth/operation-not-allowed')showRegisterStatus('Enable Email/Password in Firebase Authentication first.',true);
@@ -6349,67 +6423,92 @@ function continueGameWithoutAssetWait() {
 async function finishAccountLogin(name,key,isNewAccount = false){
   cupAccountJustRegistered = !!isNewAccount;
   currentAccountKey = key;
+  cupCloudHydratedUid = null;
+  // Do not let the previous signed-in account's in-memory squad leak into this account
+  // if Firebase restore is delayed or fails.
+  myPlayers = [];
+  playerCoins = 100;
+  colPoints = 0;
+  redeemedCodes = [];
+  teamXI = {};
   cupPendingBootName = name;
   cupPendingBootKey = key;
   playerId = 'Player_' + key + '_' + randomHex(5);
   document.getElementById('display-name').innerText = String(name).toUpperCase();
   document.getElementById('username-input').value = name;
-  // Pull the cloud copy into the existing local save format before normal boot
-  // so all the game's existing load routines continue to work unchanged.
+  // Restore Firebase BEFORE boot/autosave. This prevents an empty local browser
+  // cache from racing ahead and replacing the player's cloud collection.
   const cloudUser = auth && auth.currentUser;
   if (db && cloudUser && cloudUser.uid) {
     try {
       const snap = await db.ref('userSaves/' + cloudUser.uid).once('value');
-      const cloud = snap.val();
-      // A cloud record may contain only a selected club (for example, when
-      // the player is signing in on a new device before collecting any cards).
-      const hasCloudProgress = !!cloud && (
-        Array.isArray(cloud.squad) || cloud.coins !== undefined || cloud.colPoints !== undefined ||
-        Array.isArray(cloud.redeemedCodes) || !!cloud.club || !!cloud.teamXI
-      );
-      if (hasCloudProgress) {
+      let cloud = snap.val() || null;
+      // Older deployments may have stored a game record under users/{uid}.
+      // Read that node only when the current userSaves record has no game data.
+      if (!cupHasSaveRecord(cloud)) {
+        const legacySnap = await db.ref('users/' + cloudUser.uid).once('value');
+        const legacyRoot = legacySnap.val() || null;
+        const legacyRecord = legacyRoot && (legacyRoot.gameSave || legacyRoot.saveData || legacyRoot.playerData || legacyRoot);
+        if (cupHasSaveRecord(legacyRecord)) cloud = legacyRecord;
+      }
+      let localCandidate = null;
+      try {
+        const raw = localStorage.getItem('TheCupOfLifeSave_' + key) || localStorage.getItem('TheCupOfLifeSave');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (!parsed.username || normalizeUsername(parsed.username) === normalizeUsername(name)) localCandidate = parsed;
+        }
+      } catch (_) {}
+      const cloudHasData = cupHasSaveRecord(cloud);
+      const cloudTime = Number(cloud && (cloud.savedAt || cloud.updatedAt)) || 0;
+      const localTime = Number(localCandidate && localCandidate.savedAt) || 0;
+      // Prefer the newest same-account save. This also rescues a more recent
+      // device-local collection if an earlier cloud write was delayed/blocked.
+      const useLocal = !!localCandidate && (!cloudHasData || localTime > cloudTime);
+      if (useLocal) {
         const localPayload = {
+          username: localCandidate.username || name,
+          squad: cupStoredArray(localCandidate.squad !== undefined ? localCandidate.squad : (localCandidate.players !== undefined ? localCandidate.players : localCandidate.playerList)),
+          coins: localCandidate.coins !== undefined ? Number(localCandidate.coins) : 100,
+          colPoints: localCandidate.colPoints !== undefined ? Number(localCandidate.colPoints) : 0,
+          redeemedCodes: cupStoredArray(localCandidate.redeemedCodes),
+          club: localCandidate.club || null,
+          savedAt: localTime || Date.now()
+        };
+        const localXI = (() => { try { return JSON.parse(localStorage.getItem(TEAM_XI_KEY + '_' + key) || '{}'); } catch (_) { return {}; } })();
+        localStorage.setItem('TheCupOfLifeSave_' + key, JSON.stringify(localPayload));
+        await db.ref('userSaves/' + cloudUser.uid).update({ ...localPayload, teamXI: localXI, updatedAt: firebase.database.ServerValue.TIMESTAMP });
+      } else if (cloudHasData) {
+        const cloudPayload = {
           username: cloud.username || name,
-          squad: Array.isArray(cloud.squad) ? cloud.squad : [],
+          squad: cupStoredArray(cloud.squad !== undefined ? cloud.squad : (cloud.players !== undefined ? cloud.players : (cloud.playerList !== undefined ? cloud.playerList : cloud.myPlayers))),
           coins: cloud.coins !== undefined ? Number(cloud.coins) : 100,
           colPoints: cloud.colPoints !== undefined ? Number(cloud.colPoints) : 0,
-          redeemedCodes: Array.isArray(cloud.redeemedCodes) ? cloud.redeemedCodes : [],
+          redeemedCodes: cupStoredArray(cloud.redeemedCodes),
           club: cloud.club || null,
-          savedAt: cloud.savedAt || Date.now()
+          savedAt: Number(cloud.savedAt) || Date.now()
         };
-        localStorage.setItem('TheCupOfLifeSave_' + key, JSON.stringify(localPayload));
+        localStorage.setItem('TheCupOfLifeSave_' + key, JSON.stringify(cloudPayload));
         if (cloud.club && cloud.club.id && Array.isArray(CUP_CLUBS) && CUP_CLUBS.some(c => c.id === cloud.club.id)) {
           localStorage.setItem('TheCupOfLifeClub_' + key, JSON.stringify(cloud.club));
         }
         if (cloud.teamXI && typeof cloud.teamXI === 'object') localStorage.setItem(TEAM_XI_KEY + '_' + key, JSON.stringify(cloud.teamXI));
       } else {
-        // First cloud login on this account: migrate any same-account local save
-        // to Firebase instead of starting a blank cloud record over it.
-        let localSeed = null;
-        try {
-          const raw = localStorage.getItem('TheCupOfLifeSave_' + key) || localStorage.getItem('TheCupOfLifeSave');
-          if (raw) {
-            const candidate = JSON.parse(raw);
-            if (!candidate.username || normalizeUsername(candidate.username) === normalizeUsername(name)) localSeed = candidate;
-          }
-        } catch (_) {}
-        if (localSeed) {
-          const seedPayload = {
-            username: localSeed.username || name,
-            squad: Array.isArray(localSeed.squad) ? localSeed.squad : [],
-            coins: localSeed.coins !== undefined ? Number(localSeed.coins) : 100,
-            colPoints: localSeed.colPoints !== undefined ? Number(localSeed.colPoints) : 0,
-            redeemedCodes: Array.isArray(localSeed.redeemedCodes) ? localSeed.redeemedCodes : [],
-            club: localSeed.club || null,
-            teamXI: (() => { try { return JSON.parse(localStorage.getItem(TEAM_XI_KEY + '_' + key) || '{}'); } catch (_) { return {}; } })(),
-            savedAt: Date.now(),
-            updatedAt: firebase.database.ServerValue.TIMESTAMP
-          };
-          await db.ref('userSaves/' + cloudUser.uid).update(seedPayload);
-        }
+        // No cloud record and no local save: initialize a clean first-time club.
+        // Explicitly reset globals so a previous account's in-memory squad cannot
+        // leak into this account and then be uploaded as its first cloud save.
+        localStorage.removeItem('TheCupOfLifeSave_' + key);
+        myPlayers = [];
+        playerCoins = 100;
+        colPoints = 0;
+        redeemedCodes = [];
+        teamXI = {};
       }
+      cupCloudHydratedUid = cloudUser.uid;
     } catch (err) {
+      cupCloudHydratedUid = null;
       console.warn('Could not restore cloud save (check Firebase Database Rules):', err && err.code);
+      showToast('CLOUD RESTORE FAILED — CLOUD DATA PROTECTED; CHECK FIREBASE RULES', 'error');
     }
   }
   runCupGameBoot(false);

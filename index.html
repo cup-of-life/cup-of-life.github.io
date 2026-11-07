@@ -177,6 +177,11 @@
     z-index: -2;
   }
   
+
+  /* Main-menu rotating image backgrounds */
+  #main-menu .menu-bg-img { object-fit: cover; object-position: center center; opacity: 0; transition: opacity 1.6s ease-in-out; }
+  #main-menu .menu-bg-img.is-active { opacity: 1; }
+
   .menu-bg-overlay {
     position: absolute;
     top: 0; left: 0;
@@ -1024,7 +1029,7 @@ html{background:#020814;scroll-behavior:smooth}
 body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#020814;color:#f5fbff}
 /* Responsive stadium home: the existing background asset stays in place. */
 #main-menu{position:relative;isolation:isolate;display:none;flex-direction:column;width:100%;height:100dvh;min-height:700px;overflow-x:hidden;overflow-y:auto;background:#020814;color:#f5fbff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-#main-menu .menu-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:-2;pointer-events:none;filter:saturate(1.23) contrast(1.09) brightness(.92);transform:scale(1.025);will-change:transform}
+#main-menu .menu-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:-2;pointer-events:none;filter:saturate(1.23) contrast(1.09) brightness(.92);transform:scale(1.025);will-change:opacity;opacity:0;transition:opacity 1.6s ease-in-out}#main-menu .menu-bg-img.is-active{opacity:1}
 #main-menu .menu-bg-overlay{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(0,5,15,.05) 0%,rgba(0,6,18,.08) 42%,rgba(0,6,19,.62) 100%),linear-gradient(180deg,rgba(0,6,17,.50) 0%,rgba(0,6,17,.04) 35%,rgba(0,6,17,.34) 72%,rgba(0,4,14,.84) 100%)}
 #main-menu>.menu-top-bar,#main-menu>.menu-middle,#main-menu>.menu-bottom-bar{position:relative;z-index:2;flex-shrink:0}
 #main-menu>.menu-top-bar{margin:16px 24px 0;min-height:78px;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(105deg,rgba(1,8,22,.92),rgba(3,12,28,.74));border:1px solid rgba(30,214,255,.48);border-radius:7px;box-shadow:0 12px 35px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
@@ -1105,7 +1110,7 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
 @media(min-width:801px){#main-menu .team-widget .formation{align-self:start}#main-menu .center-widgets .action-box{min-height:170px}}
 @media(max-width:800px){
   #main-menu{height:auto;min-height:100svh;min-height:100dvh;overflow-x:hidden;overflow-y:visible}
-  #main-menu .menu-bg-img{object-position:center center;transform:scale(1.015);filter:saturate(1.2) contrast(1.08) brightness(.89)}
+  #main-menu .menu-bg-img{object-fit:contain;object-position:center center;transform:none;filter:saturate(1.2) contrast(1.08) brightness(.89)}
   #main-menu .menu-bg-overlay{background:linear-gradient(180deg,rgba(0,5,16,.35) 0%,rgba(0,5,16,.03) 36%,rgba(0,5,16,.20) 56%,rgba(0,5,16,.60) 100%),linear-gradient(90deg,rgba(0,4,14,.08),transparent 60%,rgba(0,5,17,.20))}
   #main-menu>.menu-top-bar{margin:0;min-height:66px;padding:8px 10px;border-radius:0;border-left:0;border-right:0;border-top:0;gap:7px}
   #main-menu .game-brand-logo{width:clamp(54px,15vw,88px);max-height:38px;flex:0 1 auto}
@@ -1281,6 +1286,265 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
   }
 </style>
 
+
+
+
+
+
+<style id="tcol-landscape-home-redesign-v2">
+:root{
+  --tcol-cyan:#16c8d4;
+  --tcol-violet:#d42bdc;
+  --tcol-paper:#fbfcfd;
+  --tcol-ink:#07131b;
+}
+html,body{min-height:100%;margin:0}
+body{overflow-x:hidden}
+#main-menu{
+  position:relative!important;isolation:isolate;display:none;flex-direction:column;
+  width:100%;height:100dvh;min-height:100dvh;overflow:hidden;
+  padding:0!important;background:#071019;color:#f7fbff;
+}
+#main-menu .menu-bg-img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover!important;
+  object-position:center center!important;z-index:-2;pointer-events:none;
+}
+#main-menu .menu-bg-overlay{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(2,7,15,.24),rgba(2,7,15,.05) 38%,rgba(2,7,15,.32));
+}
+#main-menu>.menu-top-bar,#main-menu>.menu-middle,#main-menu>.menu-bottom-bar{
+  position:relative;z-index:2;flex-shrink:0;
+}
+#main-menu .menu-top-bar{
+  min-height:clamp(52px,8.5dvh,76px);padding:7px clamp(12px,2vw,28px);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:rgba(4,10,16,.82);border-bottom:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(12px);box-shadow:0 5px 22px rgba(0,0,0,.22);
+}
+#main-menu .player-info{min-width:0;display:flex;align-items:center;gap:11px}
+#main-menu .player-details{text-align:left;min-width:0}
+#main-menu .player-name{font-size:clamp(14px,1.25vw,21px);font-weight:900;letter-spacing:.8px}
+#main-menu .xp-bar{font-size:clamp(9px,.8vw,12px)}
+#main-menu .game-brand-logo{width:clamp(48px,6vw,86px);height:clamp(42px,6vw,78px);object-fit:contain}
+#main-menu .menu-currencies{display:flex;align-items:center;gap:clamp(5px,1vw,14px)}
+#main-menu .curr-badge,#main-menu .icon-btn{
+  min-height:clamp(34px,5vw,50px);display:flex;align-items:center;justify-content:center;
+  padding:0 clamp(9px,1.4vw,19px);border:1px solid rgba(22,200,212,.48);
+  border-radius:13px;background:rgba(3,12,21,.82);font-size:clamp(12px,1.15vw,18px);
+}
+#main-menu .icon-btn{width:clamp(38px,4.8vw,54px);padding:0;cursor:pointer}
+#main-menu .menu-middle{
+  flex:1 1 auto;min-height:0;width:100%;display:flex;align-items:stretch;justify-content:center;
+  padding:clamp(10px,1.8vw,24px) clamp(12px,2.6vw,42px);
+  box-sizing:border-box;overflow:hidden;
+}
+#main-menu .center-widgets.tcol-home-grid{
+  width:100%;height:100%;min-height:0;margin:0;display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(2,minmax(0,1fr));
+  gap:clamp(10px,1.5vw,22px);align-content:stretch;
+}
+#main-menu .tcol-menu-card{
+  --card-radius:clamp(16px,1.8vw,27px);
+  position:relative;display:block!important;min-width:0;min-height:0!important;
+  width:100%;height:100%;margin:0!important;padding:0!important;
+  overflow:hidden;border:1px solid rgba(255,255,255,.82)!important;
+  border-radius:var(--card-radius)!important;background:var(--tcol-paper)!important;
+  color:var(--tcol-ink)!important;text-align:center!important;
+  box-shadow:0 9px 26px rgba(0,0,0,.28),0 1px 0 rgba(255,255,255,.55) inset!important;
+  cursor:pointer;transform:none;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+#main-menu .tcol-menu-card:hover{
+  transform:translateY(-2px)!important;border-color:rgba(22,200,212,.95)!important;
+  box-shadow:0 13px 30px rgba(0,0,0,.34)!important;
+}
+#main-menu .tcol-menu-card:active{transform:scale(.99)!important}
+#main-menu .tcol-image-frame{
+  position:absolute;display:flex;align-items:center;justify-content:center;
+  top:0;left:0;width:100%;height:47%;overflow:hidden;
+  background:linear-gradient(135deg,#101d36 0%,#173b54 48%,#421552 100%);
+  color:#e7fbff;
+}
+#main-menu .tcol-image-frame img{
+  position:absolute;inset:0;width:100%;height:100%;display:block;
+  object-fit:cover;object-position:center;
+}
+#main-menu .tcol-image-frame .tcol-placeholder-label{
+  display:block;padding:8px 12px;border:1px dashed rgba(255,255,255,.40);
+  border-radius:9px;background:rgba(0,0,0,.23);color:rgba(255,255,255,.82);
+  font-size:clamp(8px,.75vw,11px);font-weight:800;letter-spacing:1.1px;
+}
+#main-menu .tcol-wide-card .tcol-info-panel{
+  position:absolute;left:0;right:0;bottom:0;height:57%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(4px,.55vw,8px);padding:clamp(12px,1.4vw,20px);
+  background:linear-gradient(180deg,#fff 0%,#f9fbfc 100%);
+  color:var(--tcol-ink);box-sizing:border-box;
+}
+#main-menu .tcol-card-title{
+  display:block;color:var(--tcol-ink);font-weight:950;
+  font-size:clamp(16px,2.05vw,32px);line-height:1.08;letter-spacing:-.35px;
+}
+#main-menu .tcol-wide-card .tcol-card-title{
+  background:linear-gradient(90deg,var(--tcol-violet),var(--tcol-cyan));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+#main-menu .tcol-card-title>span{color:var(--tcol-violet)}
+#main-menu .tcol-card-subtitle{
+  display:block;color:#18222b;font-weight:500;
+  font-size:clamp(11px,1.25vw,19px);line-height:1.2;
+}
+#main-menu .tcol-icon-bubble{
+  position:absolute;z-index:4;left:50%;top:47%;transform:translate(-50%,-50%);
+  width:clamp(48px,6vw,84px);height:clamp(48px,6vw,84px);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:var(--tcol-violet);background:#02070c;border:3px solid var(--tcol-violet);
+  box-shadow:0 0 0 4px rgba(212,43,220,.13),0 0 23px rgba(212,43,220,.35);
+  font-size:clamp(22px,2.7vw,38px);line-height:1;
+}
+#main-menu .tcol-draft-bubble{
+  color:var(--tcol-cyan);border-color:var(--tcol-cyan);
+  box-shadow:0 0 0 4px rgba(22,200,212,.13),0 0 23px rgba(22,200,212,.35);
+}
+#main-menu .tcol-split-card .tcol-image-frame{
+  top:0;left:0;width:44%;height:100%;
+}
+#main-menu .tcol-split-card .tcol-info-panel{
+  position:absolute;top:0;right:0;bottom:0;width:56%;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  gap:7px;padding:12px 12px 12px clamp(34px,4vw,58px);
+  background:linear-gradient(180deg,#fff,#f8fafb);box-sizing:border-box;text-align:left;
+}
+#main-menu .tcol-split-card .tcol-icon-bubble{
+  left:44%;top:50%;width:clamp(46px,5.5vw,76px);height:clamp(46px,5.5vw,76px);
+}
+#main-menu .tcol-daily-bubble{
+  color:var(--tcol-cyan);border-color:var(--tcol-cyan);
+  box-shadow:0 0 0 4px rgba(22,200,212,.12),0 0 22px rgba(22,200,212,.30);
+}
+#main-menu .tcol-split-card .tcol-card-title{
+  font-size:clamp(15px,1.8vw,28px);text-align:left;color:#07131b;
+  background:none;-webkit-text-fill-color:#07131b;
+}
+#main-menu .tcol-split-card .tcol-card-subtitle{
+  font-size:clamp(10px,1.1vw,17px);text-align:left;color:#2f3b43;
+}
+#main-menu .tcol-team-bubble{
+  color:var(--tcol-cyan);border-color:var(--tcol-cyan);
+  font-size:clamp(12px,1.4vw,19px);font-weight:950;text-align:center;
+  box-shadow:0 0 0 4px rgba(22,200,212,.12),0 0 22px rgba(22,200,212,.30);
+}
+#main-menu .tcol-team-bubble .ovr-badge,#main-menu .tcol-team-bubble #menu-team-ovr{
+  display:block;background:transparent!important;border:0!important;box-shadow:none!important;
+  color:var(--tcol-cyan)!important;padding:0!important;min-width:0!important;
+  font-size:inherit!important;font-weight:950!important;line-height:1.12;
+}
+#main-menu .tcol-team-info{gap:5px!important}
+#main-menu .tcol-team-meta{display:flex;align-items:center;gap:7px;margin-top:2px}
+#main-menu .tcol-team-meta .chem-badge{
+  display:inline-flex;align-items:center;justify-content:center;min-width:26px;min-height:23px;
+  padding:3px 7px;border-radius:7px;background:#e9f6f7;color:#087c86;font-size:12px;font-weight:900;
+}
+#main-menu .tcol-player-count{font-size:clamp(8px,.72vw,11px);color:#65727a;font-weight:800;letter-spacing:.5px}
+#main-menu .tcol-team-hidden-value{display:none}
+#main-menu .tcol-home-footer{
+  min-height:clamp(48px,7.5dvh,64px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  align-items:stretch;gap:clamp(4px,.8vw,10px);padding:5px clamp(10px,2vw,26px);
+  background:rgba(3,10,16,.90);border-top:1px solid rgba(22,200,212,.58);
+  box-shadow:0 -7px 22px rgba(0,0,0,.26);backdrop-filter:blur(12px);
+}
+#main-menu .tcol-footer-button{
+  min-width:0;display:flex;flex-direction:row;align-items:center;justify-content:center;
+  gap:clamp(5px,.8vw,12px);padding:5px 8px;border:0;border-radius:10px;
+  background:transparent;color:#f5fbff;font-size:clamp(9px,.95vw,14px);
+  font-weight:900;letter-spacing:.65px;white-space:nowrap;cursor:pointer;
+}
+#main-menu .tcol-footer-button:hover{background:rgba(22,200,212,.13);color:#fff}
+#main-menu .tcol-nav-image{
+  position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  width:clamp(25px,3vw,39px);height:clamp(25px,3vw,39px);overflow:hidden;
+  border-radius:8px;background:linear-gradient(135deg,#16404b,#17243a);
+  color:#d8fbff;font-size:8px;
+}
+#main-menu .tcol-nav-image img{width:100%;height:100%;object-fit:cover}
+#main-menu .tcol-nav-symbol{font-size:clamp(16px,1.8vw,24px);color:var(--tcol-cyan)}
+@media (orientation:portrait){
+  #main-menu{height:100dvh;min-height:100dvh}
+}
+@media (orientation:landscape) and (max-height:520px){
+  #main-menu .menu-top-bar{min-height:43px;padding:4px 12px}
+  #main-menu .menu-middle{padding:7px 14px}
+  #main-menu .center-widgets.tcol-home-grid{gap:8px}
+  #main-menu .tcol-menu-card{--card-radius:14px}
+  #main-menu .tcol-home-footer{min-height:42px;padding-top:3px;padding-bottom:3px}
+  #main-menu .tcol-icon-bubble{width:43px;height:43px;font-size:19px}
+  #main-menu .tcol-split-card .tcol-icon-bubble{width:42px;height:42px}
+}
+@media (prefers-reduced-motion:reduce){
+  #main-menu .tcol-menu-card{transition:none}
+}
+</style>
+
+
+<style id="tcol-home-card-aspect-tune">
+#main-menu .tcol-wide-card .tcol-image-frame{height:47%;aspect-ratio:16/9}
+#main-menu .tcol-split-card .tcol-image-frame{aspect-ratio:16/9}
+#main-menu .tcol-image-frame img{object-fit:cover;object-position:center}
+#main-menu .tcol-wide-card .tcol-info-panel{height:57%}
+#main-menu .tcol-menu-card{isolation:isolate}
+#main-menu .tcol-image-frame{z-index:0}
+#main-menu .tcol-info-panel{z-index:1}
+#main-menu .tcol-icon-bubble{z-index:3}
+#main-menu .tcol-split-card .tcol-info-panel{padding-left:clamp(36px,4vw,58px)}
+#main-menu .tcol-placeholder-label{pointer-events:none}
+</style>
+
+<style id="tcol-redeem-and-home-qa">
+#main-menu .tcol-market-card .tcol-market-bubble{color:var(--tcol-cyan);border-color:var(--tcol-cyan);box-shadow:0 0 0 4px rgba(22,200,212,.12),0 0 22px rgba(22,200,212,.30)}
+#main-menu .tcol-home-footer{grid-template-columns:repeat(4,minmax(0,1fr))}
+#main-menu .tcol-daily-footer .tcol-nav-symbol{color:#15c8d4}
+#redeem-ui{min-height:100dvh;box-sizing:border-box;padding:clamp(14px,2vw,28px);background:#071018;color:#f5fbff;text-align:center}
+#redeem-ui .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#redeem-ui h1{margin:clamp(22px,5vh,52px) 0 6px;font-size:clamp(25px,4vw,42px);font-weight:950}
+#redeem-ui .sub{color:#9eb0bc;font-size:clamp(12px,1.3vw,16px)}
+.tcol-redeem-panel{width:min(92%,430px);margin:clamp(25px,7vh,70px) auto;padding:clamp(22px,4vw,38px);box-sizing:border-box;border:1px solid rgba(22,200,212,.45);border-radius:18px;background:linear-gradient(145deg,#0d1b27,#060d15);display:flex;flex-direction:column;gap:14px}
+.tcol-redeem-mark{font-size:20px;font-weight:950;letter-spacing:2px;color:#18d2dc}
+.tcol-redeem-panel label{font-size:11px;font-weight:900;color:#9eb0bc;text-align:left}
+#promo-code-input{width:100%;box-sizing:border-box;padding:15px 14px;font-size:16px;font-weight:800;text-align:center;text-transform:uppercase;border-radius:9px;border:1px solid #2d6473;background:#050a10;color:#fff}
+.tcol-redeem-hint{font-size:11px;color:#8a9ba7}
+@media(max-width:650px){#main-menu .tcol-footer-button{font-size:8px;gap:3px;flex-direction:column}#main-menu .tcol-nav-image{width:24px;height:24px}}
+</style>
+
+<style id="tcol-fc27-draft-refresh">
+/* FC-style emerald draft hub, while keeping the existing pack-opening and card logic intact. */
+#draft-ui{background:radial-gradient(ellipse at 50% -10%,#244b35 0%,#10251c 38%,#07110d 78%);color:#f3fff5;min-height:100dvh;padding-bottom:55px}
+#draft-ui .top{background:linear-gradient(90deg,#07130d,#142d20 50%,#07130d);border-bottom:1px solid #426e4b}
+#draft-ui h1{color:#d9ffb0;letter-spacing:4px;text-shadow:0 0 22px #79ff8b55}
+#draft-ui .sub{color:#b9d9b5;opacity:1}
+#draft-ui .draws{max-width:1240px;gap:16px}
+#draft-ui .box{background:linear-gradient(155deg,#203b2b,#101e17 72%);border:1px solid #4b8055;border-radius:13px;box-shadow:0 12px 28px #0007,inset 0 1px #ffffff12}
+#draft-ui .box:hover{border-color:#b6f58c;box-shadow:0 14px 34px #0009,0 0 18px #80ff8b22}
+#draft-ui .banner{background:radial-gradient(ellipse,#a8ff9b30,#1c5a3a66);border-bottom:1px solid #4c7e55}
+#draft-ui .banner img{background:#08130d;border:1px solid #a6d98b;border-radius:8px}
+#draft-ui .info{padding:13px 14px 15px}
+#draft-ui .type{color:#a9d7a9;font-weight:800;letter-spacing:1.2px}
+#draft-ui .title{font-size:15px;font-weight:950;color:#f2ffe8;letter-spacing:.7px;margin:5px 0 6px}
+.tcol-pack-desc{color:#bfd2c0;font-size:11px;line-height:1.5;min-height:48px;margin:0 0 9px}
+#draft-ui .b{background:linear-gradient(135deg,#b8f58a,#64c878);border:1px solid #d7ffb7;color:#092012;font-weight:950;border-radius:7px;padding:10px 8px}
+#draft-ui .b:hover{background:#e0ffb9;color:#07150b;box-shadow:0 0 18px #aaff8a55}
+#draft-ui #back{margin:14px auto 10px;max-width:1100px;padding:12px 16px;background:#12271b;border:1px solid #4d8554;border-radius:10px}
+#draft-ui #back>button{background:#b6ed8d!important;color:#0b1b10!important;font-weight:950}
+.tcol-pack-detail-copy{flex-basis:100%;width:100%;margin:9px 0 0;color:#c5dfc4;font-size:11px;line-height:1.5;letter-spacing:.2px}
+#draft-ui .pack{border:2px solid #a6d77c;border-radius:11px;box-shadow:0 8px 20px #0008}
+#draft-ui .pack .cover{background:radial-gradient(circle at 50% 35%,#d9ff9b,#3b9257 68%,#143b27);}
+#draft-ui .pack .cover b{color:#102819!important}
+#draft-ui .pack .cover span{background:#102819;color:#dfffbd}
+#draft-ui .pack.opened{border-color:#efffc0;box-shadow:0 0 22px #a5ff8a66}
+@media(max-width:600px){#draft-ui .draws{grid-template-columns:1fr;padding:10px}#draft-ui .banner img{width:clamp(72px,24vw,90px);height:clamp(105px,33vw,125px)}.tcol-pack-desc{min-height:0}}
+</style>
+
 </head>
 <body>
 
@@ -1343,7 +1607,8 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
 <!-- MAIN MENU -->
 <div id="main-menu">
   <button class="home-btn" onclick="goToHome()" style="display:none;">EXIT</button>
-  <img src="https://www.image2url.com/r2/default/images/1788643275526-6ae583a0-be95-4bed-91be-c7934040c76a.png" class="menu-bg-img" alt="Main Menu Background">
+  <img id="menu-bg-image-a" class="menu-bg-img is-active" src="https://plain-apac-prod-public.komododecks.com/202610/31/HyPfFn2odmydyYKJPRnm/image.png" alt="" aria-hidden="true" fetchpriority="high">
+  <img id="menu-bg-image-b" class="menu-bg-img" src="https://plain-apac-prod-public.komododecks.com/202610/31/pRxBdviBB5bgDSvodHDJ/image.png" alt="" aria-hidden="true" loading="eager">
   <div class="menu-bg-overlay"></div>
 
   <div class="menu-top-bar">
@@ -1363,48 +1628,72 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
   </div>
 
   <div class="menu-middle">
-    <div class="daily-login" onclick="claimDailyLogin()">
-      <div style="font-size:24px;color:#88cc00;">▣</div>
-      <div>DAILY LOGIN</div>
-    </div>
+    <div class="center-widgets tcol-home-grid">
+      <!-- Wide card: image across the top, clean information panel underneath. -->
+      <button type="button" class="action-box tcol-menu-card tcol-wide-card" onclick="openMpSetup()" aria-label="Open 1v1 Multiplayer">
+        <span class="tcol-image-frame" data-image-slot="MULTIPLAYER">
+          <span class="tcol-placeholder-label">MULTIPLAYER IMAGE URL</span>
+        </span>
+        <span class="tcol-icon-bubble" aria-hidden="true">⚡</span>
+        <span class="tcol-info-panel">
+          <span class="tcol-card-title"><span>1V1</span> MULTIPLAYER</span>
+          <span class="tcol-card-subtitle">Create or Join a Room</span>
+        </span>
+      </button>
 
-    <div class="center-widgets">
-      <div class="action-box" onclick="openMpSetup()" style="background-image: linear-gradient(rgba(10,20,40,.78),rgba(10,20,40,.78)), url('https://www.image2url.com/r2/default/images/1788643275526-6ae583a0-be95-4bed-91be-c7934040c76a.png'); background-size:cover; background-position:center; border-color:#ff0055;">
-        <div>
-          <div class="title" style="color: #ff0055;">1v1 MULTIPLAYER</div>
-          <div class="sub">Create or Join a Room</div>
-        </div>
-        <div class="action-icon">⚡</div>
-      </div>
-      
-      <div class="action-box" onclick="goToDraft()" style="background-image: linear-gradient(rgba(10,20,40,.82),rgba(10,20,40,.82)), url('https://www.image2url.com/r2/default/images/1788643275526-6ae583a0-be95-4bed-91be-c7934040c76a.png'); background-size:cover; background-position:center;">
-        <div class="title">DRAFT</div>
-        <div class="action-icon">◈</div>
-      </div>
-    </div>
+      <button type="button" class="action-box tcol-menu-card tcol-split-card" onclick="goToDraft()" aria-label="Open Draft">
+        <span class="tcol-image-frame" data-image-slot="DRAFT">
+          <span class="tcol-placeholder-label">DRAFT IMAGE URL</span>
+        </span>
+        <span class="tcol-icon-bubble tcol-draft-bubble" aria-hidden="true">◇</span>
+        <span class="tcol-info-panel">
+          <span class="tcol-card-title">DRAFT</span>
+          <span class="tcol-card-subtitle">Draft your squad</span>
+        </span>
+      </button>
 
-    <div class="team-widget" onclick="goToSquad()">
-      <div class="header">MY TEAM</div>
-      <div class="formation">4-3-3 ATTACK</div>
-      <div class="team-stats">
-        <div class="shield" style="width:40px;height:45px;background:#777;clip-path: polygon(50% 0%, 100% 0, 100% 70%, 50% 100%, 0 70%, 0 0);"></div>
-        <div class="ovr-badge" id="menu-team-ovr">OVR<br>0</div> 
-        <div class="chem-badge" id="menu-team-chem">0</div>
-      </div>
-      <div class="team-value"><span id="menu-team-count">0 PLAYERS</span> <span>TEAM VALUE</span></div>
+
+      <button type="button" class="team-widget tcol-menu-card tcol-split-card" onclick="goToSquad()" aria-label="Open My Team">
+        <span class="tcol-image-frame" data-image-slot="MY_TEAM">
+          <span class="tcol-placeholder-label">MY TEAM IMAGE URL</span>
+        </span>
+        <span class="tcol-icon-bubble tcol-team-bubble" aria-hidden="true">
+          <span id="menu-team-ovr">OVR<br>0</span>
+        </span>
+        <span class="tcol-info-panel tcol-team-info">
+          <span class="tcol-card-title">MY TEAM</span>
+          <span class="tcol-card-subtitle">4-3-3 ATTACK</span>
+          <span class="tcol-team-meta">
+            <span class="chem-badge" id="menu-team-chem">0</span>
+            <span class="tcol-player-count" id="menu-team-count">0 PLAYERS</span>
+          </span>
+          <span class="tcol-team-hidden-value" aria-hidden="true">TEAM VALUE</span>
+        </span>
+      </button>
+      <button type="button" class="tcol-menu-card tcol-split-card tcol-market-card" onclick="goToMarket()" aria-label="Open Market">
+        <span class="tcol-image-frame" data-image-slot="MARKET"><img src="https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/2bd35a530132337e7cff6760a9577c76.jpg" alt="Market" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center;"></span>
+        <span class="tcol-icon-bubble tcol-market-bubble" aria-hidden="true">↗</span>
+        <span class="tcol-info-panel"><span class="tcol-card-title">MARKET</span><span class="tcol-card-subtitle">Buy, sell and trade players</span></span>
+      </button>
+      <button type="button" class="tcol-menu-card tcol-split-card tcol-store-card" onclick="goToStore()" aria-label="Open Store">
+        <span class="tcol-image-frame" data-image-slot="STORE_CARD"><span class="tcol-placeholder-label">STORE IMAGE URL</span></span>
+        <span class="tcol-icon-bubble tcol-store-bubble" aria-hidden="true">＋</span>
+        <span class="tcol-info-panel"><span class="tcol-card-title">STORE</span><span class="tcol-card-subtitle">Packs, rewards and items</span></span>
+      </button>
     </div>
   </div>
 
-  <div class="menu-bottom-bar">
-    <div class="nav-btn" onclick="goToStore()">
-      🛍 STORE
-    </div>
-    <div class="nav-btn" onclick="goToMarket()">
-      ◉ MARKET
-    </div>
-    <div class="nav-btn" onclick="openNewsPanel()" aria-label="News and what's new">
-      ▣ NEWS <span style="display:block;font-size:.68em;font-weight:700;opacity:.8;letter-spacing:.2px">WHAT'S NEW?</span>
-    </div>
+  <div class="menu-bottom-bar tcol-home-footer">
+    
+    <button type="button" class="nav-btn tcol-footer-button" onclick="openTcolRedeemCodes()">
+      <span class="tcol-nav-symbol">⌁</span>
+      <span>REDEEM CODE</span>
+    </button>
+    <button type="button" class="nav-btn tcol-footer-button tcol-daily-footer" onclick="claimDailyLogin()" aria-label="Claim Daily Login reward"><span class="tcol-nav-image" data-image-slot="DAILY_LOGIN"><span>IMG</span></span><span>DAILY LOGIN</span></button>
+    <button type="button" class="nav-btn tcol-footer-button" onclick="openNewsPanel()" aria-label="News and what's new">
+      <span class="tcol-nav-symbol">▣</span>
+      <span>NEWS</span>
+    </button>
   </div>
 </div>
 
@@ -1422,7 +1711,6 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
   
   <div style="display:flex; justify-content:center; gap: 10px; margin: 20px 20px; flex-wrap:wrap;">
     <button id="btn-store-col" class="tab-btn active" onclick="showStoreTab('col')">COL POINTS MARKET</button>
-    <button id="btn-store-codes" class="tab-btn" onclick="showStoreTab('codes')">REDEEM CODES</button>
   </div>
   
   <div id="store-col-section" style="padding: 25px 20px;">
@@ -1444,15 +1732,14 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
         </button>
       </div>
     </div>
-  </div>
+  </div></div>
 
-  <div id="store-codes-section" style="display:none; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 40px;">
-    <div style="font-size:12px; color:#aaa;">REDEEM PROMO CODES HERE</div>
-    <input type="text" id="promo-code-input" placeholder="ENTER CODE" style="padding: 15px; font-size: 18px; font-family: 'Arial Black'; text-align: center; border-radius: 6px; border: 2px solid #4aa0ff; background: #111; color: gold; width: 80%; max-width: 300px;">
-    <button class="trade-btn" onclick="redeemCode()" style="padding: 12px 30px; font-size: 16px; min-width: 150px;">REDEEM</button>
-  </div>
+<!-- Dedicated Redeem Code screen -->
+<div id="redeem-ui" style="display:none;">
+ <div class="top"><button class="home-btn" onclick="goToHome()">🏠 HOME</button><div style="display:flex;gap:15px;"><div>🪙 <span id="redeem-coins-display">100</span></div><div><img src="https://www.image2url.com/r2/default/images/1788718185536-d007b364-8654-4e20-82d1-930bf996c0d0.png" style="height:16px;width:auto;vertical-align:middle" alt=""> <span id="redeem-col-display">0</span></div></div></div>
+ <h1>REDEEM CODE</h1><div class="sub">Enter a code to claim your reward</div>
+ <div class="tcol-redeem-panel"><div class="tcol-redeem-mark">THE CUP OF LIFE</div><label for="promo-code-input">PROMO CODE</label><input type="text" id="promo-code-input" placeholder="ENTER CODE" autocomplete="off" autocapitalize="characters" spellcheck="false"><button class="trade-btn" onclick="redeemCode()" type="button">REDEEM</button><div class="tcol-redeem-hint">Rewards are added to your existing account.</div></div>
 </div>
-
 <!-- DRAFT PACK UI -->
 <div id="draft-ui">
   <div class="top">
@@ -1475,7 +1762,7 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
       </div>
       <div class="info">
         <div class="type">Epic • Goal Bandit</div>
-        <div class="title">THE BANDIT TRIO</div>
+        <div class="title">THE BANDIT TRIO</div><div class="tcol-pack-desc">Hunt for Inzaghi, Eto’o or Owen. Every draw gives 5 players, with a 10% Legend chance per draw.</div>
         <div class="btns">
           <div class="b" onclick="openD(1, 1)">x1 🪙100</div>
           <div class="b" onclick="openD(1, 10)">x10 🪙1000</div>
@@ -1491,7 +1778,7 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
       </div>
       <div class="info">
         <div class="type">Epic • Netherlands 1992 Euro's</div>
-        <div class="title">THE DUTCH TRIO</div>
+        <div class="title">THE DUTCH TRIO</div><div class="tcol-pack-desc">A Dutch greats selection featuring Van Basten, Rijkaard and Gullit. 5 players per draw; 10% Legend chance per draw.</div>
         <div class="btns">
           <div class="b" onclick="openD(2, 1)">x1 🪙100</div>
           <div class="b" onclick="openD(2, 10)">x10 🪙1000</div>
@@ -1507,7 +1794,7 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
       </div>
       <div class="info">
         <div class="type">Epic • French National Team</div>
-        <div class="title">LES BLEUS</div>
+        <div class="title">LES BLEUS</div><div class="tcol-pack-desc">Discover French stars Mbappé, Olise and Dembélé. 5 players per draw; 10% Legend chance per draw.</div>
         <div class="btns">
           <div class="b" onclick="openD(3, 1)">x1 🪙100</div>
           <div class="b" onclick="openD(3, 10)">x10 🪙1000</div>
@@ -1523,7 +1810,7 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
       </div>
       <div class="info">
         <div class="type">LEGEND • ITALIA</div>
-        <div class="title">THE WALL FROM ITALIA</div>
+        <div class="title">THE WALL FROM ITALIA</div><div class="tcol-pack-desc">Build your defence with Italian icons Maldini, Nesta and Cannavaro. 5 players per draw; 10% Legend chance per draw.</div>
         <div class="btns">
           <div class="b" onclick="openD(4, 1)">x1 🪙100</div>
           <div class="b" onclick="openD(4, 10)">x10 🪙1000</div>
@@ -1536,6 +1823,7 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
     <button onclick="closeD()" style="background:#0066ff;color:#fff;padding:8px 14px;border:none;border-radius:6px;font-weight:900;cursor:pointer;">← Back</button> 
     <span id="tt" style="color:gold;margin-left:10px;font-size:12px;letter-spacing:2px"></span> 
     <span id="cnt" style="color:gold;margin-left:14px;font-size:11px"></span>
+    <div id="tcol-pack-detail-copy" class="tcol-pack-detail-copy">Each draw contains 5 player cards. Tap a card to reveal it.</div>
   </div>
 
   <div class="pack-grid" id="p1"></div>
@@ -1722,7 +2010,7 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
 
 <!-- MULTIPLAYER DRAFT ARENA UI -->
 <div id="multiplayer-draft-ui" style="display:none; flex-direction:column; min-height:100vh; background: radial-gradient(circle, #1a2a4a, #0a0e1a);">
-  <div style="display:flex;justify-content:flex-end;padding:10px 14px;"><button class="home-btn" onclick="forfeitMpMatch();goToHome();">🏠 HOME</button></div>
+  <div style="display:flex;justify-content:flex-end;padding:10px 14px;"><button class="home-btn" onclick="forfeitMpMatch()">🏠 HOME</button></div>
   <div class="top">
     <div style="color:gold; font-size: 16px; font-weight: 900; letter-spacing: 2px;" id="mp-round-text">ROUND 1 / 11</div>
     <button class="home-btn" style="background:#ff0055; border-color:#ff0055;" onclick="forfeitMpMatch()">FORFEIT</button>
@@ -1833,6 +2121,7 @@ button:active,.icon-btn:active,.nav-btn:active,.action-box:active,.team-widget:a
   <div id="rematch-ui" style="display:none; flex-direction:column; align-items:center; gap:10px; margin-top:22px;">
     <div id="rematch-counter" style="font-size:18px; color:#fff; font-weight:900; letter-spacing:2px;">REMATCH AVAILABLE: 10</div>
     <button id="rematch-btn" onclick="requestRematch()" style="background:#00ffaa;color:#000;border:0;border-radius:8px;padding:12px 28px;font-family:'Arial Black';font-size:16px;font-weight:900;cursor:pointer;min-width:220px;">REMATCH (0/2)</button>
+    <button id="rematch-decline-btn" onclick="declineRematch()" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:10px 24px;font-family:'Arial Black';font-size:13px;font-weight:900;cursor:pointer;min-width:220px;">NO REMATCH — RETURN HOME</button>
   </div>
 </div>
 
@@ -2125,6 +2414,7 @@ function claimDailyLogin() {
 }
 
 function goToDraft() {
+ const redeemScreen=document.getElementById('redeem-ui'); if(redeemScreen) redeemScreen.style.display='none';
   document.getElementById('main-menu').style.display = 'none';
   document.getElementById('squad-ui').style.display = 'none';
   document.getElementById('market-ui').style.display = 'none';
@@ -2136,6 +2426,7 @@ function goToDraft() {
 }
 
 function goToSquad() {
+ const redeemScreen=document.getElementById('redeem-ui'); if(redeemScreen) redeemScreen.style.display='none';
   document.getElementById('main-menu').style.display = 'none';
   document.getElementById('draft-ui').style.display = 'none';
   document.getElementById('market-ui').style.display = 'none';
@@ -2147,6 +2438,7 @@ function goToSquad() {
 }
 
 function goToStore() {
+ const redeemScreen=document.getElementById('redeem-ui'); if(redeemScreen) redeemScreen.style.display='none';
   document.getElementById('main-menu').style.display = 'none';
   document.getElementById('draft-ui').style.display = 'none';
   document.getElementById('squad-ui').style.display = 'none';
@@ -2159,6 +2451,7 @@ function goToStore() {
 }
 
 function goToMarket() {
+ const redeemScreen=document.getElementById('redeem-ui'); if(redeemScreen) redeemScreen.style.display='none';
   document.getElementById('main-menu').style.display = 'none';
   document.getElementById('draft-ui').style.display = 'none';
   document.getElementById('squad-ui').style.display = 'none';
@@ -2171,6 +2464,7 @@ function goToMarket() {
 }
 
 function goToHome() {
+ const redeemScreen=document.getElementById('redeem-ui'); if(redeemScreen) redeemScreen.style.display='none';
   document.getElementById('draft-ui').style.display = 'none';
   document.getElementById('squad-ui').style.display = 'none';
   document.getElementById('market-ui').style.display = 'none';
@@ -2192,13 +2486,13 @@ function closeD() {
 }
 
 function updateCoinDisplays() {
-  const ids = ['menu-coins', 'draft-coins', 'market-coins-display', 'store-coins-display'];
+  const ids = ['menu-coins', 'draft-coins', 'market-coins-display', 'store-coins-display', 'redeem-coins-display'];
   ids.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerText = playerCoins;
   });
   
-  const colIds = ['menu-col', 'draft-col', 'market-col-display', 'store-col-display'];
+  const colIds = ['menu-col', 'draft-col', 'market-col-display', 'store-col-display', 'redeem-col-display'];
   colIds.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.innerText = colPoints;
@@ -2237,6 +2531,13 @@ function updateTeamStats() {
 }
 
 // --- STORE & MARKET SYSTEMS ---
+function openTcolRedeemCodes(){
+ ['main-menu','draft-ui','squad-ui','market-ui','store-ui','multiplayer-draft-ui','team-xi-ui'].forEach(function(id){const el=document.getElementById(id);if(el)el.style.display='none';});
+ const el=document.getElementById('redeem-ui');if(el)el.style.display='block';
+ updateCoinDisplays();
+ if(location.pathname!='/reedem'){try{history.pushState({tcolSection:'redeem'},'','/reedem');}catch(e){}}
+ const input=document.getElementById('promo-code-input');if(input){input.value='';setTimeout(function(){input.focus({preventScroll:true});},40);}
+}
 function showStoreTab(tab) {
   const colSec = document.getElementById('store-col-section');
   const codesSec = document.getElementById('store-codes-section');
@@ -2259,36 +2560,30 @@ function showStoreTab(tab) {
 }
 
 function redeemCode() {
-  const inputEl = document.getElementById('promo-code-input');
-  if (!inputEl) return;
-  const code = inputEl.value.trim().toUpperCase();
-  if (code === "") return;
-  
-  if (redeemedCodes.includes(code)) {
-    showToast("ALREADY REDEEMED!");
-    return;
-  }
-  
-  if (code === "ASTOS") {
-    playerCoins += 150;
-    redeemedCodes.push(code);
-    updateCoinDisplays();
-    showToast("+150 COINS!");
-  } else if (code === "FUTBALL_DRAFT") {
-    colPoints += 10000;
-    redeemedCodes.push(code);
-    updateCoinDisplays();
-    showToast("+10,000 COL POINTS!");
-  } else if (code === "MAI_GARIB_HUN") {
-    colPoints += 25000;
-    redeemedCodes.push(code);
-    updateCoinDisplays();
-    showToast("+25,000 COL POINTS!");
-  } else {
-    showToast("INVALID CODE");
-  }
-  
-  inputEl.value = "";
+ const inputEl=document.getElementById('promo-code-input');if(!inputEl)return;
+ const code=inputEl.value.trim().toUpperCase();
+ if(!code){showToast('ENTER A REDEEM CODE','warning');inputEl.focus();return;}
+ if(Array.isArray(redeemedCodes)&&redeemedCodes.includes(code)){showToast('ALREADY REDEEMED!','warning');return;}
+ let msg='';
+ if(code==='ASTOS'){playerCoins+=150;msg='+150 COINS!';}
+ else if(code==='FUTBALL_DRAFT'){colPoints+=10000;msg='+10,000 COL POINTS!';}
+ else if(code==='MAI_GARIB_HUN'){colPoints+=25000;msg='+25,000 COL POINTS!';}
+ else if(code==='BUNTY_GOAT'){
+   const eligibleLegends=allLegendsList.filter(p=>p && p.ovr>=105 && p.ovr<=106 && p.f);
+   if(eligibleLegends.length<2){showToast('LEGEND REWARD POOL UNAVAILABLE','error');return;}
+   const shuffled=[...eligibleLegends];
+   for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];}
+   const rewards=shuffled.slice(0,2);
+   rewards.forEach(sel=>myPlayers.push({type:'LEGEND',name:sel.n,ovr:sel.ovr,img:sel.f,flag:sel.flag||'🌍',pos:sel.pos||[]}));
+   msg='BUNTY_GOAT: 2 RANDOM LEGENDS ADDED! '+rewards.map(p=>p.n+' ('+p.ovr+')').join(' + ');
+ }
+ else{showToast('INVALID CODE','error');return;}
+ if(!Array.isArray(redeemedCodes))redeemedCodes=[];
+ redeemedCodes.push(code);updateCoinDisplays();
+ if(typeof updateTeamStats==='function')updateTeamStats();
+ if(typeof renderSquad==='function')renderSquad();
+ if(typeof saveGame==='function'){try{saveGame(true);}catch(e){console.warn('Redeem save failed:',e);}}
+ inputEl.value='';showToast(msg,'success');
 }
 
 function buyColMarketMessi() {
@@ -2815,10 +3110,14 @@ function openD(n, packType) {
   window.c = 0;
   document.getElementById('cnt').innerText = 'DRAWN: 0';
   
-  if(n == 1) document.getElementById('tt').innerText = 'DRAW 1: INZAGHI / ETO / OWEN';
-  else if(n == 2) document.getElementById('tt').innerText = 'DRAW 2: VAN BASTEN / RIJKAARD / GULLIT';
-  else if(n == 3) document.getElementById('tt').innerText = 'DRAW 3: MBAPPÉ / OLISE / DEMBÉLÉ';
-  else if(n == 4) document.getElementById('tt').innerText = 'THE WALL FROM ITALIA: MALDINI / NESTA / CANNAVARO';
+  const packCopy={
+    1:['DRAW 1: INZAGHI / ETO / OWEN','THE BANDIT TRIO • 5 cards per draw. Featured Legends: Inzaghi, Eto’o and Owen. Every draw has a 10% chance to contain a Legend.'],
+    2:['DRAW 2: VAN BASTEN / RIJKAARD / GULLIT','THE DUTCH TRIO • 5 cards per draw. Featured Legends: Van Basten, Rijkaard and Gullit. Every draw has a 10% chance to contain a Legend.'],
+    3:['DRAW 3: MBAPPÉ / OLISE / DEMBÉLÉ','LES BLEUS • 5 cards per draw. Featured Legends: Mbappé, Olise and Dembélé. Every draw has a 10% chance to contain a Legend.'],
+    4:['THE WALL FROM ITALIA: MALDINI / NESTA / CANNAVARO','THE WALL FROM ITALIA • 5 cards per draw. Featured Legends: Maldini, Nesta and Cannavaro. Every draw has a 10% chance to contain a Legend.']
+  };
+  document.getElementById('tt').innerText=packCopy[n][0];
+  const detailCopy=document.getElementById('tcol-pack-detail-copy');if(detailCopy)detailCopy.innerText=packCopy[n][1]+' Tap a pack to reveal the player card.';
   
   g.innerHTML = '';
   
@@ -3683,7 +3982,14 @@ function startMultiplayerDraft() {
       }
 
       if (data.status === 'closed') {
-          leaveMultiplayerToHome('ROOM CLOSED — RETURNING HOME');
+          if (data.forfeitedBy) {
+              const opponentForfeited = data.forfeitedBy !== myRole;
+              leaveMultiplayerToHome(opponentForfeited ? 'Opponent forfeited' : '');
+          } else if (data.rematchDeclined === true) {
+              leaveMultiplayerToHome('');
+          } else {
+              leaveMultiplayerToHome('ROOM CLOSED — RETURNING HOME');
+          }
           return;
       }
 
@@ -3712,6 +4018,17 @@ function startMultiplayerDraft() {
       }
 
       if (data.status === 'finished') {
+          if (data.rematchDeclined === true || data.rematchDeclinedP1 === true || data.rematchDeclinedP2 === true) {
+              db.ref('matches/' + currentMatchId).transaction(function(current){
+                  if (!current || current.status !== 'finished') return;
+                  if (current.rematchDeclined === true || current.rematchDeclinedP1 === true || current.rematchDeclinedP2 === true) {
+                      return Object.assign({}, current, {status:'closed', rematchDeclined:true});
+                  }
+                  return;
+              }).catch(function(err){ console.error('REMATCH DECLINE CLOSE ERROR:', err); });
+              leaveMultiplayerToHome('');
+              return;
+          }
           if ((data.mode || activeMpMode) === 'matchtime' && data.matchtimeResult) {
               const mt = data.matchtimeResult;
               const ws = document.getElementById('walkout-screen');
@@ -4120,7 +4437,7 @@ function leaveMultiplayerToHome(reason) {
     if (closingRef) closingRef.onDisconnect().cancel().catch(() => {});
     // Keep the closed result readable to the other client before the host removes it.
     if (shouldDeleteRoom && closingRef) {
-        setTimeout(() => { closingRef.remove().catch(() => {}); }, 2200);
+        setTimeout(() => { closingRef.remove().catch(() => {}); }, 5000);
     }
     currentMatchId = null;
     if (reason) showToast(reason);
@@ -4219,6 +4536,32 @@ async function requestRematch() {
     }
 }
 
+async function declineRematch() {
+    if (!db || !currentMatchId || rematchStarting) return;
+    const roomId = currentMatchId;
+    const field = myRole === 'p1' ? 'rematchDeclinedP1' : 'rematchDeclinedP2';
+    try {
+        const ref = db.ref('matches/' + roomId);
+        const result = await ref.transaction(function(current){
+            if (!current || current.status !== 'finished') return;
+            current[field] = true;
+            current.rematchDeclined = true;
+            current.status = 'closed';
+            current.closedReason = 'rematch-declined';
+            return current;
+        });
+        if (result.committed) {
+            leaveMultiplayerToHome('');
+        } else {
+            leaveMultiplayerToHome('');
+        }
+    } catch (err) {
+        console.error('REMATCH DECLINE ERROR:', err);
+        showToast('COULD NOT DECLINE REMATCH — RETURNING HOME');
+        leaveMultiplayerToHome('');
+    }
+}
+
 function claimAndStartRematch() {
     if (rematchStarting || rematchFinished || !db || !currentMatchId) return;
     rematchStarting = true;
@@ -4250,6 +4593,9 @@ function claimAndStartRematch() {
             penalty: null,
             rematchP1: false,
             rematchP2: false,
+            rematchDeclinedP1: false,
+            rematchDeclinedP2: false,
+            rematchDeclined: false,
             rematchDeadline: 0,
             rematchRound: nextRound,
             status: 'starting'
@@ -4928,25 +5274,38 @@ function endMpMatch(data) {
 function forfeitMpMatch() {
     stopRematchTimer();
     rematchDeadline = 0;
-    if(!currentMatchId) return;
-    
-    fadeOutDraftMusic(); 
-    
-    if(db) {
-        const forfeitedRef = db.ref('matches/' + currentMatchId);
-        forfeitedRef.onDisconnect().cancel().catch(() => {});
-        forfeitedRef.off('value', mpListener);
-        if(chatListener) {
-            db.ref('matches/' + currentMatchId + '/chat').off('child_added', chatListener);
-            chatListener = null;
-        }
-        forfeitedRef.remove().catch(() => {});
+    const roomId = currentMatchId;
+    if (!roomId) {
+        goToHome();
+        return;
     }
-    currentMatchId = null;
-    
-    goToHome();
-}
 
+    fadeOutDraftMusic();
+
+    // Publish a shared forfeit result before leaving, so the opponent's Firebase
+    // listener can display the exact message instead of a generic room-closed toast.
+    if (db) {
+        const ref = db.ref('matches/' + roomId);
+        ref.transaction(function(current) {
+            if (!current) return current;
+            if (current.status === 'closed' && current.forfeitedBy) return current;
+            return Object.assign({}, current, {
+                status: 'closed',
+                forfeitedBy: myRole,
+                forfeitMessage: 'Opponent forfeited',
+                closedReason: 'forfeit',
+                closedAt: Date.now()
+            });
+        }).then(function(){
+            leaveMultiplayerToHome('');
+        }).catch(function(err){
+            console.error('FORFEIT SYNC ERROR:', err);
+            leaveMultiplayerToHome('');
+        });
+    } else {
+        leaveMultiplayerToHome('');
+    }
+}
 
 // --- BLiTZ 4v4 TOP-DOWN MODE ---
 const BLITZ_WIDTH = 1000;
@@ -6194,9 +6553,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNewsPan
   const routeMap={
     '/':'home','/main-menu':'home','/draft-packs':'draft','/my-club':'club',
     '/team':'team','/team-xi':'team','/market':'market','/store':'store',
-    '/multiplayer':'multiplayer','/blitz':'blitz'
+    '/multiplayer':'multiplayer','/blitz':'blitz','/reedem':'redeem'
   };
-  const pathFor={home:'/main-menu',draft:'/draft-packs',club:'/my-club',team:'/team-xi',market:'/market',store:'/store',multiplayer:'/multiplayer',blitz:'/blitz'};
+  const pathFor={home:'/main-menu',draft:'/draft-packs',club:'/my-club',team:'/team-xi',market:'/market',store:'/store',multiplayer:'/multiplayer',blitz:'/blitz',redeem:'/reedem'};
   let routing=false;
   function setRoute(section, replace=false){
     const path=pathFor[section]||'/main-menu';
@@ -6212,6 +6571,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNewsPan
       else if(section==='store' && typeof goToStore==='function')goToStore();
       else if(section==='multiplayer' && typeof openMpSetup==='function')openMpSetup();
       else if(section==='blitz' && typeof openBlitzPicker==='function')openBlitzPicker('menu');
+      else if(section==='redeem' && typeof openTcolRedeemCodes==='function')openTcolRedeemCodes();
       else if(typeof goToHome==='function')goToHome();
     }catch(e){console.warn('TCOL route restore:',e)}
     finally{routing=false;}
@@ -6232,6 +6592,554 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeNewsPan
   window.addEventListener('popstate',function(){const raw=location.pathname.replace(/\/$/,'')||'/';applyRoute(routeMap[raw]||'home');});
 })();
 </script>
+
+<
+<script>
+/* TCOL rotating main-menu backgrounds: random on each fresh page load, then every 10 minutes. */
+(function () {
+  const menu = document.getElementById('main-menu');
+  const layers = [document.getElementById('menu-bg-image-a'), document.getElementById('menu-bg-image-b')];
+  if (!menu || layers.some(layer => !layer)) return;
+  const images = [
+    'https://plain-apac-prod-public.komododecks.com/202610/31/HyPfFn2odmydyYKJPRnm/image.png',
+    'https://plain-apac-prod-public.komododecks.com/202610/31/pRxBdviBB5bgDSvodHDJ/image.png',
+    'https://plain-apac-prod-public.komododecks.com/202610/31/VzTFzziAMBs7bHyQYj4u/image.png',
+    'https://plain-apac-prod-public.komododecks.com/202610/31/4wzKQnieYlIH4jELwDZn/image.png'
+  ];
+  const ROTATE_MS = 10 * 60 * 1000;
+  let currentLayer = 0;
+  let currentImage = -1;
+  let rotateTimer = null;
+  let swapBusy = false;
+
+  function pickNextImage() {
+    if (images.length < 2) return 0;
+    let next;
+    do { next = Math.floor(Math.random() * images.length); } while (next === currentImage);
+    return next;
+  }
+
+  function setImage(layer, url) {
+    return new Promise(resolve => {
+      if (layer.getAttribute('src') === url && layer.complete && layer.naturalWidth > 0) {
+        resolve(true); return;
+      }
+      const done = ok => { layer.onload = null; layer.onerror = null; resolve(ok); };
+      layer.onload = () => done(true);
+      layer.onerror = () => done(false);
+      layer.src = url;
+      if (layer.complete && layer.naturalWidth > 0) done(true);
+    });
+  }
+
+  async function rotateBackground(firstRun) {
+    if (swapBusy) return;
+    swapBusy = true;
+    const nextImage = firstRun ? Math.floor(Math.random() * images.length) : pickNextImage();
+    const nextLayerIndex = firstRun ? 0 : 1 - currentLayer;
+    const layer = layers[nextLayerIndex];
+    const loaded = await setImage(layer, images[nextImage]);
+    if (loaded) {
+      // Reassert mobile-friendly framing on the image layer; CSS keeps the full image visible on phones.
+      layer.classList.add('is-active');
+      layers[1 - nextLayerIndex].classList.remove('is-active');
+      currentLayer = nextLayerIndex;
+      currentImage = nextImage;
+    } else if (firstRun) {
+      // Try another supplied image if the random first choice is temporarily unavailable.
+      const fallback = images.find((_, index) => index !== nextImage);
+      if (fallback) {
+        const ok = await setImage(layer, fallback);
+        if (ok) { layer.classList.add('is-active'); currentImage = images.indexOf(fallback); currentLayer = nextLayerIndex; }
+      }
+    }
+    swapBusy = false;
+    if (rotateTimer) clearTimeout(rotateTimer);
+    rotateTimer = setTimeout(() => rotateBackground(false), ROTATE_MS);
+  }
+
+  // Preload the four supplied images without blocking login or game startup.
+  images.forEach(url => { const preload = new Image(); preload.src = url; });
+  rotateBackground(true);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && !swapBusy && !rotateTimer) rotateTimer = setTimeout(() => rotateBackground(false), ROTATE_MS);
+  });
+})();
+</script>
+
+
+
+
+
+<script id="tcol-home-image-url-placeholders">
+/*
+ * THE CUP OF LIFE menu image slots.
+ * Recommended image AREA aspect ratio: 16:9 for each image.
+ * This is the image area ratio, not the complete menu-card ratio.
+ * Replace each empty string with the image URL you provide.
+ */
+window.TCOL_MENU_IMAGE_URLS = {
+  MULTIPLAYER: "https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/file_000000007a508211b74a6014e9f80533.png",
+  DRAFT: "https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/15075.jpg",
+  DAILY_LOGIN: "https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/file_0000000056c88211bf1685d6ec5cb915.png",
+  MY_TEAM: "https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/Real_Madrid_C.F._the_Winner_Of_The_Champions_League_in_2018_(1).jpg",
+  STORE: "https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/kvaradona.jpg",
+  STORE_CARD: "https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/kvaradona.jpg",
+  MARKET: ""
+};
+(function(){
+  function applyImages(){
+    var urls = window.TCOL_MENU_IMAGE_URLS || {};
+    document.querySelectorAll('[data-image-slot]').forEach(function(slot){
+      var key = slot.getAttribute('data-image-slot');
+      var url = typeof urls[key] === 'string' ? urls[key].trim() : '';
+      if(!url) return;
+      var img = slot.querySelector('img');
+      if(!img){ img = document.createElement('img'); img.alt=''; img.decoding='async'; slot.appendChild(img); }
+      img.src=url;
+      var label=slot.querySelector('.tcol-placeholder-label');
+      if(label) label.style.display='none';
+    });
+  }
+  window.applyTcolMenuImages = applyImages;
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyImages);
+  else applyImages();
+})();
+</script>
+
+<script>document.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target&&e.target.id==="promo-code-input"){e.preventDefault();if(typeof redeemCode==="function")redeemCode();}});</script>
+<style id="tcol-home-extra-buttons-layout-fix">
+/* One fixed viewport: the home screen must never become its own scroll page. */
+#main-menu{
+  width:100%!important;
+  height:100vh!important;
+  height:100dvh!important;
+  min-height:0!important;
+  max-height:100dvh!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+#main-menu > .menu-top-bar{
+  flex:0 0 auto!important;
+}
+#main-menu > .menu-middle{
+  position:relative!important;
+  display:flex!important;
+  flex:1 1 0px!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:clamp(8px,1.4dvh,14px) clamp(10px,2.5vw,22px)!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+#main-menu > .menu-middle::before{
+  content:none!important;
+  display:none!important;
+}
+#main-menu > .menu-bottom-bar{
+  flex:0 0 auto!important;
+}
+#main-menu .tcol-home-grid{
+  display:grid!important;
+  flex:1 1 auto!important;
+  align-self:stretch!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  grid-template-rows:minmax(0,1fr) minmax(0,1fr) minmax(88px,.72fr)!important;
+  grid-template-areas:
+    "multiplayer draft"
+    "market store"
+    "team team"!important;
+  grid-auto-rows:minmax(0,1fr)!important;
+  gap:clamp(7px,1.1dvh,12px)!important;
+  align-content:stretch!important;
+  overflow:hidden!important;
+}
+#main-menu .tcol-home-grid > .tcol-wide-card{grid-area:multiplayer!important}
+#main-menu .tcol-home-grid > button[aria-label="Open Draft"]{grid-area:draft!important}
+#main-menu .tcol-home-grid > .tcol-market-card{grid-area:market!important}
+#main-menu .tcol-home-grid > .tcol-store-card{grid-area:store!important}
+#main-menu .tcol-home-grid > .team-widget{grid-area:team!important}
+#main-menu .tcol-menu-card{
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  margin:0!important;
+}
+
+/* Compact phone header and footer; keep the game content between them. */
+@media(max-width:800px){
+  #main-menu > .menu-top-bar{
+    margin:0!important;
+    min-height:60px!important;
+    padding:6px 7px!important;
+    border-radius:0!important;
+    gap:5px!important;
+  }
+  #main-menu .game-brand-logo{
+    width:clamp(40px,11vw,56px)!important;
+    max-height:36px!important;
+  }
+  #main-menu .player-info{gap:6px!important}
+  #main-menu .player-info .shield{width:30px!important;height:35px!important}
+  #main-menu .player-name{font-size:clamp(10px,2.8vw,13px)!important;max-width:27vw!important}
+  #main-menu .xp-bar{font-size:8px!important;gap:4px!important}
+  #main-menu .xp-level{font-size:11px!important;padding:2px 4px!important}
+  #main-menu .menu-currencies{gap:4px!important}
+  #main-menu .curr-badge{
+    min-width:0!important;
+    min-height:31px!important;
+    padding:0 5px!important;
+    gap:3px!important;
+    font-size:clamp(9px,2.5vw,11px)!important;
+  }
+  #main-menu .curr-badge img{height:14px!important;max-width:16px!important}
+  #main-menu .icon-btn{width:31px!important;height:31px!important;font-size:16px!important}
+  #main-menu .menu-middle{
+    flex:1 1 0px!important;
+    min-height:0!important;
+    padding:8px 10px!important;
+    gap:0!important;
+    overflow:hidden!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid{
+    grid-template-rows:minmax(0,1fr) minmax(0,1fr) minmax(84px,.72fr)!important;
+    gap:clamp(7px,1.1dvh,10px)!important;
+  }
+  #main-menu .tcol-home-footer{
+    flex:0 0 auto!important;
+    min-height:54px!important;
+    margin:0 8px max(7px,env(safe-area-inset-bottom))!important;
+    padding:3px 5px!important;
+  }
+  #main-menu .tcol-footer-button{
+    flex-direction:column!important;
+    gap:2px!important;
+    padding:3px 2px!important;
+    font-size:8px!important;
+    line-height:1.05!important;
+  }
+  #main-menu .tcol-nav-image{width:23px!important;height:23px!important}
+  #main-menu .tcol-nav-symbol{font-size:17px!important}
+  #main-menu .tcol-market-card .tcol-info-panel,
+  #main-menu .tcol-store-card .tcol-info-panel{padding-left:clamp(30px,8vw,38px)!important}
+  #main-menu .tcol-split-card .tcol-icon-bubble{
+    width:clamp(38px,10vw,46px)!important;
+    height:clamp(38px,10vw,46px)!important;
+    font-size:19px!important;
+  }
+  #main-menu .tcol-split-card .tcol-card-title{font-size:clamp(13px,3.7vw,16px)!important}
+  #main-menu .tcol-split-card .tcol-card-subtitle{font-size:clamp(9px,2.6vw,11px)!important;line-height:1.15!important}
+}
+@media(max-height:700px) and (max-width:800px){
+  #main-menu > .menu-top-bar{min-height:54px!important}
+  #main-menu .tcol-home-footer{min-height:48px!important}
+  #main-menu .center-widgets.tcol-home-grid{
+    grid-template-rows:minmax(0,1fr) minmax(0,1fr) minmax(76px,.68fr)!important;
+    gap:7px!important;
+  }
+  #main-menu .tcol-icon-bubble{width:42px!important;height:42px!important;font-size:18px!important}
+  #main-menu .tcol-split-card .tcol-icon-bubble{width:38px!important;height:38px!important}
+}
+</style>
+
+<script id="tcol-home-menu-scroll-reset">
+(function(){
+  function resetHomeMenuPosition(){
+    var menu=document.getElementById('main-menu');
+    if(!menu) return;
+    menu.scrollTop=0;
+    var middle=menu.querySelector('.menu-middle');
+    if(middle) middle.scrollTop=0;
+  }
+  window.addEventListener('pageshow',resetHomeMenuPosition,{passive:true});
+  document.addEventListener('DOMContentLoaded',resetHomeMenuPosition,{once:true});
+})();
+</script>
+
+<style id="tcol-market-store-team-refinement">
+/* Match the user's marked compact rectangles: keep Market and Store short,
+   while preserving the first-row cards and full-width My Team card. */
+@media (max-width:800px){
+  #main-menu .center-widgets.tcol-home-grid{
+    grid-template-rows:minmax(0,1.25fr) minmax(0,.78fr) minmax(76px,.58fr)!important;
+    gap:clamp(7px,1dvh,10px)!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .tcol-market-card,
+  #main-menu .center-widgets.tcol-home-grid > .tcol-store-card{
+    min-height:0!important;
+    height:100%!important;
+    align-self:start!important;
+    overflow:hidden!important;
+    border-radius:clamp(18px,4vw,26px)!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .tcol-market-card .tcol-image-frame,
+  #main-menu .center-widgets.tcol-home-grid > .tcol-store-card .tcol-image-frame{
+    width:43%!important;
+    right:auto!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .tcol-market-card .tcol-info-panel,
+  #main-menu .center-widgets.tcol-home-grid > .tcol-store-card .tcol-info-panel{
+    left:43%!important;
+    width:57%!important;
+    padding:10px 8px 10px clamp(25px,7vw,36px)!important;
+    box-sizing:border-box!important;
+    justify-content:center!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .tcol-market-card .tcol-icon-bubble,
+  #main-menu .center-widgets.tcol-home-grid > .tcol-store-card .tcol-icon-bubble{
+    left:43%!important;
+    top:50%!important;
+    width:clamp(34px,9vw,42px)!important;
+    height:clamp(34px,9vw,42px)!important;
+    transform:translate(-50%,-50%)!important;
+    font-size:17px!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .tcol-market-card .tcol-card-title,
+  #main-menu .center-widgets.tcol-home-grid > .tcol-store-card .tcol-card-title{
+    font-size:clamp(12px,3.3vw,15px)!important;
+    line-height:1.05!important;
+    margin:0 0 4px!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .tcol-market-card .tcol-card-subtitle,
+  #main-menu .center-widgets.tcol-home-grid > .tcol-store-card .tcol-card-subtitle{
+    font-size:clamp(9px,2.45vw,10.5px)!important;
+    line-height:1.12!important;
+  }
+
+  /* My Team should remain a wide card, but its content must fit comfortably. */
+  #main-menu .center-widgets.tcol-home-grid > .team-widget .tcol-card-title,
+  #main-menu .center-widgets.tcol-home-grid > .team-widget h2,
+  #main-menu .center-widgets.tcol-home-grid > .team-widget h3{
+    font-size:clamp(14px,3.8vw,17px)!important;
+    line-height:1.08!important;
+    margin:0 0 5px!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .team-widget .tcol-card-subtitle,
+  #main-menu .center-widgets.tcol-home-grid > .team-widget p{
+    font-size:clamp(10px,2.8vw,12px)!important;
+    line-height:1.2!important;
+    margin:3px 0!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .team-widget .tcol-icon-bubble,
+  #main-menu .center-widgets.tcol-home-grid > .team-widget .team-ovr,
+  #main-menu .center-widgets.tcol-home-grid > .team-widget .ovr-badge{
+    width:clamp(38px,10vw,46px)!important;
+    height:clamp(38px,10vw,46px)!important;
+    font-size:clamp(13px,3.4vw,16px)!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .team-widget .tcol-image-frame{
+    width:44%!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .team-widget .tcol-info-panel{
+    left:44%!important;
+    width:56%!important;
+    padding:8px 10px 8px 18px!important;
+    box-sizing:border-box!important;
+  }
+}
+@media(max-height:700px) and (max-width:800px){
+  #main-menu .center-widgets.tcol-home-grid{
+    grid-template-rows:minmax(0,1.15fr) minmax(0,.75fr) minmax(68px,.52fr)!important;
+  }
+}
+</style>
+
+
+<style id="tcol-mobile-cards-more-breathing-room">
+@media(max-width:800px){
+  /* Shrink the main feature cards and create visible wallpaper gutters. */
+  #main-menu .center-widgets.tcol-home-grid{
+    width:calc(100% - 18px)!important;
+    margin:0 auto!important;
+    gap:clamp(12px,2.1dvh,20px)!important;
+    grid-template-rows:minmax(0,1fr) minmax(0,.62fr) minmax(68px,.48fr)!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .tcol-wide-card,
+  #main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"]{
+    min-width:0!important;
+    min-height:0!important;
+    border-radius:clamp(18px,4vw,25px)!important;
+    transform:scale(.94)!important;
+    transform-origin:center center!important;
+    box-shadow:0 8px 22px rgba(0,0,0,.16)!important;
+  }
+  /* Keep Market and Store compact, with breathing room around each card. */
+  #main-menu .center-widgets.tcol-home-grid > .tcol-market-card,
+  #main-menu .center-widgets.tcol-home-grid > .tcol-store-card{
+    transform:scale(.96)!important;
+    transform-origin:center center!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .team-widget{
+    transform:scale(.97)!important;
+    transform-origin:center center!important;
+  }
+}
+@media(max-height:760px) and (max-width:800px){
+  #main-menu .center-widgets.tcol-home-grid{
+    gap:clamp(10px,1.7dvh,14px)!important;
+    grid-template-rows:minmax(0,1fr) minmax(0,.58fr) minmax(64px,.44fr)!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > .tcol-wide-card,
+  #main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"]{
+    transform:scale(.92)!important;
+  }
+}
+</style>
+
+
+<style id="tcol-footer-three-button-alignment">
+@media(max-width:800px){
+  #main-menu .tcol-home-footer{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    align-items:center!important;
+    justify-items:stretch!important;
+    gap:0!important;
+    box-sizing:border-box!important;
+    padding:5px 8px!important;
+  }
+  #main-menu .tcol-home-footer > .tcol-footer-button,
+  #main-menu .tcol-home-footer > button,
+  #main-menu .tcol-home-footer > a{
+    display:flex!important;
+    width:100%!important;
+    min-width:0!important;
+    height:100%!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:4px 2px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    justify-self:stretch!important;
+    align-self:stretch!important;
+    flex-direction:column!important;
+    gap:4px!important;
+    box-sizing:border-box!important;
+    text-align:center!important;
+    line-height:1.05!important;
+  }
+  #main-menu .tcol-home-footer > .tcol-footer-button > *,
+  #main-menu .tcol-home-footer > button > *,
+  #main-menu .tcol-home-footer > a > *{
+    flex:0 0 auto!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+  #main-menu .tcol-home-footer .tcol-nav-image{
+    display:block!important;
+    width:24px!important;
+    height:24px!important;
+    object-fit:contain!important;
+    margin:0 auto!important;
+  }
+  #main-menu .tcol-home-footer .tcol-nav-symbol{
+    display:flex!important;
+    width:24px!important;
+    height:24px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0 auto!important;
+    line-height:1!important;
+  }
+  #main-menu .tcol-home-footer .tcol-footer-label{
+    display:block!important;
+    width:100%!important;
+    margin:0 auto!important;
+    text-align:center!important;
+    white-space:nowrap!important;
+    line-height:1.05!important;
+  }
+}
+</style>
+
+
+
+
+
+<style id="tcol-draft-image-panel-compact">
+@media(max-width:800px){
+  #main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"]{
+    position:relative!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-image-frame{
+    top:0!important;left:0!important;
+    width:44%!important;height:50%!important;
+    min-height:0!important;max-height:50%!important;
+    aspect-ratio:auto!important;overflow:hidden!important;
+    border-top-left-radius:inherit!important;
+    border-bottom-right-radius:14px!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-image-frame img{
+    position:absolute!important;inset:0!important;
+    width:100%!important;height:100%!important;
+    object-fit:cover!important;object-position:center!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-info-panel{
+    top:0!important;right:0!important;bottom:0!important;left:44%!important;
+    width:56%!important;height:100%!important;
+    padding-left:clamp(34px,4vw,52px)!important;
+  }
+  #main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-icon-bubble{
+    left:44%!important;top:50%!important;
+  }
+}
+</style>
+\n
+<style id="tcol-daily-login-image-fit">
+#main-menu .tcol-daily-footer .tcol-nav-image{
+  width:28px!important;height:28px!important;display:flex!important;
+  align-items:center!important;justify-content:center!important;overflow:hidden!important;
+  border-radius:9px!important;
+}
+#main-menu .tcol-daily-footer .tcol-nav-image img{
+  width:100%!important;height:100%!important;object-fit:contain!important;display:block!important;
+}
+#main-menu .tcol-daily-footer .tcol-nav-image > span{display:none!important}
+</style>
+\n
+<style id="tcol-draft-image-match-multiplayer">
+/* Draft image area now uses the exact same frame geometry as 1v1 Multiplayer. */
+#main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-image-frame{
+  position:absolute!important;
+  top:0!important;left:0!important;right:auto!important;bottom:auto!important;
+  width:100%!important;height:47%!important;
+  min-height:0!important;max-height:none!important;
+  aspect-ratio:16/9!important;
+  overflow:hidden!important;
+  border-radius:0!important;
+}
+#main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-image-frame img{
+  position:absolute!important;inset:0!important;
+  width:100%!important;height:100%!important;
+  object-fit:cover!important;object-position:center!important;
+}
+#main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-info-panel{
+  position:absolute!important;
+  left:0!important;right:0!important;top:auto!important;bottom:0!important;
+  width:100%!important;height:57%!important;
+  display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:center!important;
+  text-align:center!important;
+}
+#main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-card-title,
+#main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-card-subtitle{
+  text-align:center!important;
+}
+#main-menu .center-widgets.tcol-home-grid > button[aria-label="Open Draft"] .tcol-icon-bubble{
+  left:50%!important;top:47%!important;
+}
+</style>
 
 </body>
 </html>

@@ -608,6 +608,7 @@
 
   .pack{height:280px;background:#000;border:2px solid gold;border-radius:10px;position:relative;cursor:pointer;overflow:hidden; flex-shrink: 0;}
   .cover{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:.8s;background:radial-gradient(circle,gold,#8a6d00)}
+  .cover .pack-cover-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .pack.opened .cover{transform:translateY(-110%);opacity:0}
   .cover b{font-size:32px;color:#000}
   .cover span{background:#000;color:gold;padding:5px 10px;border-radius:12px;font-size:9px;margin-top:6px}
@@ -1545,6 +1546,17 @@ body{overflow-x:hidden}
 @media(max-width:600px){#draft-ui .draws{grid-template-columns:1fr;padding:10px}#draft-ui .banner img{width:clamp(72px,24vw,90px);height:clamp(105px,33vw,125px)}.tcol-pack-desc{min-height:0}}
 </style>
 
+<style id="tcol-achievements-style">
+#achievements-ui{min-height:100vh;padding:18px 14px 70px;background:radial-gradient(ellipse at 50% -12%,#28513d 0%,#10251d 42%,#07110e 100%);color:#f4fff7;box-sizing:border-box}
+.tcol-achievements-shell{width:min(1120px,100%);margin:0 auto}
+.tcol-achievements-top{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;margin:4px 0 16px}
+.tcol-achievements-heading{text-align:center}.tcol-achievements-kicker{font-size:9px;letter-spacing:3px;color:#9fe7ba;font-weight:1000}.tcol-achievements-heading h1{margin:5px 0 3px;font-size:clamp(25px,4vw,38px);letter-spacing:1px}.tcol-achievements-sub{font-size:9px;letter-spacing:1.5px;color:#9fb9a8;font-weight:800}
+.tcol-achievements-count{min-width:82px;text-align:center;border:1px solid #b7ffce44;background:#0b1d15;border-radius:11px;padding:10px 12px}.tcol-achievements-count strong{display:block;color:#baff69;font-size:22px;font-weight:1000}.tcol-achievements-count span{font-size:8px;letter-spacing:1.5px;color:#a8c6b1;font-weight:900}
+.tcol-achievements-progress{height:8px;border-radius:99px;background:#ffffff17;overflow:hidden;margin-bottom:17px}.tcol-achievements-progress>div{height:100%;width:0;background:linear-gradient(90deg,#38c778,#d4ff70);border-radius:99px;transition:width .25s ease}
+.tcol-achievements-filters{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin:0 0 17px}.tcol-achievements-filters button{border:1px solid #ffffff23;background:#0a1712;color:#b6cbbd;border-radius:8px;padding:9px 12px;font:900 9px Arial,sans-serif;letter-spacing:.7px;cursor:pointer}.tcol-achievements-filters button.active{background:#baff69;color:#0b160e;border-color:#baff69;box-shadow:0 0 14px #baff6930}
+.tcol-achievements-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.tcol-achievement-card{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:11px;align-items:start;padding:14px;border:1px solid #ffffff18;border-radius:12px;background:linear-gradient(140deg,#11251b,#0b1712 75%);box-shadow:0 7px 20px #0003;min-width:0}.tcol-achievement-card.is-unlocked{border-color:#baff695c;background:linear-gradient(140deg,#1c3823,#0d1b13 76%)}.tcol-achievement-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;background:#ffffff0b;border:1px solid #ffffff1c;font-size:21px}.tcol-achievement-card.is-unlocked .tcol-achievement-icon{background:#baff6918;border-color:#baff6966}.tcol-achievement-main{min-width:0}.tcol-achievement-category{font-size:8px;letter-spacing:1.1px;color:#91b29d;font-weight:1000}.tcol-achievement-name{margin:4px 0 3px;font-size:13px;line-height:1.2;font-weight:1000;color:#f5fff7}.tcol-achievement-desc{font-size:10px;line-height:1.45;color:#a8bdb0}.tcol-achievement-progress-label{display:flex;justify-content:space-between;gap:8px;margin-top:9px;font-size:9px;color:#c3d3c7;font-weight:900}.tcol-achievement-bar{height:4px;background:#ffffff16;border-radius:99px;overflow:hidden;margin-top:5px}.tcol-achievement-bar>span{display:block;height:100%;width:0;background:#81dca1;border-radius:99px}.tcol-achievement-card.is-unlocked .tcol-achievement-bar>span{background:#baff69}.tcol-achievement-status{font-size:8px;font-weight:1000;letter-spacing:.6px;color:#859a8c;border:1px solid #ffffff20;border-radius:5px;padding:5px 6px;white-space:nowrap}.tcol-achievement-card.is-unlocked .tcol-achievement-status{color:#caff78;border-color:#baff6955;background:#baff6910}
+@media(max-width:650px){#achievements-ui{padding:12px 10px 60px}.tcol-achievements-top{grid-template-columns:auto 1fr auto;gap:8px}.tcol-achievements-top>.home-btn{font-size:9px;padding:9px 8px}.tcol-achievements-kicker{font-size:7px}.tcol-achievements-heading h1{font-size:22px}.tcol-achievements-sub{font-size:7px;letter-spacing:.6px}.tcol-achievements-count{min-width:58px;padding:7px 7px}.tcol-achievements-count strong{font-size:18px}.tcol-achievements-count span{font-size:7px}.tcol-achievements-filters{gap:5px}.tcol-achievements-filters button{padding:8px 9px;font-size:8px}.tcol-achievements-grid{grid-template-columns:1fr;gap:8px}.tcol-achievement-card{grid-template-columns:38px minmax(0,1fr) auto;padding:11px;gap:9px}.tcol-achievement-icon{width:36px;height:36px;font-size:18px}.tcol-achievement-name{font-size:12px}.tcol-achievement-desc{font-size:9px}}
+</style>
 </head>
 <body>
 
@@ -1690,6 +1702,10 @@ body{overflow-x:hidden}
       <span>REDEEM CODE</span>
     </button>
     <button type="button" class="nav-btn tcol-footer-button tcol-daily-footer" onclick="claimDailyLogin()" aria-label="Claim Daily Login reward"><span class="tcol-nav-image" data-image-slot="DAILY_LOGIN"><span>IMG</span></span><span>DAILY LOGIN</span></button>
+    <button type="button" class="nav-btn tcol-footer-button" onclick="openAchievements()" aria-label="Open achievements">
+      <span class="tcol-nav-symbol">★</span>
+      <span>ACHIEVEMENTS <small id="tcol-achievement-menu-count" style="display:block;font-size:8px;opacity:.75;">0/50</small></span>
+    </button>
     <button type="button" class="nav-btn tcol-footer-button" onclick="openNewsPanel()" aria-label="News and what's new">
       <span class="tcol-nav-symbol">▣</span>
       <span>NEWS</span>
@@ -1731,6 +1747,22 @@ body{overflow-x:hidden}
           25,000 COL POINTS — BUY
         </button>
       </div>
+
+      <div class="squad-player" style="height:430px; border:2px solid #e8c45b; box-shadow:0 0 18px rgba(232,196,91,.24);">
+        <div style="font-size:18px; font-weight:900; color:#e8c45b; letter-spacing:2px;">COL-MARKET</div>
+        <div id="ronaldo-card-image-area" style="width:100%; height:250px; display:flex; align-items:center; justify-content:center; border:1px dashed #665b3d; border-radius:8px; margin:10px 0; background:#090d14; overflow:hidden;">
+          <img src="https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/Untitled10_20261108180618.png" alt="Cristiano Ronaldo 108 OVR card" style="width:100% !important; height:100% !important; max-width:none !important; max-height:none !important; object-fit:contain !important; display:block;">
+        </div>
+        <b style="color:#fff; font-size:18px;">CRISTIANO RONALDO</b>
+        <div style="color:#aaa; font-size:11px; margin-top:6px;">ONE OF THE GOAT</div>
+        <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:9px;">
+          <span style="background:#e8c45b;color:#17130a;border-radius:5px;padding:4px 8px;font-size:12px;font-weight:1000;">108 OVR</span>
+          <span style="background:#182735;color:#d6f2ff;border:1px solid #42637c;border-radius:5px;padding:4px 8px;font-size:11px;font-weight:900;">CAM · ST · LW</span>
+        </div>
+        <button class="trade-btn" onclick="buyColMarketRonaldo()" style="width:90%; margin-top:14px; padding:12px; font-size:15px;">
+          25,000 COL POINTS — BUY
+        </button>
+      </div>
     </div>
   </div></div>
 
@@ -1740,6 +1772,31 @@ body{overflow-x:hidden}
  <h1>REDEEM CODE</h1><div class="sub">Enter a code to claim your reward</div>
  <div class="tcol-redeem-panel"><div class="tcol-redeem-mark">THE CUP OF LIFE</div><label for="promo-code-input">PROMO CODE</label><input type="text" id="promo-code-input" placeholder="ENTER CODE" autocomplete="off" autocapitalize="characters" spellcheck="false"><button class="trade-btn" onclick="redeemCode()" type="button">REDEEM</button><div class="tcol-redeem-hint">Rewards are added to your existing account.</div></div>
 </div>
+<!-- ACHIEVEMENTS UI -->
+<div id="achievements-ui" style="display:none;">
+  <div class="tcol-achievements-shell">
+    <div class="tcol-achievements-top">
+      <button class="home-btn" type="button" onclick="closeAchievements()">← HOME</button>
+      <div class="tcol-achievements-heading">
+        <div class="tcol-achievements-kicker">THE CUP OF LIFE</div>
+        <h1>ACHIEVEMENTS</h1>
+        <div class="tcol-achievements-sub">COMPLETE CHALLENGES. BUILD YOUR LEGACY.</div>
+      </div>
+      <div class="tcol-achievements-count"><strong id="tcol-achievement-count">0/50</strong><span>UNLOCKED</span></div>
+    </div>
+    <div class="tcol-achievements-progress"><div id="tcol-achievement-progress-fill"></div></div>
+    <div class="tcol-achievements-filters" role="group" aria-label="Achievement categories">
+      <button type="button" class="active" data-achievement-filter="ALL" onclick="setAchievementFilter('ALL')">ALL</button>
+      <button type="button" data-achievement-filter="COLLECTION" onclick="setAchievementFilter('COLLECTION')">COLLECTION</button>
+      <button type="button" data-achievement-filter="PACKS" onclick="setAchievementFilter('PACKS')">PACKS</button>
+      <button type="button" data-achievement-filter="DAILY & STORE" onclick="setAchievementFilter('DAILY & STORE')">DAILY & STORE</button>
+      <button type="button" data-achievement-filter="TEAM XI" onclick="setAchievementFilter('TEAM XI')">TEAM XI</button>
+      <button type="button" data-achievement-filter="MULTIPLAYER" onclick="setAchievementFilter('MULTIPLAYER')">MULTIPLAYER</button>
+    </div>
+    <div id="tcol-achievements-list" class="tcol-achievements-grid"></div>
+  </div>
+</div>
+
 <!-- DRAFT PACK UI -->
 <div id="draft-ui">
   <div class="top">
@@ -1762,7 +1819,7 @@ body{overflow-x:hidden}
       </div>
       <div class="info">
         <div class="type">Epic • Goal Bandit</div>
-        <div class="title">THE BANDIT TRIO</div><div class="tcol-pack-desc">Hunt for Inzaghi, Eto’o or Owen. Every draw gives 5 players, with a 10% Legend chance per draw.</div>
+        <div class="title">THE BANDIT TRIO</div><div class="tcol-pack-desc">Hunt for Inzaghi, Eto’o or Owen. 5 players for 100 Coins (10% chance for ONE Legend) or 10 players for 1,000 Coins (25% chance for ONE Legend). No player repeats inside a pack.</div>
         <div class="btns">
           <div class="b" onclick="openD(1, 1)">x1 🪙100</div>
           <div class="b" onclick="openD(1, 10)">x10 🪙1000</div>
@@ -1778,7 +1835,7 @@ body{overflow-x:hidden}
       </div>
       <div class="info">
         <div class="type">Epic • Netherlands 1992 Euro's</div>
-        <div class="title">THE DUTCH TRIO</div><div class="tcol-pack-desc">A Dutch greats selection featuring Van Basten, Rijkaard and Gullit. 5 players per draw; 10% Legend chance per draw.</div>
+        <div class="title">THE DUTCH TRIO</div><div class="tcol-pack-desc">A Dutch greats selection featuring Van Basten, Rijkaard and Gullit. 5 players for 100 Coins (10% chance for ONE Legend) or 10 players for 1,000 Coins (25% chance for ONE Legend). No player repeats inside a pack.</div>
         <div class="btns">
           <div class="b" onclick="openD(2, 1)">x1 🪙100</div>
           <div class="b" onclick="openD(2, 10)">x10 🪙1000</div>
@@ -1794,7 +1851,7 @@ body{overflow-x:hidden}
       </div>
       <div class="info">
         <div class="type">Epic • French National Team</div>
-        <div class="title">LES BLEUS</div><div class="tcol-pack-desc">Discover French stars Mbappé, Olise and Dembélé. 5 players per draw; 10% Legend chance per draw.</div>
+        <div class="title">LES BLEUS</div><div class="tcol-pack-desc">Discover French stars Mbappé, Olise and Dembélé. 5 players for 100 Coins (10% chance for ONE Legend) or 10 players for 1,000 Coins (25% chance for ONE Legend). No player repeats inside a pack.</div>
         <div class="btns">
           <div class="b" onclick="openD(3, 1)">x1 🪙100</div>
           <div class="b" onclick="openD(3, 10)">x10 🪙1000</div>
@@ -1810,7 +1867,7 @@ body{overflow-x:hidden}
       </div>
       <div class="info">
         <div class="type">LEGEND • ITALIA</div>
-        <div class="title">THE WALL FROM ITALIA</div><div class="tcol-pack-desc">Build your defence with Italian icons Maldini, Nesta and Cannavaro. 5 players per draw; 10% Legend chance per draw.</div>
+        <div class="title">THE WALL FROM ITALIA</div><div class="tcol-pack-desc">Build your defence with Italian icons Maldini, Nesta and Cannavaro. 5 players for 100 Coins (10% chance for ONE Legend) or 10 players for 1,000 Coins (25% chance for ONE Legend). No player repeats inside a pack.</div>
         <div class="btns">
           <div class="b" onclick="openD(4, 1)">x1 🪙100</div>
           <div class="b" onclick="openD(4, 10)">x10 🪙1000</div>
@@ -1823,7 +1880,7 @@ body{overflow-x:hidden}
     <button onclick="closeD()" style="background:#0066ff;color:#fff;padding:8px 14px;border:none;border-radius:6px;font-weight:900;cursor:pointer;">← Back</button> 
     <span id="tt" style="color:gold;margin-left:10px;font-size:12px;letter-spacing:2px"></span> 
     <span id="cnt" style="color:gold;margin-left:14px;font-size:11px"></span>
-    <div id="tcol-pack-detail-copy" class="tcol-pack-detail-copy">Each draw contains 5 player cards. Tap a card to reveal it.</div>
+    <div id="tcol-pack-detail-copy" class="tcol-pack-detail-copy">This pack contains 5 cards for 100 Coins or 10 cards for 1,000 Coins. Tap a card to reveal it.</div>
   </div>
 
   <div class="pack-grid" id="p1"></div>
@@ -1895,6 +1952,7 @@ body{overflow-x:hidden}
     <div class="room-type-toggle">
       <button id="mp-mode-ovr" class="col-modal-btn primary" onclick="selectMpMode('ovr')">DRAFT OVR</button>
       <button id="mp-mode-matchtime" class="col-modal-btn" onclick="selectMpMode('matchtime')">DRAFT TEAM MATCHTIME</button>
+      <button id="mp-mode-onesim" class="col-modal-btn" onclick="selectMpMode('onesim')">ONE-ON-ONE SIM</button>
     </div>
     <button class="col-modal-btn primary" onclick="openCreateRoomDialog()">CREATE ROOM</button>
     <button class="col-modal-btn" onclick="openJoinGame()">JOIN GAME</button>
@@ -2083,19 +2141,32 @@ body{overflow-x:hidden}
 
 <!-- DRAFT TEAM MATCHTIME UI -->
 <div id="matchtime-ui" style="display:none; position:fixed; inset:0; z-index:1900; background:linear-gradient(180deg,#061b12,#07110d); color:#fff; font-family:'Arial Black',Arial,sans-serif;">
-  <div style="padding:16px 14px 10px;border-bottom:1px solid #0f6044;display:flex;justify-content:space-between;align-items:center;">
+  <div class="mt-header">
     <div>
-      <div style="color:#00d889;font-size:12px;letter-spacing:2px;">DRAFT TEAM MATCHTIME</div>
-      <div id="mt-score" style="font-size:42px;line-height:1;margin-top:5px;">0 - 0</div>
+      <div id="mt-mode-label" class="mt-mode-label">DRAFT TEAM MATCHTIME</div>
+      <div id="mt-score" class="mt-score">0 - 0</div>
     </div>
-    <div id="mt-clock" style="font-size:28px;color:#c7fff0;">00'</div>
+    <div class="mt-header-actions">
+      <div id="mt-clock" class="mt-clock">00'</div>
+      <button id="mt-audio-toggle" class="mt-audio-toggle" type="button" onclick="toggleMatchAudio()" aria-pressed="false">SOUND ON</button>
+    </div>
   </div>
   <div style="padding:12px 14px;border-bottom:1px solid #0f6044;display:flex;justify-content:space-between;align-items:center;">
     <div style="text-align:left;"><div id="mt-p1-name" style="font-size:13px;color:#9fe8cd;">PLAYER 1</div><div id="mt-p1-ovr" style="font-size:18px;color:#00d889;">0 OVR</div></div>
     <div style="color:#2d8f6c;">VS</div>
     <div style="text-align:right;"><div id="mt-p2-name" style="font-size:13px;color:#9fe8cd;">PLAYER 2</div><div id="mt-p2-ovr" style="font-size:18px;color:#00d889;">0 OVR</div></div>
   </div>
-  <div id="mt-feed" style="height:56vh;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:9px;"></div>
+  <div class="mt-stats-panel" aria-label="Match statistics">
+    <div class="mt-stat-block">
+      <div class="mt-stat-label"><span>POSSESSION</span><span><b id="mt-p1-possession">50%</b> <i>—</i> <b id="mt-p2-possession">50%</b></span></div>
+      <div class="mt-stat-bar"><span id="mt-possession-p1-bar"></span><span id="mt-possession-p2-bar"></span></div>
+    </div>
+    <div class="mt-stat-block">
+      <div class="mt-stat-label"><span>CHANCES OF WINNING</span><span><b id="mt-p1-win">50%</b> <i>—</i> <b id="mt-p2-win">50%</b></span></div>
+      <div class="mt-stat-bar win"><span id="mt-win-p1-bar"></span><span id="mt-win-p2-bar"></span></div>
+    </div>
+  </div>
+  <div id="mt-feed" style="height:calc(56vh - 100px);overflow:auto;padding:14px;display:flex;flex-direction:column;gap:9px;"></div>
   <div style="position:absolute;bottom:18px;left:14px;right:14px;text-align:center;color:#8bbbaa;font-size:11px;">MATCH SIMULATION</div>
 </div>
 
@@ -2398,6 +2469,8 @@ function claimDailyLogin() {
   }
   if (lastClaim > 0 && now - lastClaim > TWO_DAYS) streak = 0;
   streak++;
+  tcolAchievementStats.dailyClaims += 1;
+  tcolAchievementStats.bestDailyStreak = Math.max(Number(tcolAchievementStats.bestDailyStreak) || 0, streak);
 
   switch (streak) {
     case 1: playerCoins += 50; showToast("DAILY REWARD RECEIVED! +50 COINS · DAY 1", "success"); break;
@@ -2409,6 +2482,7 @@ function claimDailyLogin() {
     case 7: colPoints += 1000; showToast("DAILY REWARD RECEIVED! +1,000 COL POINTS · DAY 7", "success"); streak = 0; break;
   }
   updateCoinDisplays();
+  tcolCheckAchievements();
   try {
     localStorage.setItem(LAST_CLAIM_KEY, String(now));
     localStorage.setItem(STREAK_KEY, String(streak));
@@ -2475,6 +2549,7 @@ function goToHome() {
   document.getElementById('store-ui').style.display = 'none';
   document.getElementById('multiplayer-draft-ui').style.display = 'none';
   document.getElementById('team-xi-ui').style.display = 'none';
+  const achievementsScreen = document.getElementById('achievements-ui'); if (achievementsScreen) achievementsScreen.style.display = 'none';
   stopBlitzMatch(false);
   document.getElementById('main-menu').style.display = 'flex';
   closeD(); 
@@ -2486,7 +2561,12 @@ function closeD() {
   if (list) list.style.display = 'grid';
   const back = document.getElementById('back');
   if (back) back.classList.remove('active');
-  document.querySelectorAll('.pack-grid').forEach(g => g.classList.remove('active'));
+  // The swipe class uses display:flex!important. Remove it when closing so
+  // hidden pack grids cannot remain visible behind the next pack.
+  document.querySelectorAll('.pack-grid').forEach(g => {
+    g.classList.remove('active', 'swipe-container');
+    g.innerHTML = '';
+  });
 }
 
 function updateCoinDisplays() {
@@ -2501,6 +2581,7 @@ function updateCoinDisplays() {
     const el = document.getElementById(id);
     if (el) el.innerText = colPoints;
   });
+  if (typeof tcolCheckAchievements === 'function') tcolCheckAchievements(true);
 }
 
 function updateTeamStats() {
@@ -2532,11 +2613,12 @@ function updateTeamStats() {
   }
   if (cntEl) cntEl.innerText = `${myPlayers.length} PLAYERS`;
   if (headerEl) headerEl.innerText = `TEAM XI AVG OVR: ${roundedAvg}`;
+  if (typeof tcolCheckAchievements === 'function') tcolCheckAchievements(true);
 }
 
 // --- STORE & MARKET SYSTEMS ---
 function openTcolRedeemCodes(){
- ['main-menu','draft-ui','squad-ui','market-ui','store-ui','multiplayer-draft-ui','team-xi-ui'].forEach(function(id){const el=document.getElementById(id);if(el)el.style.display='none';});
+ ['main-menu','draft-ui','squad-ui','market-ui','store-ui','multiplayer-draft-ui','team-xi-ui','achievements-ui'].forEach(function(id){const el=document.getElementById(id);if(el)el.style.display='none';});
  const el=document.getElementById('redeem-ui');if(el)el.style.display='block';
  updateCoinDisplays();
  if(location.pathname!='/reedem'){try{history.pushState({tcolSection:'redeem'},'','/reedem');}catch(e){}}
@@ -2583,7 +2665,7 @@ function redeemCode() {
  }
  else{showToast('INVALID CODE','error');return;}
  if(!Array.isArray(redeemedCodes))redeemedCodes=[];
- redeemedCodes.push(code);updateCoinDisplays();
+ redeemedCodes.push(code);tcolAchievementStats.codesRedeemed=Math.max(Number(tcolAchievementStats.codesRedeemed)||0,redeemedCodes.length);updateCoinDisplays();tcolCheckAchievements();
  if(typeof updateTeamStats==='function')updateTeamStats();
  if(typeof renderSquad==='function')renderSquad();
  if(typeof saveGame==='function'){try{saveGame(true);}catch(e){console.warn('Redeem save failed:',e);}}
@@ -2670,11 +2752,42 @@ function buyColMarketMessi() {
     flag: "🇦🇷",
     pos: ["RW", "LW", "CAM"]
   });
+  tcolAchievementStats.specialStorePurchases = (Number(tcolAchievementStats.specialStorePurchases) || 0) + 1;
 
   updateCoinDisplays();
   updateTeamStats();
   saveGame();
   showToast("LIONEL MESSI BOUGHT!");
+}
+
+function buyColMarketRonaldo() {
+  const price = 25000;
+  if (has108RonaldoInClub()) {
+    showToast("YOU ALREADY OWN CRISTIANO RONALDO!", "warning");
+    return;
+  }
+  if (colPoints < price) {
+    showToast("NOT ENOUGH COL POINTS!");
+    return;
+  }
+
+  colPoints -= price;
+  tcolAchievementStats.specialStorePurchases = (Number(tcolAchievementStats.specialStorePurchases) || 0) + 1;
+  myPlayers.push({
+    type: "LEGEND",
+    name: "CRISTIANO RONALDO",
+    ovr: 108,
+    img: "https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/Untitled10_20261108180618.png",
+    flag: "🇵🇹",
+    pos: ["CAM", "ST", "LW"]
+  });
+
+  updateCoinDisplays();
+  updateTeamStats();
+  renderSquad();
+  if (typeof tcolCheckAchievements === "function") tcolCheckAchievements();
+  saveGame(true);
+  showToast("CRISTIANO RONALDO BOUGHT!");
 }
 
 function buyPlayer(name, ovr, imgUrl, flag) {
@@ -2897,6 +3010,27 @@ function selectTeamXISlot(slotId) {
   teamXIPickedSlot = slotId;
   renderTeamXI();
 }
+function getLocalTeamXIForSim() {
+  const team = [];
+  const seen = new Set();
+  for (const slot of TEAM_XI_SLOTS) {
+    const player = teamXIPlayerForSlot(slot.id);
+    if (!player || !player.name || seen.has(String(player.name).toLowerCase())) return null;
+    seen.add(String(player.name).toLowerCase());
+    const adjusted = Math.round((Number(player.ovr) || 0) * teamXIQuality(player, slot.id));
+    team.push({
+      n: player.name,
+      ovr: Number(player.ovr) || 0,
+      calculatedOvr: adjusted,
+      pos: [getBasePos(slot.id)],
+      naturalPos: Array.isArray(player.pos) ? player.pos.slice() : [],
+      type: player.type || 'COMMON',
+      slot: slot.id
+    });
+  }
+  return team.length === 11 ? team : null;
+}
+
 function assignTeamXIPlayer(slotId, playerName) {
   if (!playerName) return;
   Object.keys(teamXI).forEach(k => { if (k !== slotId && teamXI[k] === playerName) delete teamXI[k]; });
@@ -3036,7 +3170,7 @@ function mk(playerData) {
       <div class="card-ovr legend">${playerData.ovr}</div>
       <div class="rarity">LEGEND</div>
       <div class="card-pos">${posText}</div>
-      <div class="cover"><b style="color:#000; font-size:42px;">?</b><span>SWIPE / TAP TO REVEAL</span></div>
+      <div class="cover"><img class="pack-cover-art" src="https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/file_00000000f0f8821196ff1ff0c8af2928.png" alt="Pack cover"></div>
       <div class="card"><img src="${playerData.f}"></div>`;
   } else {
     let parts = playerData.n.split(' (');
@@ -3048,7 +3182,7 @@ function mk(playerData) {
       <div class="card-ovr">${playerData.ovr}</div>
       <div class="rarity ${rClass}">${playerData.type || 'COMMON'}</div>
       <div class="card-pos" style="color:#aaa; border-color:#444;">${posText}</div>
-      <div class="cover" style="background:#222"><b style="color:#666; font-size:42px;">?</b><span style="color:#666; max-width:80%; text-align:center; padding: 5px;">SWIPE / TAP TO REVEAL</span></div>
+      <div class="cover" style="background:#222"><img class="pack-cover-art" src="https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/file_00000000f0f8821196ff1ff0c8af2928.png" alt="Pack cover"></div>
       <div class="card"><div style="height:100%;background:#111;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#555; padding:15px; text-align:center;">
         <div style="font-size:20px; line-height: 1.1; margin-bottom: 5px; color:#fff;">${parts[0]}</div>
         <div style="font-size:10px;margin-top:8px; color:#888;">${parts.length > 1 ? parts[1].replace(')', '') : 'COMMON'}</div>
@@ -3108,10 +3242,12 @@ function closeWalkout() {
 }
 
 function openD(n, packType) {
-  let cost = (packType === 1) ? 100 : 1000;
-  if (playerCoins < cost) { 
-    showToast("NOT ENOUGH COINS!"); 
-    return; 
+  const cardsBeforePack = Array.isArray(myPlayers) ? myPlayers.length : 0;
+  const isSmallPack = packType === 1;
+  const cost = isSmallPack ? 100 : 1000;
+  if (playerCoins < cost) {
+    showToast("NOT ENOUGH COINS!");
+    return;
   }
 
   playerCoins -= cost;
@@ -3119,78 +3255,403 @@ function openD(n, packType) {
 
   document.getElementById('list').style.display = 'none';
   document.getElementById('back').classList.add('active');
-  let g = document.getElementById('p' + n);
+  // Start each opening with one clean grid only; stale cards from other packs
+  // must never leak into this pack's layout or reveal-all action.
+  document.querySelectorAll('.pack-grid').forEach(grid => {
+    grid.classList.remove('active', 'swipe-container');
+    grid.innerHTML = '';
+  });
+  const g = document.getElementById('p' + n);
   g.classList.add('active');
-  
+
   window.c = 0;
   document.getElementById('cnt').innerText = 'DRAWN: 0';
-  
-  const packCopy={
-    1:['DRAW 1: INZAGHI / ETO / OWEN','THE BANDIT TRIO • 5 cards per draw. Featured Legends: Inzaghi, Eto’o and Owen. Every draw has a 10% chance to contain a Legend.'],
-    2:['DRAW 2: VAN BASTEN / RIJKAARD / GULLIT','THE DUTCH TRIO • 5 cards per draw. Featured Legends: Van Basten, Rijkaard and Gullit. Every draw has a 10% chance to contain a Legend.'],
-    3:['DRAW 3: MBAPPÉ / OLISE / DEMBÉLÉ','LES BLEUS • 5 cards per draw. Featured Legends: Mbappé, Olise and Dembélé. Every draw has a 10% chance to contain a Legend.'],
-    4:['THE WALL FROM ITALIA: MALDINI / NESTA / CANNAVARO','THE WALL FROM ITALIA • 5 cards per draw. Featured Legends: Maldini, Nesta and Cannavaro. Every draw has a 10% chance to contain a Legend.']
-  };
-  document.getElementById('tt').innerText=packCopy[n][0];
-  const detailCopy=document.getElementById('tcol-pack-detail-copy');if(detailCopy)detailCopy.innerText=packCopy[n][1]+' Tap a pack to reveal the player card.';
-  
-  g.innerHTML = '';
-  
-  let amount = (packType === 1) ? 5 : 20; 
-  let legendChance = 0.10; 
 
-  if (packType === 1) {
+  const smallOdds = 10;
+  const largeOdds = 25;
+  const legendChance = isSmallPack ? smallOdds / 100 : largeOdds / 100;
+  const amount = isSmallPack ? 10 : 20;
+  const packCopy = {
+    1: ['DRAW 1: INZAGHI / ETO / OWEN', 'THE BANDIT TRIO • 10 cards for 100 Coins (10% chance of at least ONE Legend) or 20 cards for 1,000 Coins (25% chance of at least ONE Legend). No player repeats inside a pack.'],
+    2: ['DRAW 2: VAN BASTEN / RIJKAARD / GULLIT', 'THE DUTCH TRIO • 10 cards for 100 Coins (10% chance of at least ONE Legend) or 20 cards for 1,000 Coins (25% chance of at least ONE Legend). No player repeats inside a pack.'],
+    3: ['DRAW 3: MBAPPÉ / OLISE / DEMBÉLÉ', 'LES BLEUS • 10 cards for 100 Coins (10% chance of at least ONE Legend) or 20 cards for 1,000 Coins (25% chance of at least ONE Legend). No player repeats inside a pack.'],
+    4: ['THE WALL FROM ITALIA: MALDINI / NESTA / CANNAVARO', 'THE WALL FROM ITALIA • 10 cards for 100 Coins (10% chance of at least ONE Legend) or 20 cards for 1,000 Coins (25% chance of at least ONE Legend). No player repeats inside a pack.']
+  };
+  document.getElementById('tt').innerText = packCopy[n][0];
+  const detailCopy = document.getElementById('tcol-pack-detail-copy');
+  if (detailCopy) detailCopy.innerText = packCopy[n][1] + ' Tap a pack to reveal the player card.';
+
+  g.innerHTML = '';
+  if (isSmallPack) {
     g.classList.add('swipe-container');
   } else {
     g.classList.remove('swipe-container');
-    let skipBtn = document.createElement('button');
-    skipBtn.innerText = "SKIP & REVEAL ALL";
-    skipBtn.style.cssText = "grid-column: 1/-1; background: gold; color: #000; padding: 12px; font-weight: 900; cursor: pointer; border-radius: 6px; border: none; margin-bottom: 10px;";
+    const skipBtn = document.createElement('button');
+    skipBtn.innerText = 'SKIP & REVEAL ALL';
+    skipBtn.style.cssText = 'grid-column:1/-1;background:gold;color:#000;padding:12px;font-weight:900;cursor:pointer;border-radius:6px;border:none;margin-bottom:10px;';
     skipBtn.onclick = () => {
-      document.querySelectorAll('.pack:not(.opened)').forEach(p => p.click());
+      g.querySelectorAll('.pack:not(.opened)').forEach(p => p.click());
       skipBtn.style.display = 'none';
     };
     g.appendChild(skipBtn);
   }
 
-  // Clone pools per session to enforce NO DUPLICATES
-  let sessionLegends = (n === 1) ? [...d1] : (n === 2) ? [...d2] : (n === 3) ? [...d3] : [...italianWallLegends];
-  let sessionGolds = allCommons.filter(p => p.ovr >= 83);
-  let sessionSilvers = allCommons.filter(p => p.ovr >= 70 && p.ovr <= 82);
-  let sessionBronzes = allCommons.filter(p => p.ovr < 70);
-  
-  for(let i = 0; i < amount; i++) {
-    let isL = (Math.random() < legendChance) && (sessionLegends.length > 0);
+  // Create clean, name-unique pools. A player can exist in both the Legend
+  // database and the normal database, so one shared name set is used below.
+  // Match short featured names to their full names in the common-player list too.
+  // Accent-insensitive normalization also treats DEMBELE / DEMBÉLÉ as the same card.
+  const playerAliases = {
+    'inzaghi': 'filippo inzaghi', 'filippo inzaghi': 'filippo inzaghi',
+    "eto'o": "samuel eto'o", "samuel eto'o": "samuel eto'o",
+    'owen': 'michael owen', 'michael owen': 'michael owen',
+    'van basten': 'marco van basten', 'marco van basten': 'marco van basten',
+    'rijkaard': 'frank rijkaard', 'frank rijkaard': 'frank rijkaard',
+    'gullit': 'ruud gullit', 'ruud gullit': 'ruud gullit',
+    'mbappe': 'kylian mbappe', 'kylian mbappe': 'kylian mbappe',
+    'olise': 'michael olise', 'michael olise': 'michael olise',
+    'dembele': 'ousmane dembele', 'ousmane dembele': 'ousmane dembele',
+    'maldini': 'paolo maldini', 'paolo maldini': 'paolo maldini',
+    'nesta': 'alessandro nesta', 'alessandro nesta': 'alessandro nesta',
+    'cannavaro': 'fabio cannavaro', 'fabio cannavaro': 'fabio cannavaro'
+  };
+  const playerKey = p => {
+    const normalized = String(p && p.n ? p.n : '')
+      .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+      .trim().replace(/\s+/g, ' ').toLowerCase();
+    return playerAliases[normalized] || normalized;
+  };
+  const uniqueByName = list => {
+    const seen = new Set();
+    return (Array.isArray(list) ? list : []).filter(p => {
+      const key = playerKey(p);
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+
+  const sessionLegends = uniqueByName(
+    n === 1 ? d1 : n === 2 ? d2 : n === 3 ? d3 : italianWallLegends
+  );
+  const sessionCommons = uniqueByName(allCommons);
+  const sessionGolds = sessionCommons.filter(p => Number(p.ovr) >= 83);
+  const sessionSilvers = sessionCommons.filter(p => Number(p.ovr) >= 70 && Number(p.ovr) <= 82);
+  const sessionBronzes = sessionCommons.filter(p => Number(p.ovr) < 70);
+  const usedNames = new Set();
+
+  // Legend probability is checked ONCE per pack (not once per card).
+  // A successful pack receives exactly one Legend at a random card position.
+  let featuredLegend = null;
+  let featuredLegendKey = '';
+  if (sessionLegends.length && Math.random() < legendChance) {
+    const legendIndex = Math.floor(Math.random() * sessionLegends.length);
+    featuredLegend = sessionLegends[legendIndex];
+    featuredLegendKey = playerKey(featuredLegend);
+  }
+  const legendSlot = featuredLegend ? Math.floor(Math.random() * amount) : -1;
+
+  const availableFrom = pool => pool.filter(p => {
+    const key = playerKey(p);
+    return key && !usedNames.has(key) && key !== featuredLegendKey;
+  });
+
+  const takeCommonCard = () => {
+    const roll = Math.random();
+    const requestedRarity = roll < 0.45 ? 'GOLD' : (roll < 0.80 ? 'SILVER' : 'BRONZE');
+    const pools = {
+      GOLD: sessionGolds,
+      SILVER: sessionSilvers,
+      BRONZE: sessionBronzes
+    };
+    const fallbackOrder = requestedRarity === 'GOLD'
+      ? ['GOLD', 'SILVER', 'BRONZE']
+      : requestedRarity === 'SILVER'
+        ? ['SILVER', 'GOLD', 'BRONZE']
+        : ['BRONZE', 'SILVER', 'GOLD'];
+
+    for (const rarity of fallbackOrder) {
+      const available = availableFrom(pools[rarity]);
+      if (!available.length) continue;
+      const selected = available[Math.floor(Math.random() * available.length)];
+      usedNames.add(playerKey(selected));
+      return selected;
+    }
+    return null;
+  };
+
+  for (let i = 0; i < amount; i++) {
     let pData;
-
-    if (isL) {
-      let idx = Math.floor(Math.random() * sessionLegends.length);
-      let sel = sessionLegends.splice(idx, 1)[0];
-      pData = { type: 'LEGEND', n: sel.n, ovr: sel.ovr, f: sel.f, flag: sel.flag || '🌍', pos: sel.pos };
+    if (i === legendSlot && featuredLegend) {
+      usedNames.add(featuredLegendKey);
+      pData = {
+        type: 'LEGEND', n: featuredLegend.n, ovr: featuredLegend.ovr,
+        f: featuredLegend.f || '', flag: featuredLegend.flag || '🌍',
+        pos: featuredLegend.pos
+      };
     } else {
-      let r = Math.random();
-      let rarityType = 'BRONZE';
-      if (r < 0.45) rarityType = 'GOLD';
-      else if (r < 0.80) rarityType = 'SILVER';
-
-      let pool;
-      if (rarityType === 'GOLD' && sessionGolds.length > 0) pool = sessionGolds;
-      else if (rarityType === 'SILVER' && sessionSilvers.length > 0) pool = sessionSilvers;
-      else if (sessionBronzes.length > 0) pool = sessionBronzes;
-      else pool = sessionGolds.length > 0 ? sessionGolds : sessionSilvers;
-
-      let idx = Math.floor(Math.random() * pool.length);
-      let sel = pool.splice(idx, 1)[0]; 
-
-      pData = { type: setRarity(sel.ovr), n: sel.n, ovr: sel.ovr, f: '', pos: sel.pos };
+      const selected = takeCommonCard();
+      if (!selected) {
+        console.warn('Pack has fewer unique common players than requested:', { pack: n, amount, drawn: i });
+        showToast('PACK DATABASE HAS TOO FEW UNIQUE PLAYERS', 'warning');
+        break;
+      }
+      pData = {
+        type: setRarity(selected.ovr), n: selected.n, ovr: selected.ovr,
+        f: '', pos: selected.pos
+      };
     }
 
-    myPlayers.push({ type: pData.type, name: pData.n, ovr: pData.ovr, img: pData.f || null, flag: pData.flag || null, pos: pData.pos });
+    myPlayers.push({
+      type: pData.type, name: pData.n, ovr: pData.ovr,
+      img: pData.f || null, flag: pData.flag || null, pos: pData.pos
+    });
     g.appendChild(mk(pData));
   }
+
+  tcolAchievementStats.packsOpened += 1;
+  tcolAchievementStats.packCounts[String(n)] = (Number(tcolAchievementStats.packCounts[String(n)]) || 0) + 1;
+  tcolAchievementStats.cardsFromPacks += Math.max(0, myPlayers.length - cardsBeforePack);
+  if (featuredLegend) {
+    tcolAchievementStats.legendPulls += 1;
+    if (!isSmallPack) tcolAchievementStats.largePackLegendPulls += 1;
+  }
   updateTeamStats();
+  tcolCheckAchievements();
+  // Keep the existing account/cloud save pipeline; only the pack reward logic changed.
   saveGame(true);
 }
+
+// --- MATCH SOUND DESIGN: stadium atmosphere, goal moments and referee whistles ---
+const CUP_MATCH_AUDIO = {
+  atmosphere: [
+    'https://www.image2url.com/r2/default/audio/1794133041678-692a99c5-ebf4-4775-891c-9034fbec7a60.mp3',
+    'https://www.image2url.com/r2/default/audio/1794133164805-ce45b895-9617-4b19-8dd2-4b41b0357960.mp3',
+    'https://www.image2url.com/r2/default/audio/1794133650413-bdd3e1b8-10b8-4187-b890-c52c49f1dfc7.mp3',
+    'https://www.image2url.com/r2/default/audio/1794133728280-3ed23ac7-0f71-4262-95d2-f25bd7f5ce45.mp3'
+  ],
+  celebrations: [
+    'https://www.image2url.com/r2/default/audio/1794133774180-19ffd39e-c956-4a2b-8e01-746f06fc6109.mp3',
+    'https://www.image2url.com/r2/default/audio/1794133833511-c25c914d-a42f-45ab-84ba-99767ae4b3d1.mp3',
+    'https://www.image2url.com/r2/default/audio/1794134436585-4b20df44-cbed-4399-b7b7-0535603653c2.mp3'
+  ],
+  foul: [
+    'https://www.image2url.com/r2/default/audio/1794134200297-7579fe66-f5cd-4edf-99e9-d5e1c0bbe03c.mp3',
+    'https://www.image2url.com/r2/default/audio/1794134268564-5d687726-3544-41d6-b668-61ce93293a6a.mp3'
+  ],
+  preGoal: 'https://www.image2url.com/r2/default/audio/1794134497926-962cbf36-3b5a-4786-9752-233573f066c7.mp3'
+};
+let cupMatchAudioMuted = false;
+let cupMatchAudioActive = false;
+let cupAmbientAudio = null;
+let cupGoalCelebrationAudio = null;
+let cupGoalCommentaryAudio = null;
+let cupPreGoalAudio = null;
+let cupFoulAudio = null;
+let cupLastAtmosphereIndex = -1;
+let cupLastGoalClipIndex = -1;
+let cupGoalClipBag = [];
+let cupGoalResumeTimer = null;
+let cupMatchAudioTimers = [];
+let cupGoalAudioSequence = 0;
+
+function cupScheduleMatchAudioTimer(callback, delay) {
+  const timer = setTimeout(() => {
+    cupMatchAudioTimers = cupMatchAudioTimers.filter(x => x !== timer);
+    callback();
+  }, Math.max(0, Number(delay) || 0));
+  cupMatchAudioTimers.push(timer);
+  return timer;
+}
+function cupClearMatchAudioTimers() {
+  cupMatchAudioTimers.forEach(clearTimeout);
+  cupMatchAudioTimers = [];
+  if (cupGoalResumeTimer) { clearTimeout(cupGoalResumeTimer); cupGoalResumeTimer = null; }
+}
+function cupFadeAudio(audio, target, duration, done) {
+  if (!audio) { if (done) done(); return; }
+  if (audio._cupFadeTimer) clearInterval(audio._cupFadeTimer);
+  const startVolume = Number(audio.volume) || 0;
+  const endVolume = Math.max(0, Math.min(1, Number(target) || 0));
+  const startAt = performance.now();
+  const span = Math.max(100, Number(duration) || 500);
+  audio._cupFadeTimer = setInterval(() => {
+    const progress = Math.min(1, (performance.now() - startAt) / span);
+    audio.volume = Math.max(0, Math.min(1, startVolume + (endVolume - startVolume) * progress));
+    if (progress >= 1) {
+      clearInterval(audio._cupFadeTimer);
+      audio._cupFadeTimer = null;
+      if (done) done();
+    }
+  }, 45);
+}
+function cupStopAudio(audio, fadeMs = 0) {
+  if (!audio) return;
+  const stop = () => {
+    try { audio.pause(); audio.currentTime = 0; } catch (_) {}
+  };
+  if (fadeMs > 0 && !audio.paused) cupFadeAudio(audio, 0, fadeMs, stop);
+  else stop();
+}
+function cupPlayMatchOneShot(url, options = {}) {
+  if (!cupMatchAudioActive || cupMatchAudioMuted || !url) return null;
+  const audio = new Audio(url);
+  const targetVolume = Math.max(0, Math.min(1, Number(options.volume ?? 0.82)));
+  const fadeInMs = Math.max(0, Number(options.fadeInMs ?? 300));
+  const maxDurationMs = Number(options.maxDurationMs) || 0;
+  const fadeOutMs = Math.max(0, Number(options.fadeOutMs ?? 700));
+  audio.preload = 'auto';
+  audio.volume = fadeInMs ? 0 : targetVolume;
+  audio.addEventListener('ended', () => {
+    if (audio._cupFadeTimer) clearInterval(audio._cupFadeTimer);
+  }, { once: true });
+  let endFadeScheduled = false;
+  const scheduleEndFade = () => {
+    if (endFadeScheduled || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
+    endFadeScheduled = true;
+    const remain = Math.max(0, audio.duration * 1000 - 1100);
+    cupScheduleMatchAudioTimer(() => cupFadeAudio(audio, 0, 1000), remain);
+  };
+  if (options.fadeAtEnd) {
+    audio.addEventListener('loadedmetadata', scheduleEndFade, { once: true });
+    if (audio.readyState >= 1) scheduleEndFade();
+  }
+  audio.play().then(() => {
+    if (fadeInMs) cupFadeAudio(audio, targetVolume, fadeInMs);
+    if (maxDurationMs) {
+      cupScheduleMatchAudioTimer(() => cupFadeAudio(audio, 0, fadeOutMs, () => {
+        try { audio.pause(); audio.currentTime = 0; } catch (_) {}
+      }), Math.max(0, maxDurationMs - fadeOutMs));
+    }
+  }).catch(err => console.warn('Match audio could not play:', err && err.name));
+  return audio;
+}
+function cupStartNextAtmosphere() {
+  if (!cupMatchAudioActive || cupMatchAudioMuted) return;
+  if (cupAmbientAudio && !cupAmbientAudio.paused && !cupAmbientAudio.ended) return;
+  const tracks = CUP_MATCH_AUDIO.atmosphere;
+  if (!tracks.length) return;
+  let index = Math.floor(Math.random() * tracks.length);
+  if (tracks.length > 1 && index === cupLastAtmosphereIndex) index = (index + 1 + Math.floor(Math.random() * (tracks.length - 1))) % tracks.length;
+  cupLastAtmosphereIndex = index;
+  const audio = new Audio(tracks[index]);
+  audio.preload = 'auto';
+  audio.loop = false;
+  audio.volume = 0;
+  cupAmbientAudio = audio;
+  audio.onended = () => { if (cupAmbientAudio === audio) { cupAmbientAudio = null; cupStartNextAtmosphere(); } };
+  audio.onerror = () => { if (cupAmbientAudio === audio) { cupAmbientAudio = null; cupStartNextAtmosphere(); } };
+  audio.play().then(() => cupFadeAudio(audio, 0.43, 900)).catch(err => console.warn('Stadium atmosphere could not play:', err && err.name));
+}
+function cupResumeAtmosphere() {
+  if (!cupMatchAudioActive || cupMatchAudioMuted) return;
+  cupStartNextAtmosphere();
+}
+function cupStartMatchAudio() {
+  if (cupMatchAudioActive) { cupUpdateMatchAudioButton(); return; }
+  cupMatchAudioActive = true;
+  cupUpdateMatchAudioButton();
+  if (!cupMatchAudioMuted) cupStartNextAtmosphere();
+}
+function cupStopMatchAudio() {
+  cupMatchAudioActive = false;
+  cupClearMatchAudioTimers();
+  [cupAmbientAudio, cupGoalCelebrationAudio, cupGoalCommentaryAudio, cupPreGoalAudio, cupFoulAudio].forEach(audio => cupStopAudio(audio, 250));
+  cupAmbientAudio = cupGoalCelebrationAudio = cupGoalCommentaryAudio = cupPreGoalAudio = cupFoulAudio = null;
+  cupUpdateMatchAudioButton();
+}
+function cupUpdateMatchAudioButton() {
+  const btn = document.getElementById('mt-audio-toggle');
+  if (!btn) return;
+  btn.textContent = cupMatchAudioMuted ? 'SOUND OFF' : 'SOUND ON';
+  btn.setAttribute('aria-pressed', cupMatchAudioMuted ? 'true' : 'false');
+  btn.classList.toggle('muted', cupMatchAudioMuted);
+}
+function toggleMatchAudio() {
+  cupMatchAudioMuted = !cupMatchAudioMuted;
+  cupUpdateMatchAudioButton();
+  if (cupMatchAudioMuted) {
+    if (cupGoalResumeTimer) { clearTimeout(cupGoalResumeTimer); cupGoalResumeTimer = null; }
+    [cupAmbientAudio, cupGoalCelebrationAudio, cupGoalCommentaryAudio, cupPreGoalAudio, cupFoulAudio].forEach(audio => cupStopAudio(audio, 180));
+    cupAmbientAudio = cupGoalCelebrationAudio = cupGoalCommentaryAudio = cupPreGoalAudio = cupFoulAudio = null;
+  } else if (cupMatchAudioActive) {
+    cupStartNextAtmosphere();
+  }
+}
+function cupPlayGoalAudio() {
+  if (!cupMatchAudioActive || cupMatchAudioMuted) return;
+  cupGoalAudioSequence++;
+  const sequence = cupGoalAudioSequence;
+  if (cupGoalResumeTimer) clearTimeout(cupGoalResumeTimer);
+
+  // Fade out the normal stadium bed during the goal moment.
+  if (cupAmbientAudio) {
+    const oldAmbient = cupAmbientAudio;
+    cupAmbientAudio = null;
+    cupFadeAudio(oldAmbient, 0, 650, () => {
+      try { oldAmbient.pause(); oldAmbient.currentTime = 0; } catch (_) {}
+    });
+  }
+
+  // Randomly select from all three supplied goal clips, avoiding an
+  // immediate repeat where possible. Only one goal clip plays per goal.
+  const clips = CUP_MATCH_AUDIO.celebrations;
+  if (!cupGoalClipBag.length) {
+    cupGoalClipBag = clips.map((_, index) => index);
+    // Shuffle a fresh cycle so every supplied goal clip is used once before repeats.
+    for (let i = cupGoalClipBag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cupGoalClipBag[i], cupGoalClipBag[j]] = [cupGoalClipBag[j], cupGoalClipBag[i]];
+    }
+    if (cupGoalClipBag.length > 1 && cupGoalClipBag[cupGoalClipBag.length - 1] === cupLastGoalClipIndex) {
+      [cupGoalClipBag[0], cupGoalClipBag[cupGoalClipBag.length - 1]] =
+        [cupGoalClipBag[cupGoalClipBag.length - 1], cupGoalClipBag[0]];
+    }
+  }
+  const clipIndex = cupGoalClipBag.pop();
+  cupLastGoalClipIndex = clipIndex;
+  cupStopAudio(cupGoalCelebrationAudio, 100);
+  cupStopAudio(cupGoalCommentaryAudio, 100);
+  cupStopAudio(cupPreGoalAudio, 100);
+  cupGoalCelebrationAudio = cupPlayMatchOneShot(clips[clipIndex], {
+    volume: 0.92, fadeInMs: 250, maxDurationMs: 6000, fadeOutMs: 1000
+  });
+
+  cupGoalResumeTimer = cupScheduleMatchAudioTimer(() => {
+    cupGoalResumeTimer = null;
+    if (sequence === cupGoalAudioSequence && cupMatchAudioActive && !cupMatchAudioMuted) {
+      cupGoalCelebrationAudio = null;
+      cupResumeAtmosphere();
+    }
+  }, 6000);
+}
+function cupPlayFoulAudio() {
+  if (!cupMatchAudioActive || cupMatchAudioMuted) return;
+  cupStopAudio(cupFoulAudio, 100);
+  const url = CUP_MATCH_AUDIO.foul[Math.floor(Math.random() * CUP_MATCH_AUDIO.foul.length)];
+  cupFoulAudio = cupPlayMatchOneShot(url, { volume: 0.84, fadeInMs: 120, maxDurationMs: 2000, fadeOutMs: 600 });
+}
+function cupStartPreGoalAudio() {
+  if (!cupMatchAudioActive || cupMatchAudioMuted) return;
+  cupStopAudio(cupPreGoalAudio, 150);
+  cupPreGoalAudio = cupPlayMatchOneShot(CUP_MATCH_AUDIO.preGoal, { volume: 0.88, fadeInMs: 700, fadeAtEnd: true });
+}
+function cupSchedulePreGoalCommentary(events, startTime) {
+  (events || []).filter(event => event && event.type === 'GOAL').forEach(event => {
+    const target = (Math.max(0, Math.min(90, Number(event.time) || 0)) / 90) * 90000;
+    cupScheduleMatchAudioTimer(() => cupStartPreGoalAudio(), Math.max(0, target - 5000));
+  });
+}
+
+// Mobile browsers may block audio started from an asynchronous Firebase
+// callback. Retry the stadium bed on the next real user gesture while a match
+// is active; this does not interrupt an already-playing atmosphere track.
+document.addEventListener('pointerdown', function cupRetryMatchAudioAfterGesture() {
+  if (cupMatchAudioActive && !cupMatchAudioMuted &&
+      (!cupAmbientAudio || cupAmbientAudio.paused || cupAmbientAudio.ended) &&
+      !cupGoalResumeTimer) {
+    cupStartNextAtmosphere();
+  }
+});
 
 // --- MUSIC PLAYER LOGIC ---
 const tracks = [
@@ -3220,6 +3681,7 @@ draftMusic.loop = true;
 let isDraftMuted = false;
 
 function playDraftMusic() {
+    if (window.cupDraftFadeTimer) { clearInterval(window.cupDraftFadeTimer); window.cupDraftFadeTimer = null; }
     if(!isDraftMuted) {
         draftMusic.volume = 0.3;
         draftMusic.currentTime = 0;
@@ -3233,16 +3695,18 @@ function playDraftMusic() {
 }
 
 function fadeOutDraftMusic() {
-    let fadeAudio = setInterval(function () {
+    if (window.cupDraftFadeTimer) clearInterval(window.cupDraftFadeTimer);
+    window.cupDraftFadeTimer = setInterval(function () {
         if (draftMusic.volume > 0.05 && !isDraftMuted) {
-            draftMusic.volume -= 0.05;
+            draftMusic.volume = Math.max(0, draftMusic.volume - 0.05);
         } else {
-            clearInterval(fadeAudio);
+            clearInterval(window.cupDraftFadeTimer);
+            window.cupDraftFadeTimer = null;
             draftMusic.pause();
             draftMusic.currentTime = 0;
-            draftMusic.volume = isDraftMuted ? 0 : 0.3; 
+            draftMusic.volume = isDraftMuted ? 0 : 0.3;
         }
-    }, 250); 
+    }, 200);
 }
 
 function toggleDraftMute() {
@@ -3383,26 +3847,36 @@ function getPositionGroup(pos) {
 }
 
 function getPositionMatchQuality(player, slotId) {
-    const positions = Array.isArray(player && player.pos) ? player.pos : [];
-    const target = getBasePos(slotId);
+    const positions = Array.isArray(player && player.pos)
+        ? player.pos.map(p => String(p).trim().toUpperCase())
+        : [];
+    const target = String(getBasePos(slotId)).trim().toUpperCase();
 
-    // Primary/secondary position = 100% OVR.
-    if (positions.includes(target) || positions.includes(slotId)) return 1.00;
-
-    // CM/CDM/LCM/RCM are interchangeable central-midfield positions.
-    const centralMid = ['CM', 'CDM', 'LCM', 'RCM'];
-    if ((target === 'LCM' || target === 'RCM') && positions.some(p => centralMid.includes(p))) {
+    // CM, CDM, LCM and RCM are interchangeable central-midfield roles.
+    // A CM/CDM can play either side (LCM/RCM) at full OVR.
+    const centralMidfieldPositions = ['CM', 'CDM', 'LCM', 'RCM'];
+    if (centralMidfieldPositions.includes(target) &&
+        positions.some(p => centralMidfieldPositions.includes(p))) {
         return 1.00;
     }
-    if (centralMid.includes(target) && positions.some(p => centralMid.includes(p))) {
+
+    // Explicit full-OVR position equivalencies requested for this game.
+    const fullOvrEquivalencies = {
+        'LB': ['LWB'],
+        'RB': ['RWB'],
+        'ST': ['CF']
+    };
+    if (positions.includes(target) ||
+        positions.includes(String(slotId).trim().toUpperCase()) ||
+        (fullOvrEquivalencies[target] && positions.some(p => fullOvrEquivalencies[target].includes(p)))) {
         return 1.00;
     }
 
-    // Wrong position within the same positional group = 75% OVR.
+    // Other positions in the same positional area receive 75% (e.g. CAM -> LCM/RCM).
     const targetGroup = getPositionGroup(target);
     if (targetGroup && positions.some(p => getPositionGroup(p) === targetGroup)) return 0.75;
 
-    // Different positional group = 50% OVR.
+    // Different positional area receives 50% OVR.
     return 0.50;
 }
 
@@ -3470,7 +3944,7 @@ function openCreateRoomDialog() {
     closeMpSetup();
     document.getElementById('room-name-input').value = '';
     document.getElementById('room-password-input').value = '';
-    document.getElementById('create-room-mode-label').textContent = selectedMpMode === 'matchtime' ? 'DRAFT TEAM MATCHTIME' : 'DRAFT OVR';
+    document.getElementById('create-room-mode-label').textContent = selectedMpMode === 'onesim' ? 'ONE-ON-ONE SIM' : (selectedMpMode === 'matchtime' ? 'DRAFT TEAM MATCHTIME' : 'DRAFT OVR');
     setRoomPrivacy('public');
     document.getElementById('mp-create-room-modal').style.display = 'flex';
 }
@@ -3531,7 +4005,7 @@ function refreshRoomBrowser() {
             }
             if (room.mode === 'blitz') return;
             if (room.status !== 'waiting' || room.player2 !== false) return;
-            if (!['ovr','matchtime'].includes(room.mode)) return;
+            if (!['ovr','matchtime','onesim'].includes(room.mode)) return;
             if (!['public','private'].includes(room.roomPrivacy) || !room.roomName) return;
             if (Number(room.expiresAt) && Number(room.expiresAt) < now) {
                 db.ref('matches/' + id).remove().catch(() => {});
@@ -3549,7 +4023,7 @@ function refreshRoomBrowser() {
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.className = 'room-row';
-            const modeLabel = room.mode === 'matchtime' ? 'DRAFT TEAM MATCHTIME' : 'DRAFT OVR';
+            const modeLabel = room.mode === 'onesim' ? 'ONE-ON-ONE SIM' : (room.mode === 'matchtime' ? 'DRAFT TEAM MATCHTIME' : 'DRAFT OVR');
             const lockLabel = room.roomPrivacy === 'private' ? 'PRIVATE 🔒' : 'PUBLIC';
             btn.innerHTML = `<span class="room-row-main"><span class="room-row-title">${escapeHtml(room.roomName)}</span><span class="room-row-sub">HOST: ${escapeHtml(room.p1Name || 'PLAYER')} · ${modeLabel}</span></span><span class="room-row-tag">${lockLabel}</span>`;
             btn.addEventListener('click', () => joinRoom(id));
@@ -3669,18 +4143,32 @@ function has108MessiInClub() {
     });
 }
 
+function has108RonaldoInClub() {
+    return Array.isArray(myPlayers) && myPlayers.some(p => {
+        const name = String(p?.name || p?.n || '').trim().toLowerCase();
+        const ovr = Number(p?.ovr);
+        return name === 'cristiano ronaldo' && ovr >= 108;
+    });
+}
+
 function selectMpMode(mode) {
-    selectedMpMode = mode === 'matchtime' ? 'matchtime' : 'ovr';
-    const ovrBtn = document.getElementById('mp-mode-ovr');
-    const mtBtn = document.getElementById('mp-mode-matchtime');
-    if (ovrBtn) ovrBtn.className = 'col-modal-btn' + (selectedMpMode === 'ovr' ? ' primary' : '');
-    if (mtBtn) mtBtn.className = 'col-modal-btn' + (selectedMpMode === 'matchtime' ? ' primary' : '');
+    selectedMpMode = ['matchtime','onesim'].includes(mode) ? mode : 'ovr';
+    const modes = { 'mp-mode-ovr':'ovr', 'mp-mode-matchtime':'matchtime', 'mp-mode-onesim':'onesim' };
+    Object.entries(modes).forEach(([id, value]) => {
+        const btn = document.getElementById(id);
+        if (btn) btn.className = 'col-modal-btn' + (selectedMpMode === value ? ' primary' : '');
+    });
     const modeLabel = document.getElementById('create-room-mode-label');
-    if (modeLabel) modeLabel.textContent = selectedMpMode === 'matchtime' ? 'DRAFT TEAM MATCHTIME' : 'DRAFT OVR';
+    if (modeLabel) modeLabel.textContent = selectedMpMode === 'onesim' ? 'ONE-ON-ONE SIM' : (selectedMpMode === 'matchtime' ? 'DRAFT TEAM MATCHTIME' : 'DRAFT OVR');
 }
 
 async function createRoom() {
     if (!db) { showToast('ONLINE PLAY OFFLINE'); return; }
+    const oneOnOneTeam = selectedMpMode === 'onesim' ? getLocalTeamXIForSim() : null;
+    if (selectedMpMode === 'onesim' && !oneOnOneTeam) {
+        showToast('COMPLETE ALL 11 POSITIONS IN MY TEAM FIRST', 'warning');
+        return;
+    }
     const roomName = document.getElementById('room-name-input').value.trim();
     const validName = roomNameIsValid(roomName);
     if (!validName.ok) { showToast(validName.reason); return; }
@@ -3722,10 +4210,14 @@ async function createRoom() {
         roomPasswordSalt, roomPasswordHash,
         createdAt: now, expiresAt: now + 15 * 60 * 1000,
         p1Online: true, p2Online: false,
-        p1TotalOvr: 0, p2TotalOvr: 0, p1PicksCount: 0, p2PicksCount: 0,
+        p1TotalOvr: oneOnOneTeam ? teamAverage(oneOnOneTeam) : 0,
+        p2TotalOvr: 0,
+        p1PicksCount: oneOnOneTeam ? 11 : 0,
+        p2PicksCount: 0,
         p1Picked: false, p2Picked: false,
         p1Has108Messi: has108MessiInClub(), p2Has108Messi: false,
-        p1Team: [], p2Team: [],
+        p1Has108Ronaldo: has108RonaldoInClub(), p2Has108Ronaldo: false,
+        p1Team: oneOnOneTeam || [], p2Team: [],
         rematchP1: false, rematchP2: false, rematchDeadline: 0, rematchRound: 0,
         status: 'waiting'
     };
@@ -3762,8 +4254,12 @@ async function joinRoom(roomId) {
             refreshRoomBrowser();
             return;
         }
-        if (data.mode === 'blitz' || !['ovr','matchtime'].includes(data.mode)) {
+        if (data.mode === 'blitz' || !['ovr','matchtime','onesim'].includes(data.mode)) {
             showToast('THIS ROOM MODE IS NOT AVAILABLE');
+            return;
+        }
+        if (data.mode === 'onesim' && !getLocalTeamXIForSim()) {
+            showToast('COMPLETE ALL 11 POSITIONS IN MY TEAM BEFORE JOINING', 'warning');
             return;
         }
         if (data.roomPrivacy === 'private') {
@@ -3815,21 +4311,25 @@ async function performRoomJoin(roomId, verifiedPasswordHash, verifiedPasswordSal
     const ref = db.ref('matches/' + roomId);
     const myUsername = document.getElementById('display-name').innerText || 'PLAYER 2';
     const now = Date.now();
+    const localOneOnOneTeam = getLocalTeamXIForSim();
     let mode = 'ovr';
     const result = await ref.transaction(current => {
         if (!current || current.status !== 'waiting' || current.player2 !== false) return;
         if (Number(current.expiresAt) && Number(current.expiresAt) < now) return;
-        if (!['ovr','matchtime'].includes(current.mode)) return;
+        if (!['ovr','matchtime','onesim'].includes(current.mode)) return;
+        if (current.mode === 'onesim' && !localOneOnOneTeam) return;
         if (current.roomPrivacy === 'private' && (current.roomPasswordHash !== verifiedPasswordHash || current.roomPasswordSalt !== verifiedPasswordSalt)) return;
         if (current.roomPrivacy === 'private' && !verifiedPasswordHash) return;
         if (current.roomPrivacy !== 'private' && current.roomPrivacy !== 'public') return;
         mode = current.mode;
         return {
             ...current,
-            player2: playerId, p2Name: myUsername, p2Has108Messi: has108MessiInClub(), p2Online: true,
-            status: 'starting', joinedAt: now, expiresAt: now + 2 * 60 * 60 * 1000,
+            player2: playerId, p2Name: myUsername, p2Has108Messi: has108MessiInClub(), p2Has108Ronaldo: has108RonaldoInClub(), p2Online: true,
+            status: current.mode === 'onesim' ? 'matchtime' : 'starting', joinedAt: now, expiresAt: now + 2 * 60 * 60 * 1000,
             rematchP1: false, rematchP2: false, rematchDeadline: 0,
-            p2Team: []
+            p2Team: current.mode === 'onesim' ? localOneOnOneTeam : [],
+            p2TotalOvr: current.mode === 'onesim' ? teamAverage(localOneOnOneTeam) : 0,
+            p2PicksCount: current.mode === 'onesim' ? 11 : 0
         };
     });
     if (!result.committed) {
@@ -3850,7 +4350,13 @@ async function performRoomJoin(roomId, verifiedPasswordHash, verifiedPasswordSal
     document.getElementById('private-room-password-modal').style.display = 'none';
     stopRoomBrowser();
     showToast('ROOM JOINED!');
-    setTimeout(() => startMultiplayerDraft(), 350);
+    if (mode === 'onesim') {
+        const joinedData = result.snapshot && result.snapshot.val ? result.snapshot.val() : null;
+        if (joinedData) startTeamMatchtime(joinedData);
+        else showToast('ONE-ON-ONE TEAM DATA COULD NOT LOAD', 'error');
+    } else {
+        setTimeout(() => startMultiplayerDraft(), 350);
+    }
 }
 
 function completeBlitzJoin() {
@@ -3895,6 +4401,14 @@ function listenForMatchStart(matchId) {
             document.getElementById('mp-waiting-screen').style.display = 'none';
             showToast('BLiTZ STARTING!');
             startBlitzMatch(data);
+            return;
+        }
+        if (data.mode === 'onesim' && data.player2 !== false && data.status === 'matchtime') {
+            matchRef.off('value', connectionCheck);
+            stopFunFacts();
+            document.getElementById('mp-waiting-screen').style.display = 'none';
+            showToast('ONE-ON-ONE SIM STARTING!');
+            startTeamMatchtime(data);
             return;
         }
         if (data.player2 !== false && data.status === "starting") {
@@ -4061,6 +4575,8 @@ function startMultiplayerDraft() {
           }
           if ((data.mode || activeMpMode) === 'matchtime' && data.matchtimeResult) {
               const mt = data.matchtimeResult;
+              const mineGoals = Number(mt[myRole + 'Goals']) || 0;
+              tcolRecordMultiplayerMatch(String(currentMatchId || 'matchtime') + ':' + String(data.rematchRound || 0), mt.winner === myRole, mineGoals, 'matchtime');
               const ws = document.getElementById('walkout-screen');
               const tl = document.getElementById('walkout-text');
               document.getElementById('matchtime-ui').style.display = 'none';
@@ -4189,7 +4705,7 @@ function rollMpDraftCard(targetPool, localLegends, localCommons, usedNames) {
     return makeMpCard(sel);
 }
 
-function generateMpPack(round, usedNames, playerHas108Messi) {
+function generateMpPack(round, usedNames, playerHas108Messi, playerHas108Ronaldo) {
     const choices = [];
 
     // Round structure:
@@ -4205,10 +4721,11 @@ function generateMpPack(round, usedNames, playerHas108Messi) {
     // The normal 93 OVR database Messi is NEVER draftable in 1v1.
     // The only Messi that can appear is the special 108 OVR COL-MARKET
     // Messi, and only for a player who owns that card.
-    targetPool = targetPool.filter(p => mpPlayerKey(p) !== 'lionel messi');
+    const restrictedSpecialNames = new Set(['lionel messi', 'cristiano ronaldo']);
+    targetPool = targetPool.filter(p => !restrictedSpecialNames.has(mpPlayerKey(p)));
 
-    const localLegends = [...allLegendsList].filter(p => mpPlayerKey(p) !== 'lionel messi');
-    const localCommons = [...allCommons].filter(p => mpPlayerKey(p) !== 'lionel messi');
+    const localLegends = [...allLegendsList].filter(p => !restrictedSpecialNames.has(mpPlayerKey(p)));
+    const localCommons = [...allCommons].filter(p => !restrictedSpecialNames.has(mpPlayerKey(p)));
 
     // Guarantee THREE cards from the required position group.
     for (let i = 0; i < 3; i++) {
@@ -4229,6 +4746,20 @@ function generateMpPack(round, usedNames, playerHas108Messi) {
         };
         choices.push(makeMpCard(messi108, 'LEGEND'));
         usedNames.add('lionel messi');
+    }
+
+    // The special 108 OVR Ronaldo is also exclusive to the owning account.
+    // The regular 87 OVR database Ronaldo is excluded from every Draft pool.
+    if (round >= 8 && round <= 11 && playerHas108Ronaldo && Math.random() < 0.25 && !usedNames.has('cristiano ronaldo')) {
+        const ronaldo108 = {
+            n: 'Cristiano Ronaldo',
+            ovr: 108,
+            pos: ['CAM', 'ST', 'LW'],
+            flag: '🇵🇹',
+            f: 'https://raw.githubusercontent.com/the-cup-of-life/the-cup-of-life/refs/heads/main/Untitled10_20261108180618.png'
+        };
+        choices.push(makeMpCard(ronaldo108, 'LEGEND'));
+        usedNames.add('cristiano ronaldo');
     }
 
     // Fill remaining slots from the appropriate round pool/commons.
@@ -4252,8 +4783,8 @@ function generateMpRoundCards(round) {
         // Only selected players belong in usedPlayers. Offered-but-unselected
         // cards remain eligible in later rounds.
         const usedNames = new Set(Object.keys(data.usedPlayers || {}));
-        const p1Choices = generateMpPack(round, usedNames, !!data.p1Has108Messi);
-        const p2Choices = generateMpPack(round, usedNames, !!data.p2Has108Messi);
+        const p1Choices = generateMpPack(round, usedNames, !!data.p1Has108Messi, !!data.p1Has108Ronaldo);
+        const p2Choices = generateMpPack(round, usedNames, !!data.p2Has108Messi, !!data.p2Has108Ronaldo);
 
         return matchRef.update({
             p1Choices,
@@ -4450,6 +4981,7 @@ function leaveMultiplayerToHome(reason) {
     rematchFinished = true;
     window.teamMatchtimeRunning = false;
     window.teamMatchRewarded = false;
+    cupStopMatchAudio();
     try { if (matchTimeTimer) { clearInterval(matchTimeTimer); matchTimeTimer = null; } } catch (_) {}
     if (db && closingMatchId && mpListener) {
         db.ref('matches/' + closingMatchId).off('value', mpListener);
@@ -4604,18 +5136,18 @@ function claimAndStartRematch() {
         const nextData = {
             ...data,
             round: 1,
-            p1TotalOvr: 0,
-            p2TotalOvr: 0,
-            p1PicksCount: 0,
-            p2PicksCount: 0,
+            p1TotalOvr: data.mode === 'onesim' ? (Number(data.p1TotalOvr) || 0) : 0,
+            p2TotalOvr: data.mode === 'onesim' ? (Number(data.p2TotalOvr) || 0) : 0,
+            p1PicksCount: data.mode === 'onesim' ? 11 : 0,
+            p2PicksCount: data.mode === 'onesim' ? 11 : 0,
             p1Picked: false,
             p2Picked: false,
             p1Choices: null,
             p2Choices: null,
             usedPlayers: {},
             generatedRound: 0,
-            p1Team: [],
-            p2Team: [],
+            p1Team: data.mode === 'onesim' ? (Array.isArray(data.p1Team) ? data.p1Team : []) : [],
+            p2Team: data.mode === 'onesim' ? (Array.isArray(data.p2Team) ? data.p2Team : []) : [],
             matchtime: null,
             matchtimeFinalScore: null,
             matchtimeWinner: null,
@@ -4628,20 +5160,27 @@ function claimAndStartRematch() {
             rematchDeclined: false,
             rematchDeadline: 0,
             rematchRound: nextRound,
-            status: 'starting'
+            status: data.mode === 'onesim' ? 'matchtime' : 'starting'
         };
         for (let roundNo = 1; roundNo <= 11; roundNo++) nextData['advanceRound_' + roundNo] = false;
         return nextData;
     }).then(result => {
         rematchStarting = false;
         if (!result.committed) return;
-        lastStartedRematchRound = Number(result.snapshot.val().rematchRound) || lastStartedRematchRound;
+        const updatedMatch = result.snapshot.val();
+        lastStartedRematchRound = Number(updatedMatch.rematchRound) || lastStartedRematchRound;
         hideRematchUI();
         window.teamMatchtimeRunning = false;
         window.teamMatchRewarded = false;
         document.getElementById('walkout-screen').style.display = 'none';
         document.getElementById('matchtime-ui').style.display = 'none';
-        startMultiplayerDraft();
+        cupStopMatchAudio();
+        if (updatedMatch.mode === 'onesim') {
+            activeMpMode = 'onesim';
+            startTeamMatchtime(updatedMatch);
+        } else {
+            startMultiplayerDraft();
+        }
         showToast('REMATCH STARTING!');
     }).catch(err => {
         rematchStarting = false;
@@ -4874,6 +5413,8 @@ function simulateTeamMatch(data) {
     if(cardData.p1.red && !cardData.p2.red) p1WinChance -= 0.18;
     if(cardData.p2.red && !cardData.p1.red) p1WinChance += 0.18;
     p1WinChance = Math.max(0.01, Math.min(0.99, p1WinChance));
+    const p1Possession = Math.max(35, Math.min(65, Math.round(50 + (ovr1 - ovr2) * 0.15 + randomInt(-7, 7))));
+    const p2Possession = 100 - p1Possession;
 
     let winner;
     if (extreme) {
@@ -5017,22 +5558,71 @@ function simulateTeamMatch(data) {
         else if(event.type==='FULL') event.commentary=randomCommentary(MATCH_COMMENTARY.fulltime);
         else event.commentary=commentaryForEvent(event,p1,p2,runningScore);
     });
-    return {p1Goals:g1,p2Goals:g2,p1Ovr:ovr1,p2Ovr:ovr2,winner,events};
+    return {
+        p1Goals:g1, p2Goals:g2, p1Ovr:ovr1, p2Ovr:ovr2, winner, events,
+        p1Possession, p2Possession,
+        p1WinChance: Math.round(p1WinChance * 100),
+        p2WinChance: 100 - Math.round(p1WinChance * 100)
+    };
 }
+function listenForOneOnOneSimUpdates() {
+    if (!db || !currentMatchId || activeMpMode !== 'onesim') return;
+    const ref = db.ref('matches/' + currentMatchId);
+    if (mpListener) ref.off('value', mpListener);
+    mpListener = ref.on('value', snapshot => {
+        const data = snapshot.val();
+        if (!data) { leaveMultiplayerToHome('ROOM CLOSED — RETURNING HOME'); return; }
+        if (data.status === 'closed') { leaveMultiplayerToHome('MATCH CLOSED'); return; }
+        const remoteRound = Number(data.rematchRound) || 0;
+        if (remoteRound > lastStartedRematchRound) {
+            lastStartedRematchRound = remoteRound;
+            window.teamMatchtimeRunning = false;
+            window.teamMatchRewarded = false;
+        }
+        if (data.status === 'matchtime' && data.matchtime && !window.teamMatchtimeRunning) {
+            startTeamMatchtime(data);
+            return;
+        }
+        if (data.status === 'finished' && data.matchtimeResult) {
+            const mt = data.matchtimeResult;
+            const mineGoals = Number(mt[myRole + 'Goals']) || 0;
+            tcolRecordMultiplayerMatch(String(currentMatchId || 'onesim') + ':' + String(data.rematchRound || 0), mt.winner === myRole, mineGoals, 'matchtime');
+            const ws = document.getElementById('walkout-screen');
+            const tl = document.getElementById('walkout-text');
+            if (document.getElementById('matchtime-ui').style.display !== 'none' || ws.style.display === 'none') {
+                document.getElementById('matchtime-ui').style.display = 'none';
+                ws.style.display = 'flex';
+                tl.style.display = 'block';
+                tl.innerHTML = `<span style="color:#75e8ff">${mt.winner === 'draw' ? 'DRAW!' : (mt.winner === myRole ? 'YOU WIN!' : 'YOU LOSE!')}</span><br><span style="font-size:40px;color:#fff">${mt.finalScore}</span>${mt.winner === myRole ? '<br><span style="color:#75e8ff;font-size:13px;">+500 COL POINTS</span>' : ''}`;
+                document.getElementById('walkout-card-layer').style.display = 'none';
+            }
+            rematchDeadline = Number(data.rematchDeadline) || rematchDeadline;
+            updateRematchUI(data);
+            if (!rematchTimer) startRematchCountdown();
+        }
+    });
+}
+
 function startTeamMatchtime(data) {
     const ui = document.getElementById('matchtime-ui');
     if (!ui || !db || !currentMatchId) return;
     if (ui.style.display === 'block' && window.teamMatchtimeRunning) return;
 
-    activeMpMode = 'matchtime';
+    activeMpMode = data.mode === 'onesim' ? 'onesim' : 'matchtime';
+    fadeOutDraftMusic();
     document.getElementById('multiplayer-draft-ui').style.display = 'none';
     document.getElementById('penalty-ui').style.display = 'none';
+    document.getElementById('main-menu').style.display = 'none';
     ui.style.display = 'block';
+    const modeLabel = document.getElementById('mt-mode-label');
+    if (modeLabel) modeLabel.textContent = activeMpMode === 'onesim' ? 'ONE-ON-ONE SIM' : 'DRAFT TEAM MATCHTIME';
     document.getElementById('mt-p1-name').innerText = data.p1Name || 'PLAYER 1';
     document.getElementById('mt-p2-name').innerText = data.p2Name || 'PLAYER 2';
     document.getElementById('mt-p1-ovr').innerText = teamAverage(getTeamPlayers(data, 'p1')) + ' OVR';
     document.getElementById('mt-p2-ovr').innerText = teamAverage(getTeamPlayers(data, 'p2')) + ' OVR';
     document.getElementById('mt-feed').innerHTML = '';
+    cupStartMatchAudio();
+    if (activeMpMode === 'onesim') listenForOneOnOneSimUpdates();
 
     // P1 is authoritative: only P1 generates the random match once.
     if (data.matchtime) {
@@ -5044,6 +5634,10 @@ function startTeamMatchtime(data) {
             p2Goals: 0,
             p1Ovr: sim.p1Ovr,
             p2Ovr: sim.p2Ovr,
+            p1Possession: sim.p1Possession,
+            p2Possession: sim.p2Possession,
+            p1WinChance: sim.p1WinChance,
+            p2WinChance: sim.p2WinChance,
             events: sim.events,
             p1Name: data.p1Name || 'PLAYER 1',
             p2Name: data.p2Name || 'PLAYER 2'
@@ -5056,6 +5650,19 @@ function startTeamMatchtime(data) {
     }
 }
 
+function updateMatchStats(result) {
+    const p1Possession = Math.max(0, Math.min(100, Number(result && result.p1Possession) || 50));
+    const p2Possession = 100 - p1Possession;
+    const p1Win = Math.max(0, Math.min(100, Number(result && result.p1WinChance) || 50));
+    const p2Win = 100 - p1Win;
+    const setText = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value + '%'; };
+    const setWidth = (id, value) => { const el = document.getElementById(id); if (el) el.style.width = value + '%'; };
+    setText('mt-p1-possession', p1Possession); setText('mt-p2-possession', p2Possession);
+    setText('mt-p1-win', p1Win); setText('mt-p2-win', p2Win);
+    setWidth('mt-possession-p1-bar', p1Possession); setWidth('mt-possession-p2-bar', p2Possession);
+    setWidth('mt-win-p1-bar', p1Win); setWidth('mt-win-p2-bar', p2Win);
+}
+
 async function runMatchtimePlayback(result) {
     if (window.teamMatchtimeRunning) return;
     window.teamMatchtimeRunning = true;
@@ -5063,6 +5670,8 @@ async function runMatchtimePlayback(result) {
     const events=Array.isArray(result.events)?result.events.slice().sort((a,b)=>Number(a.time)-Number(b.time)):[];
     const MATCH_MS=90000;
     const start=performance.now();
+    updateMatchStats(result);
+    // Fixed pre-goal commentary disabled: goal audio is selected from the random 3-clip pool.
     let clockTimer = setInterval(() => {
         const elapsed = Math.min(MATCH_MS, performance.now() - start);
         const minute = Math.min(90, Math.floor(elapsed / 1000));
@@ -5086,11 +5695,13 @@ async function runMatchtimePlayback(result) {
         else if(e.type==='GOAL'){
             if(e.side==='p1'&&g1<11)g1++; else if(e.side==='p2'&&g2<11)g2++;
             updateMatchTimeScore(g1,g2);
+            cupPlayGoalAudio();
             appendMatchFeed(`<div class="mt-event goal"><span class="mt-minute">${minute}'</span> ${e.commentary || `<b>${e.player}</b> SCORES`} <strong>${g1}-${g2}</strong></div>`);
-        } else if(e.type==='YELLOW') appendMatchFeed(`<div class="mt-event yellow"><span class="mt-minute">${minute}'</span> ${e.commentary || `🟨 ${e.player} booked`}</div>`);
-        else if(e.type==='RED') appendMatchFeed(`<div class="mt-event red"><span class="mt-minute">${minute}'</span> ${e.commentary || `🟥 ${e.player} SENT OFF`}</div>`);
+        } else if(e.type==='YELLOW') { cupPlayFoulAudio(); appendMatchFeed(`<div class="mt-event yellow"><span class="mt-minute">${minute}'</span> ${e.commentary || `🟨 ${e.player} booked`}</div>`); }
+        else if(e.type==='RED') { cupPlayFoulAudio(); appendMatchFeed(`<div class="mt-event red"><span class="mt-minute">${minute}'</span> ${e.commentary || `🟥 ${e.player} SENT OFF`}</div>`); }
         else if(['FORM_GOOD','FORM_BAD','CHANCE','BAD_TOUCH','GOOD_SAVE','PRESSURE','PASS','DRIBBLE','TACKLE','FOUL','ERROR','COMMENTARY'].includes(e.type)) {
             const cls = ['GOOD_SAVE'].includes(e.type) ? 'save' : ['CHANCE'].includes(e.type) ? 'chance' : ['BAD_TOUCH','FORM_BAD','ERROR'].includes(e.type) ? 'mistake' : ['TACKLE'].includes(e.type) ? 'defence' : ['FOUL'].includes(e.type) ? 'yellow' : ['PRESSURE','PASS','DRIBBLE','COMMENTARY'].includes(e.type) ? 'pressure' : 'form-good';
+            if (e.type === 'FOUL') cupPlayFoulAudio();
             appendMatchFeed(`<div class="mt-event ${cls}"><span class="mt-minute">${minute}'</span> ${e.commentary || `${e.player || 'THE TEAM'} are battling for control`}</div>`);
         }
         else if(e.type==='PENALTY'){
@@ -5102,6 +5713,7 @@ async function runMatchtimePlayback(result) {
             if(pen.resolution&&pen.resolution.id===penaltyId&&pen.resolution.outcome==='GOAL'){
                 if(e.side==='p1'&&g1<11)g1++; else if(e.side==='p2'&&g2<11)g2++;
                 updateMatchTimeScore(g1,g2);
+                cupPlayGoalAudio();
             }
             const outcome=pen.resolution?pen.resolution.outcome:'SAVE';
             appendMatchFeed(`<div class="mt-event ${outcome==='GOAL'?'goal':outcome==='MISS'?'form-bad':'save'}"><span class="mt-minute">${minute}'</span> PENALTY ${outcome} — ${e.player}${outcome==='GOAL'?` <strong>${g1}-${g2}</strong>`:''}</div>`);
@@ -5116,6 +5728,9 @@ async function runMatchtimePlayback(result) {
     const fullLine = winnerName ? randomCommentary(MATCH_COMMENTARY.fulltime) + ' ' + randomCommentary(MATCH_COMMENTARY.winner,{player:winnerName,team:winnerName,winner:winnerName}) : randomCommentary(MATCH_COMMENTARY.fulltime);
     appendMatchFeed(`<div class="mt-event fulltime"><span class="mt-minute">90'</span> ${fullLine} — ${g1}-${g2}</div>`);
     const final={...result,p1Goals:g1,p2Goals:g2,finalScore:`${g1}-${g2}`,winner:g1>g2?'p1':g2>g1?'p2':'draw'};
+    cupClearMatchAudioTimers();
+    cupStopMatchAudio();
+    cupAwardTeamMatchReward(final);
     // Only Player 1 commits the final result. Player 2 only renders it.
     if (isPlayer1) await finishTeamMatchtime(final);
     window.teamMatchtimeRunning=false;
@@ -5185,17 +5800,22 @@ function choosePenaltySide(side) {
     db.ref('matches/' + currentMatchId + '/penalty').update(obj);
 }
 
+function cupAwardTeamMatchReward(result) {
+    if (window.teamMatchRewarded) return;
+    window.teamMatchRewarded = true;
+    if (result && result.winner === myRole) {
+        colPoints += 500;
+        updateCoinDisplays();
+        showToast('+500 COL POINTS!');
+        saveGame(true);
+    }
+}
+
 async function finishTeamMatchtime(result) {
     const winner = result.winner;
     const iWon = (winner === myRole);
-    if (!window.teamMatchRewarded) {
-        window.teamMatchRewarded = true;
-        if (iWon) {
-            colPoints += 500;
-            updateCoinDisplays();
-            showToast('+500 COL POINTS!');
-        }
-    }
+    const mineGoals = Number(result && result[myRole + 'Goals']) || 0;
+    tcolRecordMultiplayerMatch(String(currentMatchId || 'matchtime') + ':' + String(lastStartedRematchRound || 0), iWon, mineGoals, 'matchtime');
 
     appendMatchFeed(`<div style="margin-top:14px;text-align:center;font-size:18px;color:#00d889;">${winner === 'draw' ? 'DRAW' : (winner === 'p1' ? result.p1Name : result.p2Name) + ' WINS'}</div>`);
 
@@ -5247,6 +5867,7 @@ function endMpMatch(data) {
     const oppTotal = Number(data[oppRole + 'TotalOvr']) || 0;
     const myAvg = Math.round(myTotal / 11);
     const oppAvg = Math.round(oppTotal / 11);
+    tcolRecordMultiplayerMatch(String(currentMatchId || 'draft') + ':' + String(data && data.rematchRound || 0), myAvg > oppAvg, 0, 'ovr');
 
     const ws = document.getElementById('walkout-screen');
     const textLayer = document.getElementById('walkout-text');
@@ -5916,6 +6537,8 @@ function saveGame(silent = false) {
       coins: Number.isFinite(Number(playerCoins)) ? Number(playerCoins) : 0,
       colPoints: Number.isFinite(Number(colPoints)) ? Number(colPoints) : 0,
       redeemedCodes: cupStoredArray(redeemedCodes),
+      achievementStats: tcolNormalizeAchievementStats(tcolAchievementStats),
+      unlockedAchievements: { ...tcolUnlockedAchievements },
       club: (typeof getCupSavedClub === 'function' ? getCupSavedClub() : null),
       savedAt: Date.now()
     }));
@@ -5974,8 +6597,11 @@ function loadGame(silent = false) {
       playerCoins = parsedData.coins !== undefined ? parsedData.coins : 100;
       colPoints = parsedData.colPoints !== undefined ? parsedData.colPoints : 0;
       redeemedCodes = cupStoredArray(parsedData.redeemedCodes);
+      tcolAchievementStats = tcolNormalizeAchievementStats(parsedData.achievementStats);
+      tcolUnlockedAchievements = parsedData.unlockedAchievements && typeof parsedData.unlockedAchievements === 'object' ? { ...parsedData.unlockedAchievements } : {};
       localStorage.setItem(currentGameSaveKey(), JSON.stringify(parsedData));
       updateCoinDisplays(); updateTeamStats(); renderSquad(); renderMarketSellList();
+      tcolCheckAchievements(true);
       if (!silent) { showToast('GAME LOADED!'); closeSettings(); }
       return true;
     }
@@ -6430,6 +7056,9 @@ async function finishAccountLogin(name,key,isNewAccount = false){
   playerCoins = 100;
   colPoints = 0;
   redeemedCodes = [];
+  tcolAchievementStats = tcolCreateAchievementStats();
+  tcolUnlockedAchievements = {};
+  if (typeof tcolAchievementProcessedMatches !== 'undefined') tcolAchievementProcessedMatches.clear();
   teamXI = {};
   cupPendingBootName = name;
   cupPendingBootKey = key;
@@ -6472,6 +7101,8 @@ async function finishAccountLogin(name,key,isNewAccount = false){
           coins: localCandidate.coins !== undefined ? Number(localCandidate.coins) : 100,
           colPoints: localCandidate.colPoints !== undefined ? Number(localCandidate.colPoints) : 0,
           redeemedCodes: cupStoredArray(localCandidate.redeemedCodes),
+          achievementStats: tcolNormalizeAchievementStats(localCandidate.achievementStats),
+          unlockedAchievements: localCandidate.unlockedAchievements && typeof localCandidate.unlockedAchievements === 'object' ? { ...localCandidate.unlockedAchievements } : {},
           club: localCandidate.club || null,
           savedAt: localTime || Date.now()
         };
@@ -6485,6 +7116,8 @@ async function finishAccountLogin(name,key,isNewAccount = false){
           coins: cloud.coins !== undefined ? Number(cloud.coins) : 100,
           colPoints: cloud.colPoints !== undefined ? Number(cloud.colPoints) : 0,
           redeemedCodes: cupStoredArray(cloud.redeemedCodes),
+          achievementStats: tcolNormalizeAchievementStats(cloud.achievementStats),
+          unlockedAchievements: cloud.unlockedAchievements && typeof cloud.unlockedAchievements === 'object' ? { ...cloud.unlockedAchievements } : {},
           club: cloud.club || null,
           savedAt: Number(cloud.savedAt) || Date.now()
         };
@@ -7240,5 +7873,590 @@ window.TCOL_MENU_IMAGE_URLS = {
 }
 </style>
 
+
+<style id="tcol-fifa23-multiplayer-refresh">
+/* FIFA 23 / FUT Draft-inspired multiplayer presentation. CSS only: all existing
+   multiplayer elements, handlers, Firebase references and match state remain intact. */
+#mp-setup-modal, #mp-create-room-modal, #join-game-modal, #private-room-password-modal {
+  background: radial-gradient(ellipse at 50% 8%, rgba(48,57,112,.62), rgba(5,8,20,.94) 58%, rgba(2,4,12,.97)) !important;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+#mp-setup-modal .col-modal-card,
+#mp-create-room-modal .col-modal-card,
+#join-game-modal .col-modal-card,
+#private-room-password-modal .col-modal-card {
+  position: relative;
+  width: min(480px, 96vw);
+  max-height: min(90dvh, 860px);
+  box-sizing: border-box;
+  overflow: auto;
+  padding: clamp(20px, 4vw, 30px);
+  border: 1px solid rgba(121,139,255,.52);
+  border-top: 3px solid #41e6db;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(23,27,59,.98), rgba(8,12,29,.99) 58%, rgba(14,18,39,.99));
+  box-shadow: 0 28px 90px rgba(0,0,0,.68), 0 0 34px rgba(83,112,255,.16), inset 0 1px rgba(255,255,255,.08);
+}
+#mp-setup-modal .col-modal-card::before,
+#mp-create-room-modal .col-modal-card::before,
+#join-game-modal .col-modal-card::before,
+#private-room-password-modal .col-modal-card::before {
+  content: ""; position: absolute; top: 0; left: 9%; width: 82%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.72), transparent);
+  pointer-events: none;
+}
+#mp-setup-modal .col-modal-card h2,
+#mp-create-room-modal .col-modal-card h2,
+#join-game-modal .col-modal-card h2,
+#private-room-password-modal .col-modal-card h2 {
+  color: #f5f6ff; font-size: clamp(20px, 4vw, 25px); font-weight: 950;
+  letter-spacing: 2.5px; text-shadow: 0 2px 18px rgba(119,141,255,.42);
+}
+#mp-setup-modal .col-modal-card h2::after,
+#mp-create-room-modal .col-modal-card h2::after,
+#join-game-modal .col-modal-card h2::after,
+#private-room-password-modal .col-modal-card h2::after {
+  content: "ULTIMATE TEAM • ONLINE DRAFT"; display: block; margin-top: 7px;
+  color: #54e9e2; font: 800 9px/1.4 Arial,sans-serif; letter-spacing: 2px;
+}
+#mp-setup-modal .col-modal-btn,
+#mp-create-room-modal .col-modal-btn,
+#join-game-modal .col-modal-btn,
+#private-room-password-modal .col-modal-btn {
+  min-height: 46px; padding: 13px 14px; margin: 6px 0;
+  border: 1px solid rgba(135,151,255,.36); border-radius: 10px;
+  background: linear-gradient(115deg, rgba(48,57,111,.82), rgba(24,30,67,.94));
+  color: #f3f4ff; font: 900 12px/1.25 Arial,sans-serif; letter-spacing: 1px;
+  box-shadow: inset 0 1px rgba(255,255,255,.07), 0 6px 16px rgba(0,0,0,.2);
+}
+#mp-setup-modal .col-modal-btn.primary,
+#mp-create-room-modal .col-modal-btn.primary,
+#join-game-modal .col-modal-btn.primary,
+#private-room-password-modal .col-modal-btn.primary {
+  border-color: #48e5dd; color: #071221;
+  background: linear-gradient(100deg, #a6fff0, #45e5d6 48%, #7be8ff);
+  box-shadow: 0 7px 22px rgba(53,227,218,.2), inset 0 1px rgba(255,255,255,.8);
+}
+#mp-setup-modal .col-modal-btn.secondary,
+#mp-create-room-modal .col-modal-btn.secondary,
+#join-game-modal .col-modal-btn.secondary,
+#private-room-password-modal .col-modal-btn.secondary {
+  background: rgba(9,13,31,.75); border-color: rgba(151,161,207,.27); color: #c4cbe7;
+}
+#mp-setup-modal .room-type-toggle,
+#mp-create-room-modal .room-type-toggle { gap: 10px; }
+#mp-setup-modal .col-modal-card input,
+#mp-create-room-modal .col-modal-card input,
+#join-game-modal .col-modal-card input,
+#private-room-password-modal .col-modal-card input {
+  box-sizing: border-box; min-height: 46px; padding: 13px 14px;
+  border: 1px solid rgba(126,145,217,.45); border-radius: 10px;
+  background: rgba(5,9,24,.9); color: #fff; outline: none;
+}
+#mp-setup-modal .col-modal-card input:focus,
+#mp-create-room-modal .col-modal-card input:focus,
+#join-game-modal .col-modal-card input:focus,
+#private-room-password-modal .col-modal-card input:focus {
+  border-color: #51e7dc; box-shadow: 0 0 0 3px rgba(81,231,220,.12);
+}
+#room-list { gap: 10px; max-height: 48dvh; padding: 2px; }
+#room-list .room-row {
+  padding: 14px; border: 1px solid rgba(129,144,220,.3); border-left: 3px solid #45dcd6;
+  border-radius: 11px; background: linear-gradient(110deg, rgba(37,43,83,.9), rgba(12,18,42,.96));
+  box-shadow: 0 5px 14px rgba(0,0,0,.2);
+}
+#room-list .room-row:hover { border-color: #62ece2; background: linear-gradient(110deg, rgba(51,61,112,.96), rgba(16,25,54,.98)); }
+#room-list .room-row-title { color: #fff; font-size: 13px; letter-spacing: .4px; }
+#room-list .room-row-sub { color: #aeb8dc; font-size: 10px; }
+#room-list .room-row-tag { border-color: rgba(84,232,220,.5); color: #6bf0e5; background: rgba(36,178,174,.1); border-radius: 6px; }
+#room-list .room-empty { border-color: rgba(130,146,211,.4); border-radius: 11px; background: rgba(10,15,35,.55); color: #b6c0df; }
+
+#mp-waiting-screen {
+  box-sizing: border-box; padding: 28px 18px 150px;
+  background: radial-gradient(ellipse at 50% 20%, #30366b 0%, #141a3e 38%, #060a1b 78%, #03050e 100%) !important;
+  overflow: hidden;
+}
+#mp-waiting-screen::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .15;
+  background: repeating-linear-gradient(135deg, transparent 0 32px, rgba(255,255,255,.16) 33px, transparent 34px 66px);
+}
+#mp-waiting-screen h1 { position: relative; color: #fff !important; font-size: clamp(23px,5vw,38px); letter-spacing: 3px !important; text-shadow: 0 0 26px rgba(87,226,227,.45); }
+#display-room-name { position: relative; padding: 12px 20px; border: 1px solid rgba(113,230,225,.5); border-radius: 12px; background: rgba(4,10,28,.48); color: #89fff0 !important; }
+#display-room-privacy { position: relative; color: #bec9ec !important; letter-spacing: 1.5px; }
+#mp-waiting-screen > button { position: relative; border-radius: 10px !important; background: linear-gradient(100deg,#ee477a,#a72a67) !important; border: 1px solid #ff8caf !important; box-shadow: 0 9px 28px rgba(228,44,111,.25); }
+#fun-fact-text { color: #c8d3f1 !important; }
+
+#multiplayer-draft-ui {
+  position: relative; isolation: isolate; box-sizing: border-box; overflow-x: hidden;
+  min-height: 100dvh; padding-bottom: max(18px, env(safe-area-inset-bottom));
+  color: #f4f6ff;
+  background: radial-gradient(ellipse at 50% 0%, #30376d 0%, #171d43 32%, #090f28 70%, #050817 100%) !important;
+}
+#multiplayer-draft-ui::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .16;
+  background: linear-gradient(120deg, transparent 0 35%, rgba(110,125,255,.23) 50%, transparent 67%),
+              repeating-linear-gradient(145deg, transparent 0 54px, rgba(255,255,255,.08) 55px, transparent 56px 110px);
+}
+#multiplayer-draft-ui > div:first-child { padding: 10px clamp(12px,3vw,28px) 4px !important; }
+#multiplayer-draft-ui .home-btn {
+  min-height: 36px; padding: 8px 14px; border: 1px solid rgba(145,164,255,.45);
+  border-radius: 9px; background: linear-gradient(110deg,#303b78,#171f49) !important;
+  color: #f5f6ff; font: 900 10px Arial,sans-serif; letter-spacing: 1px;
+  box-shadow: 0 5px 14px rgba(0,0,0,.25);
+}
+#multiplayer-draft-ui > .top {
+  position: sticky; top: 0; z-index: 30; box-sizing: border-box;
+  padding: 11px clamp(12px,3vw,28px); margin: 0;
+  background: rgba(7,11,29,.82); border-top: 1px solid rgba(143,153,255,.2);
+  border-bottom: 1px solid rgba(96,217,225,.45);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+#mp-round-text {
+  display: inline-flex; align-items: center; padding: 8px 13px; border-radius: 999px;
+  border: 1px solid rgba(120,232,228,.45); background: rgba(48,168,184,.12);
+  color: #9ffbf0 !important; font-size: 12px !important; letter-spacing: 2px !important;
+}
+#multiplayer-draft-ui > div:nth-child(3) {
+  box-sizing: border-box; width: min(900px, calc(100% - 28px)); margin: 17px auto 12px;
+  padding: 12px; gap: 12px; border: 1px solid rgba(135,148,232,.36); border-radius: 16px;
+  background: linear-gradient(110deg, rgba(15,22,52,.93), rgba(29,33,73,.89), rgba(15,22,52,.93));
+  box-shadow: 0 14px 32px rgba(0,0,0,.27), inset 0 1px rgba(255,255,255,.07);
+}
+#multiplayer-draft-ui > div:nth-child(3) > div {
+  flex: 1; min-width: 0; padding: 11px 8px; border: 1px solid rgba(133,149,232,.23);
+  border-radius: 12px; background: rgba(4,9,27,.58);
+}
+#mp-my-name, #mp-opp-name { color: #c0c9eb !important; font-size: 10px !important; letter-spacing: 1.5px; font-weight: 900; }
+#mp-my-ovr { color: #68f4da !important; font-size: clamp(28px,6vw,42px) !important; text-shadow: 0 0 18px rgba(80,241,211,.24); }
+#mp-opp-ovr { color: #ff7db4 !important; font-size: clamp(28px,6vw,42px) !important; text-shadow: 0 0 18px rgba(255,90,158,.22); }
+#multiplayer-draft-ui > div:nth-child(3) > div:nth-child(2) { flex: 0 0 auto; align-self: center; padding: 7px 10px; color: #fff !important; font-size: 17px !important; font-style: italic; text-shadow: 0 0 14px rgba(255,255,255,.28); }
+#mp-status {
+  width: fit-content; max-width: calc(100% - 30px); box-sizing: border-box;
+  margin: 15px auto 5px !important; padding: 9px 18px; border: 1px solid rgba(130,151,255,.34);
+  border-radius: 999px; background: rgba(12,19,48,.72); color: #fff !important;
+  font-size: clamp(13px,2.5vw,17px) !important; letter-spacing: 1.8px !important;
+  box-shadow: 0 7px 20px rgba(0,0,0,.2);
+}
+#mp-choices {
+  box-sizing: border-box; width: min(1040px, 100%); margin: 10px auto 22px !important;
+  padding: 12px clamp(8px,3vw,22px) 22px !important; gap: clamp(9px,1.4vw,16px) !important;
+  justify-content: center !important; align-items: stretch;
+}
+#mp-choices .pack {
+  position: relative; width: clamp(108px,13vw,146px) !important;
+  height: clamp(174px,20vw,224px) !important; flex: 0 1 clamp(108px,13vw,146px) !important;
+  min-width: 0; overflow: hidden; border: 1px solid rgba(174,185,255,.72) !important;
+  border-radius: 13px !important;
+  background: linear-gradient(155deg,#4b5a9e 0%,#20294f 46%,#0b1530 100%) !important;
+  box-shadow: 0 12px 25px rgba(0,0,0,.36), inset 0 1px rgba(255,255,255,.22);
+  cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+#mp-choices .pack::before {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(135deg,rgba(255,255,255,.16),transparent 34%,transparent 70%,rgba(105,227,255,.12));
+}
+#mp-choices .pack:hover { transform: translateY(-5px); box-shadow: 0 18px 30px rgba(0,0,0,.45), 0 0 18px rgba(113,158,255,.2); }
+#mp-choices .pack .card { opacity: 1 !important; transform: scale(1) !important; }
+#mp-choices .pack .card > div {
+  background: linear-gradient(155deg,#4b5a9e 0%,#20294f 46%,#0b1530 100%) !important;
+  color: #fff !important;
+}
+#mp-choices .pack .card img { object-fit: contain; padding: 8px; box-sizing: border-box; background: transparent !important; }
+#mp-choices .card-ovr { top: 9px; left: 9px; padding: 5px 8px; border-radius: 7px; background: #c9f2ff; color: #10182c; font-size: 16px; font-weight: 950; }
+#mp-choices .card-ovr.legend { background: linear-gradient(120deg,#fff0a5,#f6bd50); color: #2b1c04; box-shadow: 0 0 16px rgba(255,207,91,.45); }
+#mp-choices .rarity { top: 10px; right: 8px; padding: 4px 6px; border-radius: 6px; font-size: 8px; font-weight: 950; letter-spacing: .5px; }
+#mp-choices .card-pos { right: 8px; bottom: 8px; border-color: rgba(126,240,230,.7) !important; background: rgba(4,10,25,.86) !important; color: #9afff1 !important; }
+#mp-choices .pack:has(.card-ovr.legend) { border-color: #f3c768 !important; background: linear-gradient(155deg,#87652e,#32294b 50%,#11162f) !important; }
+
+#mp-position-screen { box-sizing: border-box; padding: 12px 10px 18px !important; }
+#mp-pos-title { color: #b9fff0 !important; font-size: 17px !important; letter-spacing: 2px !important; }
+#mp-position-screen > div:nth-child(2) { color: #b7c5e9 !important; font-size: 11px; letter-spacing: .5px; }
+#mp-position-screen .pitch-container {
+  width: min(94%, 520px); height: min(480px, 66vh); min-height: 390px;
+  border: 2px solid rgba(171,244,216,.75); border-radius: 15px;
+  background: repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 50%),
+    repeating-linear-gradient(0deg,#15583d 0 10%,#176344 10% 20%);
+  box-shadow: 0 16px 36px rgba(0,0,0,.38), 0 0 24px rgba(46,222,163,.14), inset 0 0 35px rgba(0,0,0,.22);
+}
+#mp-position-screen .pitch-lines { border-color: rgba(237,255,248,.5); }
+#mp-position-screen .pitch-half-line { background: rgba(237,255,248,.5); }
+#mp-position-screen .pitch-circle { border-color: rgba(237,255,248,.5); }
+#mp-position-screen .pitch-box-top, #mp-position-screen .pitch-box-bottom { border-color: rgba(237,255,248,.5); }
+#mp-position-screen .pos-slot { width: clamp(53px,12vw,64px); height: clamp(61px,14vw,76px); border-radius: 9px; }
+#mp-position-screen .pos-slot.available { border-color: #84ffe1; background: linear-gradient(145deg,rgba(22,48,79,.96),rgba(6,22,43,.96)); box-shadow: 0 6px 16px rgba(0,0,0,.3),0 0 12px rgba(93,255,211,.26); }
+#mp-position-screen .pos-slot.taken { border-color: #f8d77d; background: linear-gradient(145deg,#35405c,#131b34); }
+#mp-position-screen .pos-label { color: #a9ffe7; font-size: 11px; }
+
+#mp-chat-container {
+  box-sizing: border-box; width: min(560px, calc(100% - 24px)) !important;
+  margin: 14px auto 18px !important; border: 1px solid rgba(132,153,255,.42) !important;
+  border-radius: 14px !important; background: rgba(6,11,29,.88) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.05);
+  overflow: hidden;
+}
+#mp-chat-box { height: 116px !important; color: #dce3ff; scrollbar-color: #5967a8 #11172f; }
+#mp-chat-container > div:last-child { border-top-color: rgba(132,153,255,.34) !important; }
+#mp-chat-input { min-width: 0; color: #fff !important; }
+#mp-chat-container button { background: linear-gradient(110deg,#6bf0d9,#58c8ef) !important; color: #071326 !important; font-weight: 950; }
+#mp-chat-warning { background: rgba(111,13,47,.9) !important; border-top-color: #ff709c !important; color: #ffdce6 !important; }
+
+#matchtime-ui { background: radial-gradient(ellipse at 50% 0%,#2d3567,#111a3f 45%,#070b1c) !important; color: #f6f6ff !important; }
+#matchtime-ui > div { border-bottom-color: rgba(119,149,255,.35) !important; }
+#mt-score { color: #fff; text-shadow: 0 0 22px rgba(97,232,220,.24); }
+#mt-clock { color: #8ff6e4 !important; }
+#mt-feed { color: #dbe2ff; }
+#penalty-ui { background: rgba(3,5,17,.94) !important; }
+#penalty-ui > div { border-color: #73eadc !important; border-radius: 18px !important; background: linear-gradient(145deg,#212b5a,#09142c) !important; }
+#penalty-ui button { border-color: rgba(125,238,224,.7) !important; background: linear-gradient(130deg,#344b7a,#1a2852) !important; }
+
+@media (max-width: 620px) {
+  #multiplayer-draft-ui > div:nth-child(3) { width: calc(100% - 20px); padding: 8px; gap: 7px; margin-top: 10px; }
+  #multiplayer-draft-ui > div:nth-child(3) > div { padding: 9px 5px; }
+  #mp-choices .pack { width: min(42vw,150px) !important; height: clamp(168px,59vw,210px) !important; flex: 0 1 min(42vw,150px) !important; }
+  #mp-chat-box { height: 100px !important; }
+  #mp-position-screen .pitch-container { height: min(440px,62vh); min-height: 365px; }
+}
+@media (max-width: 360px) {
+  #mp-choices { gap: 8px !important; padding-left: 6px !important; padding-right: 6px !important; }
+  #mp-choices .pack { width: min(43vw,138px) !important; flex-basis: min(43vw,138px) !important; }
+  #mp-round-text { font-size: 10px !important; letter-spacing: 1px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mp-choices .pack, #mp-choices .pack:hover { transition: none; transform: none; }
+}
+</style>
+
+
+<style>
+/* THE CUP OF LIFE — refined navy / electric-blue game presentation */
+#mp-waiting-screen {
+  background: radial-gradient(ellipse at 50% 12%, #172b50 0%, #0b1429 48%, #050a16 100%) !important;
+}
+#mp-waiting-screen::before { opacity: .055 !important; }
+#mp-waiting-screen h1 { text-shadow: 0 0 18px rgba(88,190,255,.24) !important; letter-spacing: 2px !important; }
+#display-room-name { background: rgba(13,27,52,.72) !important; border-color: rgba(94,184,255,.35) !important; color: #dceeff !important; }
+#mp-waiting-screen > button { background: linear-gradient(110deg,#1f4776,#18365f) !important; border-color: rgba(112,190,255,.45) !important; box-shadow: 0 8px 24px rgba(30,125,210,.13) !important; }
+#multiplayer-draft-ui {
+  background: radial-gradient(ellipse at 50% -10%, #1a3157 0%, #0d1930 43%, #070d1b 100%) !important;
+}
+#multiplayer-draft-ui::before { opacity: .045 !important; background: linear-gradient(120deg,transparent 0 35%,rgba(88,180,255,.12) 50%,transparent 67%) !important; }
+#multiplayer-draft-ui > .top { background: rgba(6,13,27,.88) !important; border-bottom-color: rgba(91,174,255,.32) !important; }
+#mp-round-text { background: rgba(50,131,206,.12) !important; border-color: rgba(105,190,255,.32) !important; color: #c6e9ff !important; }
+#multiplayer-draft-ui .home-btn { background: rgba(26,48,78,.9) !important; border-color: rgba(121,177,226,.34) !important; box-shadow: none !important; }
+#multiplayer-draft-ui > div:nth-child(3) { background: rgba(10,20,39,.88) !important; border-color: rgba(111,160,207,.23) !important; box-shadow: 0 12px 28px rgba(0,0,0,.25) !important; border-radius: 13px !important; }
+#multiplayer-draft-ui > div:nth-child(3) > div { background: rgba(7,14,29,.72) !important; border-color: rgba(125,166,207,.15) !important; }
+#mp-my-ovr { color: #8fdcff !important; text-shadow: 0 0 13px rgba(82,185,255,.18) !important; }
+#mp-opp-ovr { color: #ff9bbd !important; text-shadow: 0 0 13px rgba(255,100,156,.14) !important; }
+#mp-status { background: rgba(10,20,39,.8) !important; border-color: rgba(113,176,223,.24) !important; box-shadow: none !important; }
+#mp-choices .pack { border-color: rgba(137,186,230,.45) !important; border-radius: 10px !important; background: linear-gradient(155deg,#294b73 0%,#172d4d 52%,#0b1830 100%) !important; box-shadow: 0 8px 20px rgba(0,0,0,.3), inset 0 1px rgba(255,255,255,.12) !important; }
+#mp-choices .pack::before { background: linear-gradient(135deg,rgba(255,255,255,.08),transparent 36%,transparent 74%,rgba(75,182,255,.08)) !important; }
+#mp-choices .pack:hover { box-shadow: 0 12px 24px rgba(0,0,0,.38), 0 0 13px rgba(69,180,255,.12) !important; }
+#mp-choices .pack .card > div { background: linear-gradient(155deg,#294b73 0%,#172d4d 52%,#0b1830 100%) !important; }
+#mp-chat-container { border-color: rgba(117,172,222,.25) !important; background: rgba(5,12,26,.9) !important; box-shadow: 0 10px 25px rgba(0,0,0,.22) !important; border-radius: 10px !important; }
+#mp-chat-container button { background: #71cfff !important; }
+#mp-chat-warning { background: rgba(78,24,43,.9) !important; }
+#mp-position-screen .pitch-container { border-color: rgba(114,197,255,.62) !important; box-shadow: 0 14px 28px rgba(0,0,0,.3),0 0 17px rgba(70,166,255,.1) !important; }
+#mp-position-screen .pos-slot.available { border-color: #8cdcff !important; box-shadow: 0 0 10px rgba(80,184,255,.18) !important; }
+
+/* Keep the full Team XI builder, but give the pitch and player controls a rich blue identity. */
+#team-xi-ui {
+  background: radial-gradient(ellipse at 50% 0%,#1a3154 0%,#0d192e 40%,#070d18 100%) !important;
+  color: #edf6ff !important;
+}
+#team-xi-ui .team-xi-title { color: #eaf6ff !important; text-shadow: 0 0 16px rgba(86,179,255,.16); }
+#team-xi-ui .sub { color: #9bcfff !important; opacity: .85 !important; }
+#team-xi-ui .home-btn { background: linear-gradient(145deg,#1b3c63,#102644) !important; color: #eaf6ff !important; border-color: rgba(115,190,255,.48) !important; }
+#team-xi-ui .team-xi-board {
+  border: 1px solid rgba(125,192,244,.66) !important;
+  background: repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 25%),linear-gradient(180deg,#1c4774 0%,#15365e 50%,#1c4774 100%) !important;
+  box-shadow: 0 16px 36px rgba(0,0,0,.35),0 0 24px rgba(75,165,245,.12),inset 0 0 35px rgba(0,0,0,.18) !important;
+}
+#team-xi-ui .team-xi-board:before { border-color: rgba(210,236,255,.52) !important; }
+#team-xi-ui .team-xi-board:after { border-top-color: rgba(210,236,255,.48) !important; }
+#team-xi-ui .team-xi-card {
+  background: linear-gradient(155deg,#f2f8ff 0%,#c6ddf2 100%) !important;
+  border: 1px solid #8cbce4 !important; color: #10243b !important;
+  box-shadow: 0 5px 13px rgba(0,0,0,.35),0 0 10px rgba(104,189,255,.12) !important;
+}
+#team-xi-ui .team-xi-card .txi-ovr { color: #122d49 !important; }
+#team-xi-ui .team-xi-card.empty { background: rgba(8,21,39,.84) !important; border: 1px dashed #91caff !important; }
+#team-xi-ui .team-xi-card.empty .txi-ovr { color: #d5ecff !important; }
+#team-xi-ui .team-xi-pos { background: #0c2440 !important; border-color: #73bfff !important; color: #d6efff !important; }
+#team-xi-ui .team-xi-adjusted { color: #d5edff !important; text-shadow: 0 1px 3px #071426 !important; }
+#team-xi-ui .team-xi-summary { padding: 12px 14px; border: 1px solid rgba(116,179,231,.25); border-radius: 9px; background: rgba(8,19,37,.72); color: #dcefff !important; }
+#team-xi-ui .team-xi-summary span { color: #8fdbff !important; }
+#team-xi-ui .team-xi-controls { background: linear-gradient(145deg,rgba(16,35,60,.96),rgba(8,19,35,.98)) !important; border-color: rgba(116,179,231,.32) !important; border-radius: 10px !important; box-shadow: 0 12px 27px rgba(0,0,0,.22) !important; }
+#team-xi-ui .team-xi-picker-heading { color: #bce6ff !important; }
+#team-xi-ui .team-xi-player-btn { background: linear-gradient(130deg,#1b385c,#112541) !important; border-color: rgba(128,184,231,.3) !important; }
+#team-xi-ui .team-xi-player-btn small { color: #a9c4df !important; }
+#team-xi-ui .team-xi-player-btn.selected { border-color: #83d9ff !important; background: linear-gradient(130deg,#265582,#153658) !important; box-shadow: 0 0 13px rgba(92,190,255,.13) !important; }
+#team-xi-ui .team-xi-remove { background: #452535 !important; border-color: #a96a89 !important; }
+
+/* Match presentation: compact HUD, twin stat bars, visible in-match sound control. */
+#matchtime-ui { background: radial-gradient(ellipse at 50% 0%,#172f55 0%,#0b1830 48%,#060c19 100%) !important; color: #f0f7ff !important; overflow-y: auto; }
+#matchtime-ui .mt-header { padding: 13px 14px 10px; border-bottom: 1px solid rgba(111,179,237,.25); display:flex; justify-content:space-between; align-items:center; gap:12px; }
+#matchtime-ui .mt-mode-label { color:#8ed7ff; font-size:10px; letter-spacing:1.7px; font-weight:900; }
+#matchtime-ui .mt-score { color:#fff; font-size:39px; line-height:1; margin-top:5px; font-weight:950; text-shadow:0 0 18px rgba(103,187,255,.18); }
+#matchtime-ui .mt-header-actions { display:flex; align-items:center; gap:10px; }
+#matchtime-ui .mt-clock { color:#c4eaff; font-size:25px; font-weight:900; }
+#matchtime-ui .mt-audio-toggle { padding:8px 11px; border:1px solid rgba(118,194,248,.42); border-radius:7px; background:rgba(52,117,174,.17); color:#d9f1ff; font-size:9px; font-weight:900; letter-spacing:.8px; cursor:pointer; }
+#matchtime-ui .mt-audio-toggle.muted { color:#ffbdcc; border-color:rgba(255,125,160,.5); background:rgba(137,35,68,.18); }
+#matchtime-ui .mt-stats-panel { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:10px 14px 12px; background:rgba(5,13,27,.48); border-bottom:1px solid rgba(111,179,237,.18); }
+#matchtime-ui .mt-stat-block { min-width:0; }
+#matchtime-ui .mt-stat-label { display:flex; justify-content:space-between; gap:6px; color:#aabed3; font:900 8px Arial,sans-serif; letter-spacing:.8px; margin-bottom:6px; }
+#matchtime-ui .mt-stat-label b { color:#eef8ff; font-size:10px; }
+#matchtime-ui .mt-stat-label i { color:#6987a6; font-style:normal; }
+#matchtime-ui .mt-stat-bar { display:flex; height:6px; background:#243951; overflow:hidden; border-radius:99px; gap:2px; }
+#matchtime-ui .mt-stat-bar span { display:block; width:50%; transition:width .45s ease; }
+#matchtime-ui .mt-stat-bar span:first-child { background:linear-gradient(90deg,#4d9ee6,#8dd9ff); }
+#matchtime-ui .mt-stat-bar span:last-child { background:linear-gradient(90deg,#ec6e9e,#ffb3cc); }
+#matchtime-ui .mt-stat-bar.win span:first-child { background:linear-gradient(90deg,#4abde0,#85f0e8); }
+#matchtime-ui .mt-stat-bar.win span:last-child { background:linear-gradient(90deg,#9c7de7,#d3adff); }
+#matchtime-ui #mt-feed { padding:11px 14px 66px !important; height:auto !important; min-height:42vh; max-height:calc(100vh - 240px); }
+#matchtime-ui .mt-event { background:rgba(10,22,41,.88) !important; border-color:rgba(112,165,213,.14) !important; border-left-color:#477eae !important; border-radius:7px !important; box-shadow:none !important; }
+#matchtime-ui .mt-minute { color:#a7ddff !important; }
+#matchtime-ui .mt-event.goal { border-left-color:#67e7c5 !important; }
+#matchtime-ui .mt-event.goal strong { color:#90ffe2 !important; }
+#matchtime-ui .mt-event.yellow { border-left-color:#d1b85e !important; }
+#matchtime-ui .mt-event.red { border-left-color:#e66e83 !important; }
+#matchtime-ui > div:last-child { color:#8faac6 !important; }
+@media(max-width:540px) {
+  #matchtime-ui .mt-header { padding:11px 10px 9px; }
+  #matchtime-ui .mt-score { font-size:32px; }
+  #matchtime-ui .mt-clock { font-size:21px; }
+  #matchtime-ui .mt-audio-toggle { padding:7px 8px; font-size:8px; }
+  #matchtime-ui .mt-stats-panel { gap:8px; padding:9px 10px; }
+  #matchtime-ui .mt-stat-label { font-size:7px; }
+  #matchtime-ui #mt-feed { max-height:calc(100vh - 225px); padding:10px !important; }
+}
+</style>
+
+
+<script id="tcol-achievements-system">
+// Achievement data is additive to the existing save schema. The original squad,
+// coins, COL Points, Team XI and Firebase paths remain unchanged.
+function tcolCreateAchievementStats() {
+  return {
+    packsOpened: 0, cardsFromPacks: 0, packCounts: { '1': 0, '2': 0, '3': 0, '4': 0 },
+    legendPulls: 0, largePackLegendPulls: 0, dailyClaims: 0, bestDailyStreak: 0,
+    codesRedeemed: 0, specialStorePurchases: 0, matchesPlayed: 0, matchesWon: 0,
+    matchtimeGoals: 0
+  };
+}
+function tcolNormalizeAchievementStats(value) {
+  const base = tcolCreateAchievementStats();
+  if (!value || typeof value !== 'object') return base;
+  Object.keys(base).forEach(key => {
+    if (key === 'packCounts') return;
+    const n = Number(value[key]);
+    base[key] = Number.isFinite(n) && n >= 0 ? n : 0;
+  });
+  const pc = value.packCounts && typeof value.packCounts === 'object' ? value.packCounts : {};
+  ['1','2','3','4'].forEach(key => {
+    const n = Number(pc[key]);
+    base.packCounts[key] = Number.isFinite(n) && n >= 0 ? n : 0;
+  });
+  return base;
+}
+let tcolAchievementStats = tcolCreateAchievementStats();
+let tcolUnlockedAchievements = {};
+let tcolAchievementProcessedMatches = new Set();
+let tcolAchievementFilter = 'ALL';
+
+const TCOL_ACHIEVEMENTS = [
+  // COLLECTION — 16
+  {id:'first_signing',category:'COLLECTION',icon:'📝',name:'FIRST SIGNING',desc:'Add your first player to the club.',goal:1,get:m=>m.totalCards},
+  {id:'getting_started',category:'COLLECTION',icon:'🧩',name:'GETTING STARTED',desc:'Collect 5 player cards.',goal:5,get:m=>m.totalCards},
+  {id:'scouts_eye',category:'COLLECTION',icon:'🔎',name:"SCOUT'S EYE",desc:'Collect 10 different players.',goal:10,get:m=>m.uniqueCards},
+  {id:'club_builder',category:'COLLECTION',icon:'🏟️',name:'CLUB BUILDER',desc:'Build a club with 25 player cards.',goal:25,get:m=>m.totalCards},
+  {id:'deep_bench',category:'COLLECTION',icon:'🪑',name:'DEEP BENCH',desc:'Build a club with 50 player cards.',goal:50,get:m=>m.totalCards},
+  {id:'century_collection',category:'COLLECTION',icon:'💯',name:'CENTURY COLLECTION',desc:'Collect 100 player cards.',goal:100,get:m=>m.totalCards},
+  {id:'first_legend',category:'COLLECTION',icon:'🌟',name:'FIRST LEGEND',desc:'Add your first Legend card.',goal:1,get:m=>m.legendCards},
+  {id:'legend_collector',category:'COLLECTION',icon:'🏆',name:'LEGEND COLLECTOR',desc:'Own 5 Legend cards.',goal:5,get:m=>m.legendCards},
+  {id:'legend_vault',category:'COLLECTION',icon:'👑',name:'LEGEND VAULT',desc:'Own 10 Legend cards.',goal:10,get:m=>m.legendCards},
+  {id:'century_ovr',category:'COLLECTION',icon:'⚡',name:'100 OVR CLUB',desc:'Own a player rated 100 OVR or higher.',goal:1,get:m=>m.over100Count},
+  {id:'elite_roster',category:'COLLECTION',icon:'💎',name:'ELITE ROSTER',desc:'Own 5 players rated 90 OVR or higher.',goal:5,get:m=>m.over90Count},
+  {id:'105_trio',category:'COLLECTION',icon:'🔥',name:'105+ TRIO',desc:'Own 3 players rated 105 OVR or higher.',goal:3,get:m=>m.over105Count},
+  {id:'108_rating',category:'COLLECTION',icon:'🚀',name:'108 RATED',desc:'Own a player rated 108 OVR or higher.',goal:1,get:m=>m.over108Count},
+  {id:'ronaldo_owned',category:'COLLECTION',icon:'🇵🇹',name:'THE PORTUGUESE GOAT',desc:'Buy the 108 OVR Cristiano Ronaldo card.',goal:1,get:m=>m.hasRonaldo?1:0},
+  {id:'messi_owned',category:'COLLECTION',icon:'🇦🇷',name:'THE ARGENTINE MAGICIAN',desc:'Own the 108 OVR Lionel Messi card.',goal:1,get:m=>m.hasMessi?1:0},
+  {id:'goat_debate',category:'COLLECTION',icon:'🐐',name:'THE GOAT DEBATE',desc:'Own both special 108 OVR Messi and Ronaldo cards.',goal:1,get:m=>m.hasMessi&&m.hasRonaldo?1:0},
+
+  // PACKS — 12
+  {id:'first_pack',category:'PACKS',icon:'📦',name:'FIRST PACK',desc:'Open your first player pack.',goal:1,get:m=>m.packsOpened},
+  {id:'pack_regular',category:'PACKS',icon:'🎁',name:'PACK REGULAR',desc:'Open 10 player packs.',goal:10,get:m=>m.packsOpened},
+  {id:'pack_grinder',category:'PACKS',icon:'🧰',name:'PACK GRINDER',desc:'Open 25 player packs.',goal:25,get:m=>m.packsOpened},
+  {id:'pack_machine',category:'PACKS',icon:'🏭',name:'PACK MACHINE',desc:'Open 50 player packs.',goal:50,get:m=>m.packsOpened},
+  {id:'hundred_pulls',category:'PACKS',icon:'🃏',name:'100 CARDS PACKED',desc:'Pull 100 cards from packs.',goal:100,get:m=>m.cardsFromPacks},
+  {id:'bandit_trio_fan',category:'PACKS',icon:'🎯',name:'BANDIT TRIO FAN',desc:'Open the Bandit Trio pack 5 times.',goal:5,get:m=>m.packCounts['1']},
+  {id:'dutch_trio_fan',category:'PACKS',icon:'🇳🇱',name:'DUTCH TRIO FAN',desc:'Open the Dutch Trio pack 5 times.',goal:5,get:m=>m.packCounts['2']},
+  {id:'les_bleus_fan',category:'PACKS',icon:'🇫🇷',name:'LES BLEUS FAN',desc:'Open the Les Bleus pack 5 times.',goal:5,get:m=>m.packCounts['3']},
+  {id:'italian_wall_fan',category:'PACKS',icon:'🇮🇹',name:'ITALIAN WALL FAN',desc:'Open The Wall From Italia pack 5 times.',goal:5,get:m=>m.packCounts['4']},
+  {id:'lucky_pull',category:'PACKS',icon:'🍀',name:'LUCKY PULL',desc:'Pack at least one Legend.',goal:1,get:m=>m.legendPulls},
+  {id:'legend_magnet',category:'PACKS',icon:'🧲',name:'LEGEND MAGNET',desc:'Pack Legends on 3 separate pack openings.',goal:3,get:m=>m.legendPulls},
+  {id:'big_pack_jackpot',category:'PACKS',icon:'🎰',name:'BIG PACK JACKPOT',desc:'Find a Legend in a 1,000-coin pack.',goal:1,get:m=>m.largePackLegendPulls},
+
+  // DAILY & STORE — 10
+  {id:'daily_kickoff',category:'DAILY & STORE',icon:'🌅',name:'DAILY KICKOFF',desc:'Claim a Daily Login reward.',goal:1,get:m=>m.dailyClaims},
+  {id:'week_warrior',category:'DAILY & STORE',icon:'📅',name:'WEEK WARRIOR',desc:'Reach a 7-day Daily Login streak.',goal:7,get:m=>m.bestDailyStreak},
+  {id:'daily_devotee',category:'DAILY & STORE',icon:'🗓️',name:'DAILY DEVOTEE',desc:'Claim 30 Daily Login rewards.',goal:30,get:m=>m.dailyClaims},
+  {id:'first_redeem',category:'DAILY & STORE',icon:'🎟️',name:'FIRST REDEEM',desc:'Redeem your first promo code.',goal:1,get:m=>m.codesRedeemed},
+  {id:'promo_pro',category:'DAILY & STORE',icon:'🔐',name:'PROMO PRO',desc:'Redeem 5 promo codes.',goal:5,get:m=>m.codesRedeemed},
+  {id:'col_collector',category:'DAILY & STORE',icon:'🪙',name:'COL COLLECTOR',desc:'Hold 10,000 COL Points at once.',goal:10000,get:m=>m.colPoints},
+  {id:'col_tycoon',category:'DAILY & STORE',icon:'💰',name:'COL TYCOON',desc:'Hold 25,000 COL Points at once.',goal:25000,get:m=>m.colPoints},
+  {id:'coin_vault',category:'DAILY & STORE',icon:'🏦',name:'COIN VAULT',desc:'Hold 5,000 regular Coins at once.',goal:5000,get:m=>m.coins},
+  {id:'store_debut',category:'DAILY & STORE',icon:'🛒',name:'STORE DEBUT',desc:'Purchase a special COL Market card.',goal:1,get:m=>m.specialPurchases},
+  {id:'four_series',category:'DAILY & STORE',icon:'🎨',name:'FOUR-SERIES COLLECTOR',desc:'Open at least one pack from all four series.',goal:4,get:m=>m.seriesCount},
+
+  // TEAM XI — 6
+  {id:'first_pick',category:'TEAM XI',icon:'👕',name:'FIRST PICK',desc:'Place your first player in Team XI.',goal:1,get:m=>m.teamSlots},
+  {id:'five_a_side_builder',category:'TEAM XI',icon:'🧠',name:'TACTICIAN IN TRAINING',desc:'Fill 5 positions in Team XI.',goal:5,get:m=>m.teamSlots},
+  {id:'full_house_xi',category:'TEAM XI',icon:'📋',name:'FULL HOUSE',desc:'Fill all 11 Team XI positions.',goal:11,get:m=>m.teamSlots},
+  {id:'perfect_fit',category:'TEAM XI',icon:'✅',name:'PERFECT FIT',desc:'Fill Team XI with 100% position matches in every slot.',goal:11,get:m=>m.perfectFitSlots},
+  {id:'ninety_xi',category:'TEAM XI',icon:'📈',name:'90 OVR STARTING XI',desc:'Reach a 90+ average OVR with your full Team XI.',goal:90,get:m=>m.teamOvr},
+  {id:'ninetyfive_xi',category:'TEAM XI',icon:'💫',name:'95 OVR STARTING XI',desc:'Reach a 95+ average OVR with your full Team XI.',goal:95,get:m=>m.teamOvr},
+
+  // MULTIPLAYER — 6
+  {id:'online_debut',category:'MULTIPLAYER',icon:'🌐',name:'ONLINE DEBUT',desc:'Complete your first multiplayer match.',goal:1,get:m=>m.matchesPlayed},
+  {id:'regular_competitor',category:'MULTIPLAYER',icon:'🎮',name:'REGULAR COMPETITOR',desc:'Complete 5 multiplayer matches.',goal:5,get:m=>m.matchesPlayed},
+  {id:'online_veteran',category:'MULTIPLAYER',icon:'🏅',name:'ONLINE VETERAN',desc:'Complete 10 multiplayer matches.',goal:10,get:m=>m.matchesPlayed},
+  {id:'first_victory',category:'MULTIPLAYER',icon:'🥇',name:'FIRST VICTORY',desc:'Win your first multiplayer match.',goal:1,get:m=>m.matchesWon},
+  {id:'champion_club',category:'MULTIPLAYER',icon:'🏆',name:'CHAMPION CLUB',desc:'Win 5 multiplayer matches.',goal:5,get:m=>m.matchesWon},
+  {id:'goal_machine',category:'MULTIPLAYER',icon:'⚽',name:'GOAL MACHINE',desc:'Score 25 goals in Draft Team Matchtime / One-on-One Sim matches.',goal:25,get:m=>m.matchtimeGoals}
+];
+
+function tcolAchievementMetrics() {
+  const players = Array.isArray(myPlayers) ? myPlayers : [];
+  const normalName = p => String(p && (p.name || p.n) || '').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').trim().replace(/\s+/g,' ').toLowerCase();
+  const uniqueNames = new Set(players.map(normalName).filter(Boolean));
+  const ovr = p => Number(p && p.ovr) || 0;
+  const stats = tcolNormalizeAchievementStats(tcolAchievementStats);
+  const teamSlots = (typeof TEAM_XI_SLOTS !== 'undefined' && Array.isArray(TEAM_XI_SLOTS)) ? TEAM_XI_SLOTS : [];
+  let teamSlotCount = 0, perfectFitSlots = 0, teamTotal = 0;
+  teamSlots.forEach(slot => {
+    const p = (typeof teamXIPlayerForSlot === 'function') ? teamXIPlayerForSlot(slot.id) : null;
+    if (!p) return;
+    teamSlotCount++;
+    let quality = 1;
+    if (typeof teamXIQuality === 'function') quality = Number(teamXIQuality(p, slot.id)) || 0;
+    if (quality >= 0.999) perfectFitSlots++;
+    teamTotal += ovr(p) * quality;
+  });
+  const fullXI = teamSlotCount === 11;
+  const teamOvr = fullXI ? Math.round(teamTotal / 11) : 0;
+  const packCounts = stats.packCounts || {'1':0,'2':0,'3':0,'4':0};
+  return {
+    totalCards: players.length, uniqueCards: uniqueNames.size,
+    legendCards: players.filter(p => String(p && p.type || '').toUpperCase() === 'LEGEND').length,
+    over90Count: players.filter(p => ovr(p) >= 90).length,
+    over100Count: players.filter(p => ovr(p) >= 100).length,
+    over105Count: players.filter(p => ovr(p) >= 105).length,
+    over108Count: players.filter(p => ovr(p) >= 108).length,
+    hasRonaldo: players.some(p => normalName(p) === 'cristiano ronaldo' && ovr(p) >= 108),
+    hasMessi: players.some(p => normalName(p) === 'lionel messi' && ovr(p) >= 108),
+    packsOpened: stats.packsOpened, cardsFromPacks: stats.cardsFromPacks, packCounts,
+    legendPulls: stats.legendPulls, largePackLegendPulls: stats.largePackLegendPulls,
+    dailyClaims: stats.dailyClaims, bestDailyStreak: stats.bestDailyStreak,
+    codesRedeemed: Math.max(stats.codesRedeemed, Array.isArray(redeemedCodes) ? redeemedCodes.length : 0),
+    specialPurchases: stats.specialStorePurchases, colPoints: Number(colPoints) || 0, coins: Number(playerCoins) || 0,
+    seriesCount: ['1','2','3','4'].filter(k => Number(packCounts[k]) > 0).length,
+    teamSlots: teamSlotCount, perfectFitSlots, teamOvr,
+    matchesPlayed: stats.matchesPlayed, matchesWon: stats.matchesWon, matchtimeGoals: stats.matchtimeGoals
+  };
+}
+function tcolUpdateAchievementBadges(unlockedCount) {
+  const count = Number.isFinite(unlockedCount) ? unlockedCount : TCOL_ACHIEVEMENTS.filter(a => !!tcolUnlockedAchievements[a.id]).length;
+  const label = document.getElementById('tcol-achievement-menu-count');
+  if (label) label.textContent = count + '/50';
+  const countEl = document.getElementById('tcol-achievement-count');
+  if (countEl) countEl.textContent = count + '/50';
+  const bar = document.getElementById('tcol-achievement-progress-fill');
+  if (bar) bar.style.width = (count / 50 * 100) + '%';
+}
+function tcolCheckAchievements(quiet) {
+  if (!Array.isArray(TCOL_ACHIEVEMENTS) || typeof tcolUnlockedAchievements !== 'object') return [];
+  const metrics = tcolAchievementMetrics();
+  const newlyUnlocked = [];
+  TCOL_ACHIEVEMENTS.forEach(achievement => {
+    if (tcolUnlockedAchievements[achievement.id]) return;
+    let progress = 0;
+    try { progress = Number(achievement.get(metrics)) || 0; } catch (_) {}
+    if (progress >= achievement.goal) {
+      tcolUnlockedAchievements[achievement.id] = Date.now();
+      newlyUnlocked.push(achievement);
+    }
+  });
+  tcolUpdateAchievementBadges();
+  if (newlyUnlocked.length) {
+    if (document.getElementById('achievements-ui') && document.getElementById('achievements-ui').style.display !== 'none') renderAchievements();
+    if (!quiet) {
+      const first = newlyUnlocked[0];
+      showToast('ACHIEVEMENT UNLOCKED: ' + first.name + (newlyUnlocked.length > 1 ? ' +' + (newlyUnlocked.length - 1) + ' MORE' : ''), 'success');
+    }
+    if (typeof saveGame === 'function' && currentAccountKey) saveGame(true);
+  }
+  return newlyUnlocked;
+}
+function renderAchievements() {
+  const list = document.getElementById('tcol-achievements-list');
+  if (!list) return;
+  const metrics = tcolAchievementMetrics();
+  const unlockedCount = TCOL_ACHIEVEMENTS.filter(a => !!tcolUnlockedAchievements[a.id]).length;
+  tcolUpdateAchievementBadges(unlockedCount);
+  list.innerHTML = '';
+  TCOL_ACHIEVEMENTS.filter(a => tcolAchievementFilter === 'ALL' || a.category === tcolAchievementFilter).forEach(a => {
+    const raw = Math.max(0, Number(a.get(metrics)) || 0);
+    const shown = Math.min(a.goal, raw);
+    const unlocked = !!tcolUnlockedAchievements[a.id];
+    const card = document.createElement('article');
+    card.className = 'tcol-achievement-card' + (unlocked ? ' is-unlocked' : '');
+    const icon = document.createElement('div'); icon.className = 'tcol-achievement-icon'; icon.textContent = a.icon;
+    const main = document.createElement('div'); main.className = 'tcol-achievement-main';
+    const category = document.createElement('div'); category.className = 'tcol-achievement-category'; category.textContent = a.category;
+    const title = document.createElement('div'); title.className = 'tcol-achievement-name'; title.textContent = a.name;
+    const desc = document.createElement('div'); desc.className = 'tcol-achievement-desc'; desc.textContent = a.desc;
+    const progressLabel = document.createElement('div'); progressLabel.className = 'tcol-achievement-progress-label';
+    const progressText = document.createElement('span'); progressText.textContent = unlocked ? 'COMPLETED' : (Math.floor(shown).toLocaleString() + ' / ' + a.goal.toLocaleString());
+    const progressPct = document.createElement('span'); progressPct.textContent = Math.round(Math.min(100, shown / a.goal * 100)) + '%';
+    progressLabel.append(progressText, progressPct);
+    const bar = document.createElement('div'); bar.className = 'tcol-achievement-bar';
+    const fill = document.createElement('span'); fill.style.width = (Math.min(100, shown / a.goal * 100)) + '%'; bar.appendChild(fill);
+    main.append(category, title, desc, progressLabel, bar);
+    const status = document.createElement('div'); status.className = 'tcol-achievement-status'; status.textContent = unlocked ? 'UNLOCKED' : 'LOCKED';
+    card.append(icon, main, status);
+    list.appendChild(card);
+  });
+}
+function setAchievementFilter(filter) {
+  const allowed = ['ALL','COLLECTION','PACKS','DAILY & STORE','TEAM XI','MULTIPLAYER'];
+  tcolAchievementFilter = allowed.includes(filter) ? filter : 'ALL';
+  document.querySelectorAll('[data-achievement-filter]').forEach(button => button.classList.toggle('active', button.getAttribute('data-achievement-filter') === tcolAchievementFilter));
+  renderAchievements();
+}
+function openAchievements() {
+  ['main-menu','draft-ui','squad-ui','market-ui','store-ui','multiplayer-draft-ui','team-xi-ui','redeem-ui'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+  const screen = document.getElementById('achievements-ui');
+  if (screen) screen.style.display = 'block';
+  tcolCheckAchievements(true);
+  renderAchievements();
+}
+function closeAchievements() {
+  const screen = document.getElementById('achievements-ui');
+  if (screen) screen.style.display = 'none';
+  const menu = document.getElementById('main-menu');
+  if (menu) menu.style.display = 'flex';
+}
+function tcolRecordMultiplayerMatch(matchKey, won, goals, mode) {
+  const key = String(matchKey || 'match');
+  if (tcolAchievementProcessedMatches.has(key)) return;
+  tcolAchievementProcessedMatches.add(key);
+  tcolAchievementStats.matchesPlayed = (Number(tcolAchievementStats.matchesPlayed) || 0) + 1;
+  if (won) tcolAchievementStats.matchesWon = (Number(tcolAchievementStats.matchesWon) || 0) + 1;
+  if (mode === 'matchtime') tcolAchievementStats.matchtimeGoals = (Number(tcolAchievementStats.matchtimeGoals) || 0) + Math.max(0, Number(goals) || 0);
+  tcolCheckAchievements();
+  if (typeof saveGame === 'function') saveGame(true);
+}
+</script>
 </body>
 </html>

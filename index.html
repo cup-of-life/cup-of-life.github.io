@@ -2428,6 +2428,23 @@ let myPlayers = [];
 let tcolExchangeSelection = Object.create(null);
 let tcolExchangeStacks = [];
 const TCOL_NEYMAR_VIDEO_URL = 'https://www.image2url.com/r2/default/videos/1794253002976-19dda036-e2fe-476e-a8fc-690f48bc9420.mp4';
+function tcolNormalizeSpecialVideoPlayers(players) {
+  if (!Array.isArray(players)) return players;
+  players.forEach(player => {
+    if (!player || typeof player !== 'object') return;
+    const isNeymar = String(player.name || player.n || '').trim().toLowerCase() === 'neymar jr.' && Number(player.ovr) === 109;
+    if (isNeymar) {
+      // Older cloud/local saves may contain the Neymar reward without its media metadata.
+      player.name = 'NEYMAR JR.';
+      player.type = 'LEGEND';
+      player.videoUrl = TCOL_NEYMAR_VIDEO_URL;
+      player.rarityLabel = 'VIDEO CARD';
+      player.flag = player.flag || '🇧🇷';
+      player.pos = Array.isArray(player.pos) && player.pos.length ? player.pos : ['LW', 'CAM', 'ST'];
+    }
+  });
+  return players;
+}
 function tcolVideoReplayAfterHold(video) {
   if (!video) return;
   if (video.__tcolReplayTimer) clearTimeout(video.__tcolReplayTimer);
@@ -3415,6 +3432,7 @@ function renderTeamXI() {
 
 // --- SQUAD BUILDER RENDERER ---
 function renderSquad() {
+  tcolNormalizeSpecialVideoPlayers(myPlayers);
   const list = document.getElementById('squad-list');
   if (!list) return;
   list.innerHTML = '';
@@ -3443,7 +3461,7 @@ function renderSquad() {
     if (player.type === 'LEGEND') {
       div.style.borderColor = player.videoUrl ? '#58d9ff' : 'gold';
       const playerCardMedia = player.videoUrl
-        ? `<video class="tcol-neymar-video tcol-squad-video" src="${String(player.videoUrl).replace(/"/g, '&quot;')}" muted autoplay playsinline webkit-playsinline preload="auto" onended="tcolVideoReplayAfterHold(this)" aria-label="${String(player.name || 'Video card').replace(/"/g, '&quot;')}"></video>`
+        ? `<video class="tcol-neymar-video tcol-squad-video" src="${String(player.videoUrl).replace(/"/g, '&quot;')}" muted autoplay playsinline webkit-playsinline loop="false" preload="auto" onended="tcolVideoReplayAfterHold(this)" onerror="this.outerHTML='<div class=\'tcol-neymar-video-fallback\'>NEYMAR JR. · VIDEO CARD</div>'" aria-label="${String(player.name || 'Video card').replace(/"/g, '&quot;')}"></video>`
         : `<img src="${player.img || ''}" alt="${String(player.name || 'Player').replace(/"/g, '&quot;')}">`;
       div.innerHTML = `
         ${countBadge}
@@ -7272,6 +7290,7 @@ function loadGame(silent = false) {
       const parsedData = JSON.parse(savedData);
       document.getElementById('display-name').innerText = parsedData.username || document.getElementById('display-name').innerText || 'PLAYER';
       myPlayers = cupStoredArray(parsedData.squad !== undefined ? parsedData.squad : (parsedData.players !== undefined ? parsedData.players : parsedData.playerList));
+      tcolNormalizeSpecialVideoPlayers(myPlayers);
       playerCoins = parsedData.coins !== undefined ? parsedData.coins : 100;
       colPoints = parsedData.colPoints !== undefined ? parsedData.colPoints : 0;
       redeemedCodes = cupStoredArray(parsedData.redeemedCodes);
@@ -9182,6 +9201,8 @@ function tcolRecordMultiplayerMatch(matchKey, won, goals, mode) {
 
 
 <style id="tcol-neymar-exchange-styles">
+  #store-ui>div:has(>#btn-store-col){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;align-items:stretch}
+  #store-ui>div:has(>#btn-store-col) .tab-btn{width:100%;min-width:0;flex:none;padding:12px 8px;font-size:clamp(10px,2.8vw,14px)}
   .tcol-exchange-feature-card{max-width:440px;margin:0 auto 28px;padding:14px;border:1px solid #45616f;border-radius:16px;background:linear-gradient(145deg,#0b1924,#101018 65%,#15120c);box-shadow:0 12px 38px rgba(0,0,0,.35),0 0 26px rgba(88,217,255,.08)}
   .tcol-exchange-video-frame{height:265px;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:10px;background:#05080c;border:1px solid #314854}
   .tcol-exchange-video-frame video{display:block;width:100%;height:100%;object-fit:contain;background:#05080c}
@@ -9210,6 +9231,7 @@ function tcolRecordMultiplayerMatch(matchKey, won, goals, mode) {
   .tcol-exchange-balance{font-size:10px;color:#aebdca;letter-spacing:.6px;font-weight:900}.tcol-exchange-balance b{color:#f5dc8a;font-size:14px}
   .tcol-exchange-confirm{min-width:220px;padding:13px 16px!important}.tcol-exchange-confirm:disabled{opacity:.38;filter:grayscale(1);cursor:not-allowed}
   .tcol-squad-video{width:100%;max-width:100%;height:100px;object-fit:contain;background:#06090d;border-radius:5px;margin:8px 0}
+  .tcol-neymar-video-fallback{width:100%;height:100px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#101a28,#182b42);color:#9eeaff;font-size:11px;font-weight:1000;letter-spacing:1px;border:1px solid #58d9ff;border-radius:6px;margin:8px 0}
   @media(max-width:520px){.tcol-exchange-feature-card{padding:10px}.tcol-exchange-video-frame{height:220px}.tcol-exchange-selector-head{align-items:flex-start}.tcol-exchange-player-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tcol-exchange-confirm{width:100%}.tcol-exchange-bottom{align-items:stretch}.tcol-exchange-balance{text-align:center;width:100%}}
 </style>
 

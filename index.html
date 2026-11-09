@@ -1725,8 +1725,9 @@ body{overflow-x:hidden}
   <h1>STORE</h1>
   <div class="sub">Col Points Market & Promo Codes</div>
   
-  <div style="display:flex; justify-content:center; gap: 10px; margin: 20px 20px; flex-wrap:wrap;">
+  <div style="display:flex; justify-content:center; gap:10px; margin:20px 20px; flex-wrap:wrap;">
     <button id="btn-store-col" class="tab-btn active" onclick="showStoreTab('col')">COL POINTS MARKET</button>
+    <button id="btn-store-exchange" class="tab-btn" onclick="showStoreTab('exchange')">PLAYER EXCHANGE</button>
   </div>
   
   <div id="store-col-section" style="padding: 25px 20px;">
@@ -1764,7 +1765,39 @@ body{overflow-x:hidden}
         </button>
       </div>
     </div>
-  </div></div>
+  </div>
+  <div id="store-exchange-section" style="display:none; padding:24px 18px 50px; max-width:1050px; margin:0 auto;">
+    <div style="text-align:center; margin:0 auto 20px; max-width:720px;">
+      <div style="font-size:11px; color:#b5c4cf; font-weight:900; letter-spacing:3px;">TCOL SPECIAL EXCHANGE</div>
+      <h2 style="margin:8px 0; color:#f4d56b; font-size:clamp(25px,5vw,38px); letter-spacing:1px;">NEYMAR JR. · 109 OVR</h2>
+      <div style="color:#c7d0db; font-size:13px; line-height:1.55;">Exchange <b style="color:#f4d56b;">30,000 COL POINTS</b> and <b style="color:#fff;">2 extra player cards rated exactly 106 OVR</b> to unlock Neymar Jr.'s exclusive Video Card.</div>
+    </div>
+    <div class="tcol-exchange-feature-card">
+      <div class="tcol-exchange-video-frame">
+        <video class="tcol-neymar-video" src="https://www.image2url.com/r2/default/videos/1794253002976-19dda036-e2fe-476e-a8fc-690f48bc9420.mp4" muted autoplay playsinline webkit-playsinline preload="auto" onended="tcolVideoReplayAfterHold(this)" aria-label="Neymar Jr. 109 OVR video card"></video>
+      </div>
+      <div class="tcol-exchange-feature-meta">
+        <div><span class="tcol-exchange-stat">109 OVR</span><span class="tcol-exchange-stat tcol-exchange-video-tag">VIDEO CARD</span></div>
+        <div class="tcol-exchange-name">NEYMAR JR.</div>
+        <div class="tcol-exchange-positions">🇧🇷 BRAZIL · LW / CAM / ST</div>
+        <div class="tcol-exchange-cost">30,000 COL POINTS + 2 EXTRA 106 OVR PLAYERS</div>
+      </div>
+    </div>
+    <div class="tcol-exchange-selector-head">
+      <div>
+        <h3 style="margin:0;color:#fff;font-size:18px;">SELECT YOUR EXCHANGE PLAYERS</h3>
+        <div style="margin-top:5px;color:#9eabb8;font-size:11px;line-height:1.5;">Only duplicate copies are selectable. Your last copy of every player is protected and can never be exchanged.</div>
+      </div>
+      <div class="tcol-exchange-counter"><strong id="tcol-exchange-selected-count">0 / 2</strong><span>SELECTED</span></div>
+    </div>
+    <div id="tcol-exchange-player-grid" class="tcol-exchange-player-grid"></div>
+    <div id="tcol-exchange-status" class="tcol-exchange-status" aria-live="polite">Choose two extra 106 OVR cards from your club.</div>
+    <div class="tcol-exchange-bottom">
+      <div class="tcol-exchange-balance">YOUR BALANCE: <b id="tcol-exchange-col-balance">0</b> COL POINTS</div>
+      <button id="tcol-exchange-confirm" type="button" class="trade-btn tcol-exchange-confirm" onclick="completeNeymarExchange()" disabled>EXCHANGE FOR NEYMAR JR.</button>
+    </div>
+  </div>
+</div>
 
 <!-- Dedicated Redeem Code screen -->
 <div id="redeem-ui" style="display:none;">
@@ -2392,6 +2425,31 @@ let playerCoins = 100;
 let colPoints = 0;
 let redeemedCodes = [];
 let myPlayers = []; 
+let tcolExchangeSelection = Object.create(null);
+let tcolExchangeStacks = [];
+const TCOL_NEYMAR_VIDEO_URL = 'https://www.image2url.com/r2/default/videos/1794253002976-19dda036-e2fe-476e-a8fc-690f48bc9420.mp4';
+function tcolVideoReplayAfterHold(video) {
+  if (!video) return;
+  if (video.__tcolReplayTimer) clearTimeout(video.__tcolReplayTimer);
+  video.pause();
+  // Keep the final frame visible for five seconds before restarting the clip.
+  video.__tcolReplayTimer = setTimeout(() => {
+    video.__tcolReplayTimer = null;
+    if (!video.isConnected) return;
+    try { video.currentTime = 0; } catch (e) { console.warn('Neymar video could not seek to start:', e); }
+    const playAttempt = video.play();
+    if (playAttempt && typeof playAttempt.catch === 'function') playAttempt.catch(() => {});
+  }, 5000);
+}
+function tcolStartVideoCards(root = document) {
+  const videos = root.querySelectorAll ? root.querySelectorAll('.tcol-neymar-video') : [];
+  videos.forEach(video => {
+    if (video.dataset.tcolStarted === '1') return;
+    video.dataset.tcolStarted = '1';
+    const playAttempt = video.play();
+    if (playAttempt && typeof playAttempt.catch === 'function') playAttempt.catch(() => {});
+  });
+}
 const mbappeAudio = new Audio("https://www.image2url.com/r2/default/audio/1788648364566-ba2fafe6-a92b-4a63-8bb0-fc00480fe84e.mp3"); 
 
 const d1 = [
@@ -2720,23 +2778,177 @@ function openTcolRedeemCodes(){
 }
 function showStoreTab(tab) {
   const colSec = document.getElementById('store-col-section');
-  const codesSec = document.getElementById('store-codes-section');
+  const exchangeSec = document.getElementById('store-exchange-section');
   const btnCol = document.getElementById('btn-store-col');
-  const btnCodes = document.getElementById('btn-store-codes');
+  const btnExchange = document.getElementById('btn-store-exchange');
+  if (!colSec || !exchangeSec) return;
 
-  if (!colSec || !codesSec) return;
-  colSec.style.display = 'none';
-  codesSec.style.display = 'none';
-  if (btnCol) btnCol.classList.remove('active');
-  if (btnCodes) btnCodes.classList.remove('active');
-
-  if (tab === 'col') {
-    colSec.style.display = 'block';
-    if (btnCol) btnCol.classList.add('active');
-  } else if (tab === 'codes') {
-    codesSec.style.display = 'flex';
-    if (btnCodes) btnCodes.classList.add('active');
+  colSec.style.display = tab === 'exchange' ? 'none' : 'block';
+  exchangeSec.style.display = tab === 'exchange' ? 'block' : 'none';
+  if (btnCol) btnCol.classList.toggle('active', tab !== 'exchange');
+  if (btnExchange) btnExchange.classList.toggle('active', tab === 'exchange');
+  if (tab === 'exchange') {
+    tcolRenderNeymarExchange();
+    tcolStartVideoCards(exchangeSec);
   }
+}
+
+function tcolHasNeymarVideoCard() {
+  return Array.isArray(myPlayers) && myPlayers.some(p =>
+    String(p && (p.name || p.n) || '').trim().toLowerCase() === 'neymar jr.' && Number(p.ovr) === 109
+  );
+}
+
+// Build duplicate stacks by player identity and rating. A stack with x2 has
+// one exchangeable copy; x3 has two. The original/last copy is never consumed.
+function tcolGet106DuplicateStacks() {
+  const groups = new Map();
+  (Array.isArray(myPlayers) ? myPlayers : []).forEach((player, index) => {
+    if (!player || Number(player.ovr) !== 106) return;
+    const name = String(player.name || player.n || '').trim();
+    if (!name) return;
+    const key = name.toLocaleLowerCase() + '|106';
+    if (!groups.has(key)) groups.set(key, { key, player, indices: [] });
+    groups.get(key).indices.push(index);
+  });
+  return Array.from(groups.values()).filter(stack => stack.indices.length > 1);
+}
+
+function tcolRenderNeymarExchange() {
+  const grid = document.getElementById('tcol-exchange-player-grid');
+  const selectedCountEl = document.getElementById('tcol-exchange-selected-count');
+  const balanceEl = document.getElementById('tcol-exchange-col-balance');
+  const statusEl = document.getElementById('tcol-exchange-status');
+  const confirmBtn = document.getElementById('tcol-exchange-confirm');
+  if (!grid) return;
+
+  tcolExchangeStacks = tcolGet106DuplicateStacks();
+  let selectedTotal = 0;
+  tcolExchangeStacks.forEach(stack => {
+    const available = Math.max(0, stack.indices.length - 1);
+    const selected = Math.max(0, Math.min(available, Number(tcolExchangeSelection[stack.key]) || 0));
+    tcolExchangeSelection[stack.key] = selected;
+    selectedTotal += selected;
+  });
+  // Discard selections for stacks that are no longer eligible.
+  Object.keys(tcolExchangeSelection).forEach(key => {
+    if (!tcolExchangeStacks.some(stack => stack.key === key)) delete tcolExchangeSelection[key];
+  });
+
+  if (selectedCountEl) selectedCountEl.textContent = selectedTotal + ' / 2';
+  if (balanceEl) balanceEl.textContent = Number(colPoints || 0).toLocaleString('en-US');
+
+  if (tcolHasNeymarVideoCard()) {
+    grid.innerHTML = '<div class="tcol-exchange-empty">NEYMAR JR. IS ALREADY IN YOUR CLUB. THIS EXCLUSIVE EXCHANGE CAN ONLY BE CLAIMED ONCE.</div>';
+    if (statusEl) statusEl.textContent = 'Exchange already completed on this account.';
+    if (confirmBtn) confirmBtn.disabled = true;
+    return;
+  }
+
+  if (!tcolExchangeStacks.length) {
+    grid.innerHTML = '<div class="tcol-exchange-empty">NO EXTRA 106 OVR CARDS AVAILABLE. You need at least one duplicate copy of a 106 OVR player (for example, x2) to exchange it. Your only copy is always protected.</div>';
+  } else {
+    grid.innerHTML = tcolExchangeStacks.map((stack, index) => {
+      const player = stack.player;
+      const owned = stack.indices.length;
+      const available = owned - 1;
+      const selected = Number(tcolExchangeSelection[stack.key]) || 0;
+      const image = player.img
+        ? `<img src="${String(player.img).replace(/"/g, '&quot;')}" alt="${String(player.name || 'Player').replace(/"/g, '&quot;')}">`
+        : '<div class="tcol-exchange-card-fallback">106</div>';
+      return `<div class="tcol-exchange-player-card">
+        <div class="tcol-exchange-player-art">${image}<span class="tcol-exchange-ovr">106 OVR</span></div>
+        <b>${String(player.name || player.n || 'PLAYER')}</b>
+        <small>OWNED x${owned} · EXTRA x${available}</small>
+        <div class="tcol-exchange-quantity">
+          <button type="button" aria-label="Remove one ${String(player.name || 'player')} from exchange" onclick="tcolAdjustExchangeSelection(${index},-1)" ${selected <= 0 ? 'disabled' : ''}>−</button>
+          <strong>${selected}</strong>
+          <button type="button" aria-label="Add one ${String(player.name || 'player')} to exchange" onclick="tcolAdjustExchangeSelection(${index},1)" ${(selected >= available || selectedTotal >= 2) ? 'disabled' : ''}>+</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  const enoughPoints = Number(colPoints) >= 30000;
+  const canExchange = selectedTotal === 2 && enoughPoints && !tcolHasNeymarVideoCard();
+  if (statusEl) {
+    statusEl.textContent = !enoughPoints
+      ? 'You need ' + Math.max(0, 30000 - Number(colPoints || 0)).toLocaleString('en-US') + ' more COL Points.'
+      : (selectedTotal < 2 ? 'Select ' + (2 - selectedTotal) + ' more extra 106 OVR card' + (2 - selectedTotal === 1 ? '' : 's') + '.' : 'Exchange ready. Two extra cards and 30,000 COL Points will be consumed.');
+  }
+  if (confirmBtn) confirmBtn.disabled = !canExchange;
+}
+
+function tcolAdjustExchangeSelection(stackIndex, delta) {
+  const stack = tcolExchangeStacks[Number(stackIndex)];
+  if (!stack) return;
+  const selectedTotal = Object.values(tcolExchangeSelection).reduce((sum, value) => sum + (Number(value) || 0), 0);
+  const available = Math.max(0, stack.indices.length - 1);
+  const current = Number(tcolExchangeSelection[stack.key]) || 0;
+  const next = Math.max(0, Math.min(available, current + Number(delta || 0)));
+  if (delta > 0 && selectedTotal >= 2) return;
+  tcolExchangeSelection[stack.key] = next;
+  tcolRenderNeymarExchange();
+}
+
+function completeNeymarExchange() {
+  if (tcolHasNeymarVideoCard()) {
+    showToast('NEYMAR JR. IS ALREADY IN YOUR CLUB!', 'warning');
+    tcolRenderNeymarExchange();
+    return;
+  }
+  if (Number(colPoints) < 30000) {
+    showToast('NOT ENOUGH COL POINTS — YOU NEED 30,000!', 'warning');
+    tcolRenderNeymarExchange();
+    return;
+  }
+
+  const stacks = tcolGet106DuplicateStacks();
+  let selectedTotal = 0;
+  const indicesToRemove = [];
+  for (const stack of stacks) {
+    const selected = Math.max(0, Number(tcolExchangeSelection[stack.key]) || 0);
+    if (!selected) continue;
+    const available = Math.max(0, stack.indices.length - 1);
+    if (selected > available) {
+      showToast('YOUR PLAYER DUPLICATES CHANGED. PLEASE SELECT AGAIN.', 'warning');
+      tcolExchangeSelection = Object.create(null);
+      tcolRenderNeymarExchange();
+      return;
+    }
+    selectedTotal += selected;
+    // Index 0 is deliberately preserved. Only additional copies are consumed.
+    indicesToRemove.push(...stack.indices.slice(1, 1 + selected));
+  }
+
+  if (selectedTotal !== 2 || indicesToRemove.length !== 2) {
+    showToast('SELECT EXACTLY TWO EXTRA 106 OVR CARDS!', 'warning');
+    tcolRenderNeymarExchange();
+    return;
+  }
+
+  const removeSet = new Set(indicesToRemove);
+  myPlayers = myPlayers.filter((player, index) => !removeSet.has(index));
+  colPoints -= 30000;
+  myPlayers.push({
+    type: 'LEGEND',
+    name: 'NEYMAR JR.',
+    ovr: 109,
+    img: null,
+    videoUrl: TCOL_NEYMAR_VIDEO_URL,
+    flag: '🇧🇷',
+    pos: ['LW', 'CAM', 'ST'],
+    rarityLabel: 'VIDEO CARD'
+  });
+  tcolExchangeSelection = Object.create(null);
+  tcolAchievementStats.specialStorePurchases = (Number(tcolAchievementStats.specialStorePurchases) || 0) + 1;
+  updateCoinDisplays();
+  updateTeamStats();
+  renderSquad();
+  if (typeof tcolCheckAchievements === 'function') tcolCheckAchievements();
+  saveGame(true);
+  tcolRenderNeymarExchange();
+  showToast('NEYMAR JR. 109 OVR VIDEO CARD UNLOCKED!', 'success');
 }
 
 function redeemCode() {
@@ -2992,10 +3204,13 @@ function renderMarketSellLegendsList() {
     
     let countBadge = player.count > 1 ? `<div style="position:absolute; top:-5px; right:-5px; background:red; color:white; font-size:12px; padding:4px 8px; border-radius:12px; font-weight:bold; z-index:10; border:2px solid white;">x${player.count}</div>` : '';
 
+    const sellCardMedia = player.videoUrl
+      ? `<video class="tcol-neymar-video" src="${String(player.videoUrl).replace(/"/g, '&quot;')}" muted autoplay playsinline webkit-playsinline preload="auto" onended="tcolVideoReplayAfterHold(this)" style="max-width:100%;max-height:100px;object-fit:contain;"></video>`
+      : `<img src="${player.img || ''}" alt="${String(player.name || 'Player').replace(/"/g, '&quot;')}">`;
     div.innerHTML = `
       ${countBadge}
       <div class="squad-ovr" style="color:gold;">${player.ovr}</div>
-      <img src="${player.img}">
+      ${sellCardMedia}
       <b style="color:gold; font-size: 13px;">${player.name}</b>
       <button class="trade-btn sell" data-name="${player.name}" onclick="sellLegendByName(this.dataset.name, ${sellPrice})">SELL 1 FOR <img src="https://www.image2url.com/r2/default/images/1788718185536-d007b364-8654-4e20-82d1-930bf996c0d0.png" style="height:14px;vertical-align:middle;"> ${sellPrice}</button>
     `;
@@ -3226,12 +3441,15 @@ function renderSquad() {
     let countBadge = player.count > 1 ? `<div style="position:absolute; top:-5px; right:-5px; background:red; color:white; font-size:12px; padding:4px 8px; border-radius:12px; font-weight:bold; z-index:10; border:2px solid white;">x${player.count}</div>` : '';
 
     if (player.type === 'LEGEND') {
-      div.style.borderColor = 'gold';
+      div.style.borderColor = player.videoUrl ? '#58d9ff' : 'gold';
+      const playerCardMedia = player.videoUrl
+        ? `<video class="tcol-neymar-video tcol-squad-video" src="${String(player.videoUrl).replace(/"/g, '&quot;')}" muted autoplay playsinline webkit-playsinline preload="auto" onended="tcolVideoReplayAfterHold(this)" aria-label="${String(player.name || 'Video card').replace(/"/g, '&quot;')}"></video>`
+        : `<img src="${player.img || ''}" alt="${String(player.name || 'Player').replace(/"/g, '&quot;')}">`;
       div.innerHTML = `
         ${countBadge}
-        <div class="squad-ovr" style="color:gold;">${player.ovr}</div>
-        <img src="${player.img}">
-        <b style="color:gold; font-size: 13px;">${player.name}</b>
+        <div class="squad-ovr" style="color:${player.videoUrl ? '#58d9ff' : 'gold'};">${player.ovr}</div>
+        ${playerCardMedia}
+        <b style="color:${player.videoUrl ? '#9eeaff' : 'gold'}; font-size: 13px;">${player.name}</b>
         <div style="font-size:10px;color:#aaa">${player.rarityLabel || 'LEGEND'}</div>
       `;
     } else {
@@ -3251,6 +3469,7 @@ function renderSquad() {
     }
     list.appendChild(div);
   });
+  tcolStartVideoCards(list);
 }
 
 // --- PACK OPENING LOGIC ---
@@ -8959,6 +9178,39 @@ function tcolRecordMultiplayerMatch(matchKey, won, goals, mode) {
 #draft-ui .tcol-star-pack .banner{gap:8px;padding:12px 8px;align-items:center;min-height:0}
 #draft-ui .tcol-star-pack .banner img{width:clamp(105px,29vw,155px)!important;height:clamp(155px,43vw,220px)!important;object-fit:contain!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
 @media(max-width:600px){#draft-ui .tcol-star-pack .banner img{width:clamp(100px,29vw,145px)!important;height:clamp(150px,43vw,205px)!important}}
+</style>
+
+
+<style id="tcol-neymar-exchange-styles">
+  .tcol-exchange-feature-card{max-width:440px;margin:0 auto 28px;padding:14px;border:1px solid #45616f;border-radius:16px;background:linear-gradient(145deg,#0b1924,#101018 65%,#15120c);box-shadow:0 12px 38px rgba(0,0,0,.35),0 0 26px rgba(88,217,255,.08)}
+  .tcol-exchange-video-frame{height:265px;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:10px;background:#05080c;border:1px solid #314854}
+  .tcol-exchange-video-frame video{display:block;width:100%;height:100%;object-fit:contain;background:#05080c}
+  .tcol-exchange-feature-meta{text-align:center;padding:13px 5px 4px}
+  .tcol-exchange-stat{display:inline-block;padding:5px 9px;margin:0 4px;border-radius:5px;background:#13364a;color:#b7edff;font-size:11px;font-weight:1000;letter-spacing:.8px}
+  .tcol-exchange-video-tag{background:#30234b;color:#e2d1ff}
+  .tcol-exchange-name{font-size:22px;font-weight:1000;color:#fff;letter-spacing:1.4px;margin-top:10px}
+  .tcol-exchange-positions{font-size:10px;color:#a8bac6;letter-spacing:1.2px;margin-top:5px;font-weight:900}
+  .tcol-exchange-cost{font-size:10px;color:#f3d77d;font-weight:1000;letter-spacing:.7px;margin-top:12px}
+  .tcol-exchange-selector-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 14px}
+  .tcol-exchange-counter{display:flex;flex-direction:column;align-items:center;min-width:76px;padding:8px 12px;border:1px solid #3b5d6c;border-radius:9px;background:#0c1b25}
+  .tcol-exchange-counter strong{font-size:18px;color:#c7f2ff}.tcol-exchange-counter span{font-size:8px;letter-spacing:1.5px;color:#8da7b6;font-weight:900}
+  .tcol-exchange-player-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}
+  .tcol-exchange-player-card{position:relative;min-width:0;padding:11px 9px 12px;border:1px solid #34404e;border-radius:12px;background:#0c111a;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px}
+  .tcol-exchange-player-art{width:100%;height:112px;position:relative;display:flex;align-items:center;justify-content:center;background:#080e15;border-radius:8px;overflow:hidden}
+  .tcol-exchange-player-art img{max-width:100%;max-height:100%;object-fit:contain}.tcol-exchange-card-fallback{font-size:30px;color:#c8b36a;font-weight:1000}
+  .tcol-exchange-ovr{position:absolute;top:5px;left:6px;padding:3px 5px;border-radius:4px;background:#dbc36c;color:#14110a;font-size:9px;font-weight:1000}
+  .tcol-exchange-player-card b{font-size:11px;color:#fff;line-height:1.25;min-height:28px;display:flex;align-items:center;justify-content:center}
+  .tcol-exchange-player-card small{font-size:8px;color:#9baab9;letter-spacing:.5px;font-weight:900}
+  .tcol-exchange-quantity{display:flex;align-items:center;justify-content:center;gap:13px;margin-top:5px}
+  .tcol-exchange-quantity button{width:30px;height:30px;border:1px solid #526d7c;border-radius:7px;background:#172a36;color:#d4f3ff;font-size:19px;font-weight:900;cursor:pointer}
+  .tcol-exchange-quantity button:disabled{opacity:.3;cursor:not-allowed}.tcol-exchange-quantity strong{min-width:16px;color:#fff;font-size:15px}
+  .tcol-exchange-empty{grid-column:1/-1;padding:25px 15px;text-align:center;border:1px dashed #465461;border-radius:12px;color:#b4c1cc;font-size:11px;line-height:1.6;background:#0b1018}
+  .tcol-exchange-status{margin:14px 0;padding:12px 14px;border-radius:9px;background:#111d27;border:1px solid #2b4655;color:#c9d8e1;text-align:center;font-size:11px;font-weight:800}
+  .tcol-exchange-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 0 8px}
+  .tcol-exchange-balance{font-size:10px;color:#aebdca;letter-spacing:.6px;font-weight:900}.tcol-exchange-balance b{color:#f5dc8a;font-size:14px}
+  .tcol-exchange-confirm{min-width:220px;padding:13px 16px!important}.tcol-exchange-confirm:disabled{opacity:.38;filter:grayscale(1);cursor:not-allowed}
+  .tcol-squad-video{width:100%;max-width:100%;height:100px;object-fit:contain;background:#06090d;border-radius:5px;margin:8px 0}
+  @media(max-width:520px){.tcol-exchange-feature-card{padding:10px}.tcol-exchange-video-frame{height:220px}.tcol-exchange-selector-head{align-items:flex-start}.tcol-exchange-player-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tcol-exchange-confirm{width:100%}.tcol-exchange-bottom{align-items:stretch}.tcol-exchange-balance{text-align:center;width:100%}}
 </style>
 
 </body>
